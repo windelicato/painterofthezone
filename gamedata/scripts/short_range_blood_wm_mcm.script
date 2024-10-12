@@ -20,7 +20,7 @@ op = {
 		    	{id = "enable_debug", type = "check", val = 1, def = false},
 		    	{id = "enable_floor", type = "check", val = 1, def = true},
 		    	{id = "enable_static_size", type = "check", val = 1, def = true},
-		    	{id = "size", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.5},
+		    	{id = "size", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7},
 		    	{id = "lifetime", type = "track", val = 2, min=100,max=1200,step=50, def = 600},
 		    	{id = "gravity", type = "track", val = 2, min=0.1 ,max=9,step=0.1, def = 5},
 		    	{id = "enable_avoid_wallmark", type = "check", val = 1, def = true},
@@ -30,8 +30,8 @@ op = {
 
 		    	{id = "line", type = "line"},
 
-		    	{id = "enable_pool", type = "check", val = 1, def = false},
-		    	{id = "size_pool", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.5}
+		    	{id = "enable_pool", type = "check", val = 1, def = true},
+		    	{id = "size_pool", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7}
 			}
 		},
 		{
@@ -40,32 +40,32 @@ op = {
 		    sh = true,
 		    gr = {           
 		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_particles_title",size= {512,50},spacing= 20 },
-		    	{id = "enable", type = "check", val = 1, def = false},
+		    	{id = "enable", type = "check", val = 1, def = true},
 		    	{id = "enable_debug", type = "check", val = 1, def = false},
 		    	{id = "debug_distance", type = "track", val = 2, min=1,max=40,step=1, def = 5},
 		    	{id = "use_cvfx", type = "check", val = 1, def = false},
-		    	{id = "buffer_max_size", type = "track", val = 2, min=2,max=40,step=1, def = 5},
+		    	{id = "buffer_max_size", type = "track", val = 2, min=2,max=40,step=1, def = 40},
 
 		    	{id = "line", type = "line"},
 
 		    	{id = "hit_enable", type = "check", val = 1, def = true},
-		    	{id = "hit_exclusive", type = "check", val = 1, def = true},
+		    	{id = "hit_exclusive", type = "check", val = 1, def = false},
 
 		    	{id = "line", type = "line"},
 
 		    	{id = "headshot_enable", type = "check", val = 1, def = true},
-		    	{id = "headshot_exclusive", type = "check", val = 1, def = true},
+		    	{id = "headshot_exclusive", type = "check", val = 1, def = false},
 
 		    	{id = "line", type = "line"},
 
-		    	{id = "dismemberment_enable", type = "check", val = 1, def = false},
+		    	{id = "dismemberment_enable", type = "check", val = 1, def = true},
 
 		    	{id = "line", type = "line"},
 
 		    	{id = "fingers_enable", type = "check", val = 1, def = true},
-		    	{id = "fingers_option", type = "track", val = 2, min=1,max=3,step=1, def = 2},
-		    	{id = "fingers_limit", type = "check", val = 1, def = true},
-		    	{id = "fingers_ttl", type = "track", val = 2, min=10,max=100000,step=10, def = 10000},
+		    	{id = "fingers_option", type = "track", val = 2, min=1,max=3,step=1, def = 3},
+		    	{id = "fingers_limit", type = "check", val = 1, def = false},
+		    	{id = "fingers_ttl", type = "track", val = 2, min=100,max=100000,step=100, def = 10000},
 
 		    	{id = "line", type = "line"}
 			}
@@ -76,22 +76,22 @@ op = {
 		    sh = true,
 		    gr = {           
 		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_dismemberment_title",size= {512,50},spacing= 20 },
-		    	{id = "enable", type = "check", val = 1, def = false},
+		    	{id = "enable", type = "check", val = 1, def = true},
 		    	{id = "enable_debug", type = "check", val = 1, def = false},
 
 		    	{id = "line", type = "line"},
 
 		    	{id = "enable_mutant", type = "check", val = 1, def = true},
-				{id = "threshold_mutant", type = "track", val = 2, min=0.1,max=5.99,step=0.01, def = 1},
+				{id = "threshold_mutant", type = "track", val = 2, min=0.01,max=2,step=0.01, def = 0.36},
 
 		    	{id = "line", type = "line"},
 
 		    	{id = "enable_stalker", type = "check", val = 1, def = true},
-				{id = "threshold_stalker", type = "track", val = 2, min=0.1,max=5.99,step=0.01, def = 4.5},
+				{id = "threshold_stalker", type = "track", val = 2, min=0.01,max=5.99,step=0.01, def = 4.5},
 
 		    	{id = "line", type = "line"},
 
-		    	{id = "enable_head", type = "check", val = 1, def = true},
+		    	{id = "enable_head", type = "check", val = 1, def = false},
 
 
 		    	{id = "line", type = "line"}
@@ -103,12 +103,12 @@ op = {
 		    sh = true,
 		    gr = {           
 		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_bullettime_title",size= {512,50},spacing= 20 },
-				{id = "enable", type = "check", val = 1, def = false},
+				{id = "enable", type = "check", val = 1, def = true},
 		    	{id = "enable_debug", type = "check", val = 1, def = false},
 				{id = "time_speed", type = "track", val = 2, min=0.1,max=0.99,step=0.01, def = 0.6},
 				{id = "length", type = "track", val = 2, min=1,max=30,step=0.5, def = 2},
 				{id = "enable_sounds", type = "check", val = 1, def = true},
-				{id = "enable_drain", type = "check", val = 1, def = true},
+				{id = "enable_drain", type = "check", val = 1, def = false},
 				{id = "drain_rate_coef", type = "track", val = 2, min=0.1,max=10,step=0.1, def = 1},
 
 				{id = "line", type = "line"},
@@ -119,9 +119,9 @@ op = {
 
 				{id = "enable_screenfx", type = "check", val = 1, def = true},
 				{id = "enable_screenfx_gravi", type = "check", val = 1, def = true},
-				{id = "enable_screenfx_brighten", type = "check", val = 1, def = true},
-				{id = "enable_screenfx_contrast", type = "check", val = 1, def = true},
-				{id = "enable_screenfx_psychic", type = "check", val = 1, def = true}
+				{id = "enable_screenfx_brighten", type = "check", val = 1, def = false},
+				{id = "enable_screenfx_contrast", type = "check", val = 1, def = false},
+				{id = "enable_screenfx_psychic", type = "check", val = 1, def = false}
 			}
 		}
 		

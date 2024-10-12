@@ -6,6 +6,9 @@
 	Edit by: sunn
     10/10/2024
 ]]
+local ltxOutfits = ini_file( "plugins\\wepl_hit_effect_outfits.ltx" )
+local ltxVisuals = ini_file( "plugins\\wepl_hit_effect_visuals.ltx" )
+
 -- Postpone on next n tick
 local nextTick = _G.nextTick or function(f, n)
 	n = floor(max(n or 1, 1))
@@ -1575,6 +1578,53 @@ function lookup:setting(key)
     if ui_mcm then
         return ui_mcm.get("blood/"..key)
     end
+end
+
+function lookup:get_armor_type_by_npc(npc)
+    if not npc or not IsStalker(npc) then return nil end
+
+
+    local armorType = nil
+	if ltxVisuals then
+		local npcVisual = npc:get_visual_name()
+		
+		if npcVisual then
+			npcVisual = string.lower( npcVisual )
+			local npcVisualExt = string.find( npcVisual, ".ogf" )
+			
+			if npcVisualExt then
+				npcVisual = string.sub( npcVisual, 1, npcVisualExt - 1 )
+			end
+			
+			if ltxVisuals:section_exist( npcVisual ) then
+				armorType = ltxVisuals:line_exist( npcVisual, "armorType" ) and ltxVisuals:r_string_ex( npcVisual, "armorType" ) or armorType
+			end
+		end
+	end
+    return armorType
+end
+
+function lookup:get_helmet_type_by_npc(npc)
+    if not npc or not IsStalker(npc) then return nil end
+
+    local helmetType = nil
+	if ltxVisuals then
+		local npcVisual = npc:get_visual_name()
+		
+		if npcVisual then
+			npcVisual = string.lower( npcVisual )
+			local npcVisualExt = string.find( npcVisual, ".ogf" )
+			
+			if npcVisualExt then
+				npcVisual = string.sub( npcVisual, 1, npcVisualExt - 1 )
+			end
+			
+			if ltxVisuals:section_exist( npcVisual ) then
+                helmetType = ltxVisuals:line_exist( npcVisual, "helmetType" ) and ltxVisuals:r_string_ex( npcVisual, "helmetType" ) or helmetType
+			end
+		end
+	end
+    return helmetType
 end
 
 -- this absolutely sucks and i should have just monkey patched grok_bo. at least this wont break on most updates

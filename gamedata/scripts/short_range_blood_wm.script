@@ -209,10 +209,5 @@ end
 function pr(...) if not lookup:setting("wm/enable_debug") then return end printf(...) end
 
 function on_game_start()
-	RegisterScriptCallback("save_state",save_state)
-	RegisterScriptCallback("load_state",load_state)
-	
-
 	RegisterScriptCallback("on_before_hit_after_calcs", on_before_hit_after_calcs)
-
 end

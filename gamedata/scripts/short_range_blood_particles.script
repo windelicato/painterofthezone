@@ -8,9 +8,6 @@
 local buffer = {}
 local buffer_index = 1
 
-local ltxOutfits = ini_file( "plugins\\wepl_hit_effect_outfits.ltx" )
-local ltxVisuals = ini_file( "plugins\\wepl_hit_effect_visuals.ltx" )
-
 local lookup = short_range_blood_lookup.lookup()
 local head_bones = lookup:get_head_bones()
 local fingers = {
@@ -68,33 +65,15 @@ function play_particle(particle_name, pos, dir, ttl, limit)
 end
 
 function play_dismemberment_particle(s_hit, target, bone_id)
+    if target and lookup:death_log(target) then return true end
     local bone_name = bone_id and target:bone_name(bone_id)
     local pos = target:bone_position(bone_name)
     local dir = s_hit.direction
 --    dir = vector():set(dir):normalize()
 
-	local armorType = "none"
-	local helmetType = "none"
-	
-	if ltxVisuals then
-		local npcVisual = target:get_visual_name()
-		
-		if npcVisual then
-			npcVisual = string.lower( npcVisual )
-			local npcVisualExt = string.find( npcVisual, ".ogf" )
-			
-			if npcVisualExt then
-				npcVisual = string.sub( npcVisual, 1, npcVisualExt - 1 )
-			end
-			
-			if ltxVisuals:section_exist( npcVisual ) then
-				armorType = ltxVisuals:line_exist( npcVisual, "armorType" ) and ltxVisuals:r_string_ex( npcVisual, "armorType" ) or armorType
-				helmetType = ltxVisuals:line_exist( npcVisual, "helmetType" ) and ltxVisuals:r_string_ex( npcVisual, "helmetType" ) or helmetType
-			end
-		end
-	end
+	local helmetType = lookup:get_helmet_type_by_npc(target)
 
-    if helmetType == "armor" then
+    if helmetType == "helmet" then
         play_particle("srbd\\headshot\\debris_armor", pos, dir)
     elseif helmetType == "glass" then
         play_particle("srbd\\headshot\\debris_glass", pos, dir)
@@ -160,7 +139,9 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
 
     -- dismemberment particle
     if lookup:setting("particles/dismemberment_enable") then
-        if (bone_id and head_bones[bone_id]) and target.health <= 0 then
+        if lookup:setting("dismemberment/enable") then
+            table.insert(playlist, "dismemberment")
+        elseif (bone_id and head_bones[bone_id]) and target.health <= 0 then
             local hit_power = lookup:grokDefuckulator(s_hit, target, bone_id)
             local hit_threshold = lookup:setting("dismemberment/threshold_stalker")
             if (not hit_power) or (hit_power < hit_threshold) then return end

@@ -216,7 +216,7 @@
 	</string>
 
 	<string id="ui_mcm_blood_dismemberment_enable_head">
-		<text>Enable for heads</text>
+		<text>Enable for heads only</text>
 	</string>
 
 
@@ -233,7 +233,7 @@
 
 
 	<string id="ui_mcm_blood_bullettime_enable">
-		<text>Enable bullettime on headshot (requires debug mode enabled)</text>
+		<text>Enable bullettime on headshot</text>
 	</string>
 
 	<string id="ui_mcm_blood_bullettime_enable_debug">

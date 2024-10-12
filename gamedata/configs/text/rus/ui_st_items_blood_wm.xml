@@ -1,98 +1,285 @@
 <?xml version="1.0" encoding="windows-1251"?>
 
-<!-- 
-	MCM
+<!--
+MCM
 -->
 <string_table>
 
+<string id="ui_mcm_menu_blood">
+<text>Отметки крови</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_title">
-		<text>Blood wallmarks</text>
-	</string>
+<!-- Общие -->
 
-	<string id="ui_mcm_menu_blood_wm">
-		<text>Blood wallmarks</text>
-	</string>
+<string id="ui_mcm_blood_general">
+<text>Общие</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_floor">
-		<text>Enable blood on floor on hit</text>
-	</string>
+<string id="ui_mcm_blood_general_title">
+<text>Общие настройки</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_floor_desc">
-		<text>These are new decals in addition to default anomaly blood wallmarks</text>
-	</string>
+<string id="ui_mcm_blood_general_enable_debug">
+<text>Включить отладку</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_size">
-		<text>Size of floor wallmark.</text>
-	</string>
+<!--Отметки-->
+<string id="ui_mcm_blood_wm">
+<text>Отметки стены</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_size_desc">
-		<text>Mutliplier for default size if "Make all floor marks the same size" is enabled.</text>
-	</string>
+<string id="ui_mcm_blood_wm_title">
+<text>Настройки отметки стены</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_static_size">
-		<text>Make all floor marks the same size</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_debug">
+<text>Включить отладку</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_gravity">
-		<text>Percieved gravity of blood</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_floor">
+<text>Включить кровь на полу при попадании</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_gravity_desc">
-		<text>Higher gravity will drop the floor mark closer to the npc. Lower will be further from exit wound</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_floor_desc">
+<text>Это новые наклейки в дополнение к стандартным отметкам стены крови аномалии</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_avoid_wallmark">
-		<text>Only display floormarks when no wallmark created by engine</text>
-	</string>
+<string id="ui_mcm_blood_wm_size">
+<text>Размер отметки стены пола.</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_normal">
-		<text>Use normal wallmarks (best with Realistic Blood)</text>
-	</string>
+<string id="ui_mcm_blood_wm_size_desc">
+<text>Множитель для размера по умолчанию, если включен параметр «Сделать все отметки на полу одинаковыми».</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_drip">
-		<text>Use drip wallmarks (best without static size)</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_static_size">
+<text>Сделать все отметки на полу одинаковыми</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_splash">
-		<text>Use splash wallmarks (default)</text>
-	</string>
+<string id="ui_mcm_blood_wm_gravity">
+<text>Воспринимаемая плотность крови</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_pool">
-		<text>Enable pool on floor on death</text>
-	</string>
+<string id="ui_mcm_blood_wm_gravity_desc">
+<text>Более высокая гравитация опустит отметку на полу ближе к NPC. Ниже будет дальше от выходного отверстия</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_pool_desc">
-		<text>Replaces hit floormark on death if enabled</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_avoid_wallmark">
+<text>Отображать только отметки пола, если движок не создал отметку стены</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_size_pool">
-		<text>Size of floor pool</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_normal">
+<text>Использовать обычные отметки стены (лучше всего с реалистичной кровью)</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_lifetime">
-		<text>Wallmark lifetime (seconds)</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_drip">
+<text>Использовать отметки стены капель (лучше всего без статического размера)</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_particles">
-		<text>Play an extra particle effect on hit</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_splash">
+<text>Использовать отметки стены брызг (по умолчанию)</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_custom_particles">
-		<text>Use this mod's particle effects</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_pool">
+<text>Включить бассейн на полу при смерти</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_custom_particles_desc">
-		<text>Disable if you'd rather use particle effects provided by HFX or CVFX</text>
-	</string>
+<string id="ui_mcm_blood_wm_enable_pool_desc">
+<text>Заменяет метку пола при попадании, если включено</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_particle_buffer_max_size">
-		<text>Number of particle animations to allow at once</text>
-	</string>
+<string id="ui_mcm_blood_wm_size_pool">
+<text>Размер пула пола</text>
+</string>
 
-	<string id="ui_mcm_blood_wm_enable_debug">
-		<text>Enable debug</text>
-	</string>
+<string id="ui_mcm_blood_wm_lifetime">
+<text>Время жизни метки стены (секунды)</text>
+</string>
 
+<string id="ui_mcm_blood_wm_enable_particles">
+<text>Воспроизвести дополнительный эффект частиц при попадании</text>
+</string>
+
+<string id="ui_mcm_blood_wm_enable_custom_particles">
+<text>Использовать эффекты частиц этого мода</text>
+</string>
+
+<string id="ui_mcm_blood_wm_enable_custom_particles_desc">
+<text>Отключите, если вы предпочитаете использовать эффекты частиц, предоставляемые HFX или CVFX</text>
+</string>
+
+<string id="ui_mcm_blood_wm_particle_buffer_max_size">
+<text>Количество анимаций частиц, разрешенных одновременно</text>
+</string>
+
+<!--Particles-->
+
+<string id="ui_mcm_blood_particles">
+<text>Частицы</text>
+</string>
+
+<string id="ui_mcm_blood_particles_title">
+<text>Настройки частиц</text>
+</string>
+
+<string id="ui_mcm_blood_particles_enable">
+<text>Включить дополнительные эффекты частиц</text>
+</string>
+
+<string id="ui_mcm_blood_particles_enable_debug">
+<text>Включить отладку</text>
+</string>
+
+<string id="ui_mcm_blood_particles_debug_distance">
+<text>На каком расстоянии рисовать частицы отладки</text>
+</string>
+
+<string id="ui_mcm_blood_particles_use_cvfx">
+<text>Использовать частицы CVFX вместо этих модов</text>
+</string>
+
+<string id="ui_mcm_blood_particles_buffer_max_size">
+<text>Количество анимаций частиц, разрешенных одновременно</text>
+</string>
+
+<string id="ui_mcm_blood_particles_fingers_ttl">
+<text>Максимальный возраст частиц до перезаписи (мс)</text>
+</string>
+
+<string id="ui_mcm_blood_particles_fingers_limit">
+<text>Ограничение одной частицей пальца за раз. Используйте ttl для настройки частоты перерисовки пальца</text>
+</string>
+
+<string id="ui_mcm_blood_particles_hit_enable">
+<text>Воспроизвести дополнительную частицу при попадании</text>
+</string>
+
+<string id="ui_mcm_blood_particles_hit_exclusive">
+<text>Не воспроизводить эту частицу при выстреле в голову или расчленении</text>
+</string>
+
+<string id="ui_mcm_blood_particles_headshot_enable">
+<text>Воспроизвести дополнительную частицу при выстреле в голову</text>
+</string>
+
+<string id="ui_mcm_blood_particles_headshot_exclusive">
+<text>Не воспроизводить эту частицу при расчленении</text>
+</string>
+
+<string id="ui_mcm_blood_particles_dismemberment_enable">
+<text>Воспроизвести фальшивую частицу расчленения при выстреле в голову</text>
+</string>
+
+<string id="ui_mcm_blood_particles_fingers_enable">
+<text>Воспроизвести частицу отстающего пальца при ударе</text>
+</string>
+
+<string id="ui_mcm_blood_particles_fingers_option">
+<text>Направление пальца: вверх, наружу или наружу и вверх</text>
+</string>
+
+<!--Расчленение-->
+
+<string id="ui_mcm_blood_dismemberment">
+<text>Расчленение</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_title">
+<text>Настройки расчленения</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_enable">
+<text>Включить расчленение</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_enable_debug">
+<text>Включить отладку</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_enable_stalker">
+<text>Включить для сталкеров</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_threshold_stalker">
+<text>Порог попадания для расчленения сталкера</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_enable_mutant">
+<text>Включить для мутантов</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_threshold_mutant">
+<text>Порог попадания для расчленения мутанта</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_enable_head">
+<text>Включить только для голов</text>
+</string>
+
+<!--Bullet Time-->
+
+<string id="ui_mcm_blood_bullettime">
+<text>Bullet Time</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_title">
+<text>Настройки Bullet Time</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable">
+<text>Включить Bullet Time при выстреле в голову</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable_debug">
+<text>Включить отладку</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_time_speed">
+<text>Временная шкала времени пули</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_length">
+<text>Как долго длится время пули</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable_sounds">
+<text>Включить звуки во время времени пули активировать и деактивировать</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable_dodge">
+<text>Ускорить движение игрока во время времени пули, чтобы компенсировать замедление</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable_drain">
+<text>Включить истощение выносливости во время пули</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_drain_rate_coef">
+<text>Сколько выносливости тратится во время пули</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_trigger_chance">
+<text>Шанс активировать пулю при убийстве выстрелом в голову</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable_screenfx">
+<text>Включить экранные эффекты во время пули</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable_screenfx_gravi">
+<text>Добавить эффект гравитационного экрана</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable_screenfx_brighten">
+<text>Добавить эффект яркости экрана</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable_screenfx_contrast">
+<text>Добавить контрастность к эффекту экрана</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_enable_screenfx_psychic">
+<text>Добавить эффект психического экрана</text>
+</string>
 
 </string_table>
