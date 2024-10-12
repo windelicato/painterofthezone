@@ -30,7 +30,7 @@ op = {
 
 		    	{id = "line", type = "line"},
 
-		    	{id = "enable_pool", type = "check", val = 1, def = true},
+		    	{id = "enable_pool", type = "check", val = 1, def = false},
 		    	{id = "size_pool", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7}
 			}
 		},
@@ -64,8 +64,8 @@ op = {
 
 		    	{id = "fingers_enable", type = "check", val = 1, def = true},
 		    	{id = "fingers_option", type = "track", val = 2, min=1,max=3,step=1, def = 3},
-		    	{id = "fingers_limit", type = "check", val = 1, def = false},
-		    	{id = "fingers_ttl", type = "track", val = 2, min=100,max=100000,step=100, def = 10000},
+		    	{id = "fingers_limit", type = "check", val = 1, def = true},
+		    	{id = "fingers_ttl", type = "track", val = 2, min=100,max=100000,step=100, def = 1000},
 
 		    	{id = "line", type = "line"}
 			}
@@ -117,7 +117,7 @@ op = {
 
 				{id = "line", type = "line"},
 
-				{id = "enable_screenfx", type = "check", val = 1, def = true},
+				{id = "enable_screenfx", type = "check", val = 1, def = false},
 				{id = "enable_screenfx_gravi", type = "check", val = 1, def = true},
 				{id = "enable_screenfx_brighten", type = "check", val = 1, def = false},
 				{id = "enable_screenfx_contrast", type = "check", val = 1, def = false},
