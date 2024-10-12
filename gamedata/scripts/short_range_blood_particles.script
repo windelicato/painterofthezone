@@ -16,10 +16,6 @@ local fingers = {
     [3] = "srbd\\hit\\srbd_hit_finger_out_up"
 }
 
-function clean_buffer_at_index(index)
-
-end
-
 function play_particle(particle_name, pos, dir, ttl, limit)
     if buffer_index > lookup:setting("particles/buffer_max_size") then buffer_index = 1 end
 
@@ -128,11 +124,15 @@ end
 
 function on_before_hit_after_calcs(s_hit, target, bone_id)
     if not lookup:setting("particles/enable") then return true end
-
+    if not bone_id then return true end
+    if not s_hit then return true end
+    if not target then return true end
     local shooter = s_hit.draftsman
     local player = db.actor
-
+    if target:id() == player:id() then return true end
     if shooter:id() ~= player:id() then return true end
+
+
 
     -- keep track of what we've played
     local playlist = {}

@@ -193,9 +193,12 @@ function draw_floor_wm(s_hit, target, bone_id)
 end
 
 function on_before_hit_after_calcs(s_hit, target, bone_id)
-	local shooter = s_hit.draftsman
-	local player = db.actor
-	if shooter:id() ~= player:id() then return end
+	if not bone_id then return end
+    if not s_hit then return end
+    local shooter = s_hit.draftsman
+    local player = db.actor
+    if target:id() == player:id() then return end
+    if shooter:id() ~= player:id() then return end
 
 	if lookup:setting("wm/enable_floor") then
 		draw_floor_wm(s_hit, target, bone_id)

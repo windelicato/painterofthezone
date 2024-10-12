@@ -1744,9 +1744,6 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
     -- we ignore barrel_condition_corrected, sin resistance, sniper_bad_bone_shit_reduce because fuck this
     local power = wpn_hit_power / ( 1 + dist / 200 * ( air_res * 0.5 / ( 1 - air_res + 0.1 ))) * k_hit * custom_bone_dmg_mult * custom_bone_ap_scale * 1.1 * self.difficulty_multiplier[game_num] * ammo_mult * silencer_boost
 
-    pr("-----------------------------------------------------------------------------")
-    pr("------s_hit power------------------%s----------------------------------------", power)
-
     return power
 end
 
@@ -1755,6 +1752,13 @@ function lookup:death_log(target)
 end
 
 function death_log_callback(s_hit, target, bone_id)
+    if not bone_id then return end
+    if not s_hit then return end
+    if not target then return end
+    local shooter = s_hit.draftsman
+    local player = db.actor
+    if target:id() == player:id() then return end
+
     if target and target.health <= 0 or not target:alive() then
         if not death_log[target:id()] then
             nextTick(function()

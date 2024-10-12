@@ -28,6 +28,7 @@ local focus_coef = 0;
 
 local enable_screenfx = true;
 local enable_dodge = true;
+local enable_drain = true;
 local enable_sounds = true;
 
 local current_slowmo_event = 0
@@ -37,7 +38,7 @@ local lookup = short_range_blood_lookup.lookup()
 local function load_settings()
     enable_screenfx = lookup:setting("bullettime/enable_screenfx")
     enable_sounds = lookup:setting("bullettime/enable_sounds")
-    enable_dodge = lookup:setting("bullettime/enable_dodge")
+    enable_dodge = false
     enable_drain = lookup:setting("bullettime/enable_dodge")
     drain_rate_coef = lookup:setting("bullettime/drain_rate_coef")
     time_speed = lookup:setting("bullettime/time_speed")
@@ -192,9 +193,14 @@ function trigger(target)
 end
 
 function on_before_hit_after_calcs(s_hit, target, bone_id)
-
+    if not bone_id then return end
+    if not s_hit then return end
+    if not target then return end
     local shooter = s_hit.draftsman
     local player = db.actor
+    if target:id() == player:id() then return end
+    if shooter:id() ~= player:id() then return end
+
     if not player:alive() then
         if (slowmo_flag == 1) then
             end_slowmo(current_slowmo_event)
