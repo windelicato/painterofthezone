@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<!-- 
+	MCM
+-->
+<string_table>
+
+
+	<string id="ui_mcm_blood_wm_title">
+		<text>Blood wallmarks</text>
+	</string>
+
+	<string id="ui_mcm_menu_blood_wm">
+		<text>Blood wallmarks</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_floor">
+		<text>Enable blood on floor on hit</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_floor_desc">
+		<text>These are new decals in addition to default anomaly blood wallmarks</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_size">
+		<text>Size of floor wallmark.</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_size_desc">
+		<text>Mutliplier for default size if "Make all floor marks the same size" is enabled.</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_static_size">
+		<text>Make all floor marks the same size</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_gravity">
+		<text>Percieved gravity of blood</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_gravity_desc">
+		<text>Higher gravity will drop the floor mark closer to the npc. Lower will be further from exit wound</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_avoid_wallmark">
+		<text>Only display floormarks when no wallmark created by engine</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_normal">
+		<text>Use normal wallmarks (best with Realistic Blood)</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_drip">
+		<text>Use drip wallmarks (best without static size)</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_splash">
+		<text>Use splash wallmarks (default)</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_pool">
+		<text>Enable pool on floor on death</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_pool_desc">
+		<text>Replaces hit floormark on death if enabled</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_size_pool">
+		<text>Size of floor pool</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_lifetime">
+		<text>Wallmark lifetime (seconds)</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_particles">
+		<text>Play an extra particle effect on hit</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_custom_particles">
+		<text>Use this mod's particle effects</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_custom_particles_desc">
+		<text>Disable if you'd rather use particle effects provided by HFX or CVFX</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_particle_buffer_max_size">
+		<text>Number of particle animations to allow at once</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_debug">
+		<text>Enable debug</text>
+	</string>
+
+
+</string_table>

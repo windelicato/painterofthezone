@@ -1,0 +1,218 @@
+--[[  
+    Edit of Long Range Blood Decals mod to display even more blood wallmarks
+    Original Author: bvcx
+	https://www.moddb.com/members/bvcx
+
+	Original Upload: INNIES
+	https://www.moddb.com/mods/stalker-anomaly/addons/long-range-blood-decals
+
+	Blood pool decals also by bvcx
+	https://www.moddb.com/members/bvcx
+
+	Edit by: sunn
+    10/01/2024
+]]
+-- stalkers and fire_wound only for now
+local hit_types = {
+--	[hit.strike]        = "strike",
+--	[hit.wound]         = "wound",
+	[hit.fire_wound] 	= "fire_wound",
+--	[hit.explosion] 		= "explosion",
+}
+
+local geometry_ray = demonized_geometry_ray.geometry_ray
+local engine_wallmark_range = 5
+
+local lookup = short_range_blood_lookup.lookup()
+-- debug stuff
+local debug_particle_buffer = {}
+local debug_particle_buffer_two = {}
+----------------
+
+function draw_pool_wm(s_hit, target, bone_id)
+	if target:alive() then return end
+
+	pr("~drawing pool wm")
+	local wm_dir = vector():set(0, -1, 0)
+	local target_pos = target:position()
+	local wm_pos = vector():set(target_pos.x, target_pos.y+2, target_pos.z)
+	if not wm_pos then return end;
+
+	local picked_wm = "blood_pool_texture_" .. math.random(1, 24)
+	local wm_size = lookup:setting("wm/size_pool")
+
+	pr("- draw our wm || size: %s || sec: %s", wm_size, picked_wm)
+
+	if lookup:setting("wm/enable_debug") then
+		for i = 1, 10 do
+			local nx = wm_dir.x*i
+			local ny = wm_dir.y*i
+			local nz = wm_dir.z*i
+
+			if debug_particle_buffer_two[i] ~= nil then
+				debug_particle_buffer_two[i]:stop()
+			end
+			debug_particle_buffer_two[i] = particles_object("_samples_particles_\\flash_light")
+			debug_particle_buffer_two[i]:play_at_pos(vector():set(wm_pos.x + nx, wm_pos.y + ny, wm_pos.z + nz))
+		end
+	end
+
+	wallmarks_manager():place(wm_dir, wm_pos, 10, wm_size, picked_wm, target, lookup:setting("wm/lifetime"), false)
+end
+
+function draw_floor_wm(s_hit, target, bone_id)
+	if lookup:setting("wm/enable_pool") and not target:alive() then return end
+
+	local shooter = s_hit.draftsman
+
+	local h_type = hit_types[s_hit.type]
+	if not h_type then return end
+
+	-- draftsman is alive stalker
+	pr("draft sec: %s", shooter and shooter:section())
+	if not (shooter and shooter.alive and shooter:alive() and IsStalker(shooter)) then return end
+
+	-- draftsman weapon
+	local wpn = shooter:active_item()
+	if not (wpn and IsWeapon(wpn)) then return end
+	if IsMelee(wpn) then return end
+
+	-- get ammo wm_size
+	local ammo_list = utils_item.get_ammo(nil, wpn:id())
+	local ammo_idx = wpn:get_ammo_type() + 1
+	local ammo_sec = ammo_list and ammo_idx and ammo_list[ammo_idx]
+	local wm_size = ammo_sec and ini_sys:r_float_ex(ammo_sec, "wm_size")
+	wm_size = wm_size and tonumber(wm_size) or 0.1
+	wm_size = lookup:setting("wm/size") * wm_size
+
+	if lookup:setting("wm/enable_static_size") then
+		wm_size = lookup:setting("wm/size")
+	end
+
+	-- wm dir
+	local wpn_pos = vector():set(wpn:bone_position("wpn_body"))
+	local bone_name = bone_id and target:bone_name(bone_id)
+	local pos_to = bone_name and vector():set(target:bone_position(bone_name))
+	local wm_dir = wpn_pos and pos_to and vec_sub(vector():set(pos_to), vector():set(wpn_pos)):normalize()
+
+	if lookup:setting("wm/enable_debug") then
+		for i = 1, 10 do
+			local nx = (wpn_pos.x - pos_to.x) / 10
+			local ny = (wpn_pos.y - pos_to.y) / 10
+			local nz = (wpn_pos.z - pos_to.z) / 10
+
+			if debug_particle_buffer[i] ~= nil then
+				debug_particle_buffer[i]:stop()
+			end
+
+			debug_particle_buffer[i] = particles_object("_samples_particles_\\flash_light")
+			debug_particle_buffer[i]:play_at_pos(vector():set(wpn_pos.x - nx * i, wpn_pos.y - ny * i, wpn_pos.z - nz * i))
+		end
+	end
+
+
+
+	local gravity = lookup:setting("wm/gravity")
+	local vec_down = vector():set(0, gravity*-1, 0)
+	local vec_dir = vec_add(vector():set(vec_down), vector():set(wm_dir)):normalize()
+	local vec_pos = pos_to
+
+	if lookup:setting("wm/enable_debug") then
+		for i = 1, 10 do
+			local nx = vec_dir.x*i
+			local ny = vec_dir.y*i
+			local nz = vec_dir.z*i
+
+			if debug_particle_buffer_two[i] ~= nil then
+				debug_particle_buffer_two[i]:stop()
+			end
+			debug_particle_buffer_two[i] = particles_object("_samples_particles_\\flash_light")
+			debug_particle_buffer_two[i]:play_at_pos(vector():set(vec_pos.x + nx, vec_pos.y + ny, vec_pos.z + nz))
+		end
+	end
+
+	-- check for engine wallmark
+	if lookup:setting("wm/enable_avoid_wallmark") then
+		local ray = geometry_ray({
+			ray_range = engine_wallmark_range,
+			flags = 2,
+			ignore_object = target
+		})
+		local engine_wallmark = ray:get(vec_pos, wm_dir)
+		if engine_wallmark.success then
+			pr("~not drawing floor wallmark. engine wallmark being placed")
+			return
+		end
+	end
+
+	-- wm to draw
+	local wms = {
+		normal = {
+			name = "new_wm_blood_normal_",
+			count = 10
+		},
+		drip = {
+			name = "new_wm_blood_drip_",
+			count = 2
+		},
+		splash = {
+			name = "new_wm_blood_splash_",
+			count = 5
+		},
+		enabled = {},
+		total = 0
+	}
+
+	if lookup:setting("wm/enable_normal") then
+		for i=1, wms.normal.count do
+			table.insert(wms.enabled, wms.normal.name..i)
+		end
+		wms.total=wms.total+wms.normal.count
+	end
+
+	if lookup:setting("wm/enable_drip") then
+		for i=1, wms.drip.count do
+			table.insert(wms.enabled, wms.drip.name..i)
+		end
+		wms.total=wms.total+wms.drip.count
+	end
+
+	if lookup:setting("wm/enable_splash") then
+		for i=1, wms.splash.count do
+			table.insert(wms.enabled, wms.splash.name..i)
+		end
+		wms.total=wms.total+wms.splash.count
+	end
+	local picked_wm = wms.enabled[math.random(1,wms.total)]
+
+	pr("bone_hit: %s", bone_name)
+	pr("- draw our wm || size: %s || sec: %s", wm_size, picked_wm)
+	pr("placing wallmark")
+
+	wallmarks_manager():place(vec_dir, vec_pos, 5, wm_size, picked_wm, target, lookup:setting("wm/lifetime"), false)
+end
+
+function on_before_hit_after_calcs(s_hit, target, bone_id)
+	local shooter = s_hit.draftsman
+	local player = db.actor
+	if shooter:id() ~= player:id() then return end
+
+	if lookup:setting("wm/enable_floor") then
+		draw_floor_wm(s_hit, target, bone_id)
+	end
+
+	if lookup:setting("wm/enable_pool") then
+		draw_pool_wm(s_hit, target, bone_id)
+	end
+end
+
+function pr(...) if not lookup:setting("wm/enable_debug") then return end printf(...) end
+
+function on_game_start()
+	RegisterScriptCallback("save_state",save_state)
+	RegisterScriptCallback("load_state",load_state)
+	
+
+	RegisterScriptCallback("on_before_hit_after_calcs", on_before_hit_after_calcs)
+
+end

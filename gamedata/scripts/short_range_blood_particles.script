@@ -1,0 +1,257 @@
+--[[
+    Extra particle functions for short range blood decals
+    Author: sunn
+
+    10/07/2024
+]]
+
+local buffer = {}
+local buffer_index = 1
+
+local ltxOutfits = ini_file( "plugins\\wepl_hit_effect_outfits.ltx" )
+local ltxVisuals = ini_file( "plugins\\wepl_hit_effect_visuals.ltx" )
+
+local lookup = short_range_blood_lookup.lookup()
+local head_bones = lookup:get_head_bones()
+local fingers = {
+    [1] = "srbd\\hit\\srbd_hit_finger_up",
+    [2] = "srbd\\hit\\srbd_hit_finger_out",
+    [3] = "srbd\\hit\\srbd_hit_finger_out_up"
+}
+
+function clean_buffer_at_index(index)
+
+end
+
+function play_particle(particle_name, pos, dir, ttl, limit)
+    if buffer_index > lookup:setting("particles/buffer_max_size") then buffer_index = 1 end
+
+    ttl = ttl or 100000 --10s
+    limit = limit or false
+    tg = time_global()
+
+
+    for i=1,lookup:setting("particles/buffer_max_size") do
+        if buffer[i] ~= nil then
+            if buffer[i].object:playing() and tg > buffer[i].timestamp + ttl then
+                pr("particle over ttl killed: ttl %s timestamp %s tg %s", ttl, buffer[i].timestamp, tg)
+                buffer[i].object:stop()
+            end
+            if limit and buffer[i].name == particle_name and buffer[i].object:playing() then
+                pr("existing identical particle playing")
+                return
+            end
+        end
+    end
+
+    if buffer[buffer_index] ~= nil then
+        if buffer[buffer_index].object:playing() then
+            buffer[buffer_index].object:stop()
+        end
+    end
+    if buffer[buffer_index] == nil then buffer[buffer_index] = {} end
+
+    buffer[buffer_index].object = particles_object(particle_name)
+    buffer[buffer_index].timestamp = tg
+    buffer[buffer_index].name = particle_name
+
+    if buffer[buffer_index].object and not buffer[buffer_index].object:playing() then
+        pr("playing particle %s in particle buffer position %s", particle_name, buffer_index)
+
+        if not dir then dir = vector():set(0, 0, 0) end
+        buffer[buffer_index].object:set_direction(dir)
+        buffer[buffer_index].object:play_at_pos(pos)
+        --pr("playing particle %s in position %s %s %s", particle_name, pos.x, pos.y, pos.z)
+        --pr("playing particle %s in direction %s %s %s", particle_name, dir.x, dir.y, dir.z)
+        buffer_index = buffer_index + 1
+    end
+end
+
+function play_dismemberment_particle(s_hit, target, bone_id)
+    local bone_name = bone_id and target:bone_name(bone_id)
+    local pos = target:bone_position(bone_name)
+    local dir = s_hit.direction
+--    dir = vector():set(dir):normalize()
+
+	local armorType = "none"
+	local helmetType = "none"
+	
+	if ltxVisuals then
+		local npcVisual = target:get_visual_name()
+		
+		if npcVisual then
+			npcVisual = string.lower( npcVisual )
+			local npcVisualExt = string.find( npcVisual, ".ogf" )
+			
+			if npcVisualExt then
+				npcVisual = string.sub( npcVisual, 1, npcVisualExt - 1 )
+			end
+			
+			if ltxVisuals:section_exist( npcVisual ) then
+				armorType = ltxVisuals:line_exist( npcVisual, "armorType" ) and ltxVisuals:r_string_ex( npcVisual, "armorType" ) or armorType
+				helmetType = ltxVisuals:line_exist( npcVisual, "helmetType" ) and ltxVisuals:r_string_ex( npcVisual, "helmetType" ) or helmetType
+			end
+		end
+	end
+
+    if helmetType == "armor" then
+        play_particle("srbd\\headshot\\debris_armor", pos, dir)
+    elseif helmetType == "glass" then
+        play_particle("srbd\\headshot\\debris_glass", pos, dir)
+    else
+        play_particle("srbd\\headshot\\debris_skin", pos, dir)
+    end
+
+    play_particle("srbd\\hit\\pg_00", pos, dir)
+    play_particle("srbd\\wound\\pg_00", pos, dir)
+    play_particle("srbd\\headshot\\pg_00", pos, dir)
+end
+
+function play_headshot_particle(s_hit, target, bone_id)
+    -- grok_bo.headshot_feedback_particle = "srbd\\srbd_hit_flesh_headshot"
+    -- grok_bo.headshot_feedback_enable = false
+
+    local picked_particle = "srbd\\srbd_hit_flesh_headshot"
+    if lookup:setting("particles/use_cvfx") then picked_particle = "srbd\\hit_flesh_headshot" end
+
+    local bone_name = bone_id and target:bone_name(bone_id)
+    local pos = target:bone_position(bone_name)
+    local dir = s_hit.direction
+--    dir = vector():set(dir):normalize()
+
+    play_particle(picked_particle, pos, dir)
+end
+
+function play_hit_particle(s_hit, target, bone_id)
+    local particles = { "0", "1", "2", "2a" } -- 4
+    local particle_path = "srbd\\srbd_hit_flesh_0"
+    if lookup:setting("particles/use_cvfx") then particle_path = "hit_fx\\hit_flesh_0" end
+    local picked_particle = particle_path .. particles[math.random(1, 4)]
+
+    local bone_name = bone_id and target:bone_name(bone_id)
+    local pos = target:bone_position(bone_name)
+    local dir = s_hit.direction
+--    dir = vector():set(dir):normalize()
+
+    play_particle(picked_particle, pos, dir)
+end
+
+function play_fingers_particle(s_hit, target, bone_id)
+    local picked_particle = fingers[lookup:setting("particles/fingers_option")]
+
+    local bone_name = bone_id and target:bone_name(bone_id)
+    local pos = target:bone_position(bone_name)
+    local dir = s_hit.direction
+--    dir = vector():set(dir):normalize()
+
+    play_particle(picked_particle, pos, dir, lookup:setting("particles/fingers_ttl"), lookup:setting("particles/fingers_limit"))
+end
+
+function on_before_hit_after_calcs(s_hit, target, bone_id)
+    if not lookup:setting("particles/enable") then return true end
+
+    local shooter = s_hit.draftsman
+    local player = db.actor
+
+    if shooter:id() ~= player:id() then return true end
+
+    -- keep track of what we've played
+    local playlist = {}
+
+    -- dismemberment particle
+    if lookup:setting("particles/dismemberment_enable") then
+        if (bone_id and head_bones[bone_id]) and target.health <= 0 then
+            local hit_power = lookup:grokDefuckulator(s_hit, target, bone_id)
+            local hit_threshold = lookup:setting("dismemberment/threshold_stalker")
+            if (not hit_power) or (hit_power < hit_threshold) then return end
+
+            play_dismemberment_particle(s_hit, target, bone_id)
+            table.insert(playlist, "dismemberment")
+        end
+    end
+
+    -- headshot particle
+    if lookup:setting("particles/headshot_enable") then
+        if (bone_id and head_bones[bone_id]) then
+            if not lookup:setting("particles/headshot_exclusive") or next(playlist) == nil then
+                play_headshot_particle(s_hit, target, bone_id)
+                table.insert(playlist, "headshot")
+            end
+        end
+    end
+
+    -- hit particle
+    if lookup:setting("particles/hit_enable") then
+        if not lookup:setting("particles/hit_exclusive") or next(playlist) == nil then
+            play_hit_particle(s_hit, target, bone_id)
+            table.insert(playlist, "hit")
+        end
+    end
+
+    -- hit fingers
+    if lookup:setting("particles/fingers_enable") then
+        play_fingers_particle(s_hit, target, bone_id)
+        table.insert(playlist, "fingers")
+    end
+end
+
+function on_weapon_fired(obj, wpn, ammo_elapsed, grenade_elapsed, ammo_type, grenade_type)
+    if not lookup:setting("particles/enable_debug") then return end
+    local distance = lookup:setting("particles/debug_distance")
+    local actor_pos = db.actor:position()
+    local actor_dir = device().cam_dir
+    local cam_pos = device().cam_pos
+
+    local dir = actor_dir
+    local pos = actor_pos
+
+    pos.x = pos.x + actor_dir.x * distance
+    pos.y = cam_pos.y + actor_dir.y * distance
+    pos.z = pos.z + actor_dir.z * distance
+
+    pr("pos %s %s %s", pos.x, pos.y, pos.z)
+    pr("dir %s %s %s", dir.x, dir.y, dir.z)
+    play_particle(fingers[lookup:setting("particles/fingers_option")], pos, dir, lookup:setting("particles/fingers_ttl"), lookup:setting("particles/fingers_limit"))
+
+    --play_particle("srbd\\hit\\pg_00", pos, dir)
+    --play_particle("srbd\\wound\\pg_00", pos, dir)
+    --play_particle("srbd\\headshot\\pg_00", pos, dir)
+    --play_particle("srbd\\headshot\\debris_armor", pos, dir)
+end
+
+-- clean out on loading
+local clear_buffer = 0
+local clear_buffer_index = 0
+function save_state(m_data)
+    if clear_buffer == 1 then
+        m_data.buffer = {}
+    end
+    if clear_buffer_index == 1 then
+        m_data.buffer_index = 1
+    end
+end
+
+function load_state(m_data)
+    if m_data.buffer then
+        clear_buffer = 1
+        m_data.buffer = {}
+    end
+    if m_data.buffer_index then
+        clear_buffer_index = 1
+        m_data.buffer_index = 1
+    end
+end
+
+function pr(...)
+    if not lookup:setting("particles/enable_debug") then return end
+    printf(...)
+end
+
+function on_game_start()
+    RegisterScriptCallback("save_state", save_state)
+    RegisterScriptCallback("load_state", load_state)
+
+    RegisterScriptCallback("on_before_hit_after_calcs", on_before_hit_after_calcs)
+    RegisterScriptCallback("actor_on_weapon_fired", on_weapon_fired)
+    --RegisterScriptCallback("monster_on_death_callback", npc_on_death)
+end

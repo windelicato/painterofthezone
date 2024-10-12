@@ -1,0 +1,51 @@
+[_group]
+        effects_count                    = 5
+        flags                            = 0
+        timelimit                        = 0.000000
+        version                          = 3
+ 
+[effect_0000]
+        effect_name                      = srbd\wound\srbd_exit_thick
+        flags                            = 32
+        on_birth_child                   = srbd\wound\srbd_exit_cloud_thick_slow
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0001]
+        effect_name                      = srbd\wound\srbd_exit_right_thick
+        flags                            = 36
+        on_birth_child                   = srbd\wound\srbd_exit_cloud_thin_quick
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0002]
+        effect_name                      = srbd\wound\srbd_blood_neck_splash_exit
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0003]
+        effect_name                      = srbd\wound\srbd_blood_neck_splurt_exit
+        flags                            = 36
+        on_birth_child                   = srbd\wound\srbd_exit_cloud_thick_slow
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0004]
+        effect_name                      = srbd\wound\srbd_exit_random
+        flags                            = 0
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 

@@ -1,0 +1,150 @@
+--[[
+    Edit of Dismemberment mod to remove bones without spawning objects
+    Original Author: bvcx
+	https://www.moddb.com/members/bvcx
+
+	Edit by: sunn
+    10/10/2024
+]]
+local hit_power_sum = {}
+
+local lookup = short_range_blood_lookup.lookup()
+local creatures_cls = lookup:get_creatures_cls()
+local creatures_kind = lookup:get_creatures_kind()
+local limb_map = lookup:get_limb_map()
+local mesh_map = lookup:get_mesh_map()
+local bone_groups = lookup:get_bone_groups()
+local meshes_params = lookup:get_meshes_params()
+
+function dismember(target, bone)
+    local target_obj = level.object_by_id(target:id())
+    if target_obj and target_obj:get_bone_id(bone) and target_obj:bone_visible(bone) then
+        -- remove bone and its childs
+        pr("removing: %s", bone)
+        target_obj:set_bone_visible(bone, false, true)
+    end
+end
+
+function reset_hit_power(key)
+    if not hit_power_sum[key] then return true end
+    hit_power_sum[key] = 0
+    return true
+end
+
+function on_before_hit_after_calcs(s_hit, target, bone_id)
+    if not lookup:setting("dismemberment/enable") then return end
+
+    pr("dismember beginning")
+    local shooter = s_hit.draftsman
+    local player = db.actor
+    if shooter:id() ~= player:id() then return end
+
+    local hit_power = 0
+    local hit_threshold = 0
+    if IsStalker(target) then
+        if not lookup:setting("dismemberment/enable_stalker") then return end
+        hit_threshold = lookup:setting("dismemberment/threshold_stalker")
+
+        -- anomaly
+        hit_power = s_hit.power
+
+        -- defuckulator is logic to recalculate grok_bo power D:
+        if grok_bo ~= nil then 
+            hit_power = lookup:grokDefuckulator(s_hit, target, bone_id) or hit_power
+        end
+
+    elseif IsMonster(target) then
+        if not lookup:setting("dismemberment/enable_mutant") then return end
+        hit_threshold = lookup:setting("dismemberment/threshold_mutant")
+
+        --  GAMMA doesn't touch mutant health, though!
+        hit_power = s_hit.power
+    else
+        pr("NEITHER BEAST NOR MAN")
+        return
+    end
+
+    if (not hit_power) then return end
+    -- sum up hit power over 0.5s
+    local hit_power_sum_key = target:id()
+    hit_power_sum[hit_power_sum_key] = (hit_power_sum[hit_power_sum_key] and hit_power_sum[hit_power_sum_key]+hit_power) or hit_power
+    CreateTimeEvent("reset_hit_power_e", "reset_hit_power_" .. hit_power_sum_key, 0.5, reset_hit_power, hit_power_sum_key)
+
+    pr("total summed power: %s threshold: %s", hit_power_sum[hit_power_sum_key], hit_threshold)
+
+    if IsMonster(target) then
+        if target.health - hit_power > 0 then return end
+    end
+    if IsStalker(target) then
+        if target.health > 0 then return end
+    end
+    if (hit_power_sum[hit_power_sum_key] < hit_threshold) then return end
+    pr("dismember beginning")
+
+    local hitted_bone = bone_id and target.bone_name and target:bone_name(bone_id)
+
+    -- TODO: redo all of this
+    local target_kind = ini_sys:r_string_ex(target:section(), "kind")
+    local target_key = (creatures_cls[target:clsid()] and creatures_cls[target:clsid()][1]) or
+    (target_kind and creatures_kind[target_kind] and creatures_kind[target_kind][1])
+    local target_bone_table = target_key and limb_map[target_key]
+    local bone_groups = bone_groups[target_key]
+    if not target_bone_table then return end
+
+    local bone_key = target_bone_table[hitted_bone]
+    if not bone_key or bone_key == {} then return end
+    if bone_key[1] == nil then return end
+
+    local bone_to_remove = bone_key[1]
+    local bone_group = {}
+    for i = 1, #bone_groups do
+        for j = 1, #bone_groups[i] do
+            if hitted_bone == bone_groups[i][j] then
+                bone_group = bone_groups[i]
+            end
+        end
+    end
+    if not bone_group then return end
+
+    for i = 1, #bone_group do
+        if bone_group[i] == bone_to_remove then
+            dismember(target, bone_to_remove)
+
+            local wm_size = (bone_key[2] and bone_key[2][1]) or 0.2
+            local wm_bone = (bone_key[2] and bone_key[2][2]) or bone_to_remove
+            local wm_dir_y = (bone_key[2] and bone_key[2][3]) or 1
+            local wm_ttl = 5
+            local wm_pos = vector():set(target:bone_position(wm_bone))
+            local picked_wm = "new_wm_blood_dismemb_" .. math.random(1, 5)
+            wallmarks_manager():place_skeleton(target, picked_wm, wm_pos, vector():set(0, wm_dir_y, 0), wm_size, wm_ttl)
+            if not lookup:setting("bullettime/enable") then return end
+            short_range_blood_bullet_time.trigger(target)
+        end
+    end
+end
+
+-- clean out on loading
+local clear_hit_power_sum = 0
+function save_state(m_data)
+	if clear_hit_power_sum == 1 then
+        m_data.hit_power_sum = 0
+    end
+end
+
+function load_state(m_data)
+    if m_data.hit_power_sum then
+		clear_hit_power_sum = 1
+        m_data.hit_power_sum = 0
+    end
+end
+
+function pr(...)
+    if not lookup:setting("dismemberment/enable_debug") then return end
+    printf(...)
+end
+
+function on_game_start()
+    RegisterScriptCallback("save_state",save_state)
+	RegisterScriptCallback("load_state",load_state)
+    RegisterScriptCallback("on_before_hit_after_calcs", on_before_hit_after_calcs)
+end

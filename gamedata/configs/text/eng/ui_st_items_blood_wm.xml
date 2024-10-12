@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<!-- 
+	MCM
+-->
+<string_table>
+
+	<string id="ui_mcm_menu_blood">
+		<text>Blood wallmarks</text>
+	</string>
+
+    <!-- General -->
+
+	<string id="ui_mcm_blood_general">
+		<text>General</text>
+	</string>
+
+	<string id="ui_mcm_blood_general_title">
+		<text>General Settings</text>
+	</string>
+
+	<string id="ui_mcm_blood_general_enable_debug">
+		<text>Enable debug</text>
+	</string>
+
+    <!--Wallmarks-->
+	<string id="ui_mcm_blood_wm">
+		<text>Wallmarks</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_title">
+		<text>Wallmark Settings</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_debug">
+		<text>Enable debug</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_floor">
+		<text>Enable blood on floor on hit</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_floor_desc">
+		<text>These are new decals in addition to default anomaly blood wallmarks</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_size">
+		<text>Size of floor wallmark.</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_size_desc">
+		<text>Mutliplier for default size if "Make all floor marks the same size" is enabled.</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_static_size">
+		<text>Make all floor marks the same size</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_gravity">
+		<text>Percieved gravity of blood</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_gravity_desc">
+		<text>Higher gravity will drop the floor mark closer to the npc. Lower will be further from exit wound</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_avoid_wallmark">
+		<text>Only display floormarks when no wallmark created by engine</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_normal">
+		<text>Use normal wallmarks (best with Realistic Blood)</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_drip">
+		<text>Use drip wallmarks (best without static size)</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_splash">
+		<text>Use splash wallmarks (default)</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_pool">
+		<text>Enable pool on floor on death</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_pool_desc">
+		<text>Replaces hit floormark on death if enabled</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_size_pool">
+		<text>Size of floor pool</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_lifetime">
+		<text>Wallmark lifetime (seconds)</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_particles">
+		<text>Play an extra particle effect on hit</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_custom_particles">
+		<text>Use this mod's particle effects</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_custom_particles_desc">
+		<text>Disable if you'd rather use particle effects provided by HFX or CVFX</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_particle_buffer_max_size">
+		<text>Number of particle animations to allow at once</text>
+	</string>
+	
+
+	<!--Particles-->
+
+	<string id="ui_mcm_blood_particles">
+		<text>Particles</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_title">
+		<text>Particle Settings</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_enable">
+		<text>Enable additional particle VFX</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_enable_debug">
+		<text>Enable debug</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_debug_distance">
+		<text>How far to draw debug particles</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_use_cvfx">
+		<text>Use CVFX particles instead of this mods</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_buffer_max_size">
+		<text>Number of particle animations to allow at once</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_fingers_ttl">
+		<text>Max age of particles before overwriting (ms)</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_fingers_limit">
+		<text>Limit to one finger particle at a time. Use ttl to tune how often the finger is redrawn</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_hit_enable">
+		<text>Play additional particle on hit</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_hit_exclusive">
+		<text>Dont play this particle on headshot or dismembemrment</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_headshot_enable">
+		<text>Play additional particle on headshot</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_headshot_exclusive">
+		<text>Don't play this particle on dismemberment</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_dismemberment_enable">
+		<text>Play fake dismemberment particle on headshot</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_fingers_enable">
+		<text>Play trailing finger particle on hit</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_fingers_option">
+		<text>Finger direction: up, out, or out and up</text>
+	</string>
+
+
+    <!--Dismemberment-->
+
+	<string id="ui_mcm_blood_dismemberment">
+		<text>Dismemberment</text>
+	</string>
+
+	<string id="ui_mcm_blood_dismemberment_title">
+		<text>Dismemberment Settings</text>
+	</string>
+
+	<string id="ui_mcm_blood_dismemberment_enable">
+		<text>Enable dismemberment</text>
+	</string>
+
+	<string id="ui_mcm_blood_dismemberment_enable_debug">
+		<text>Enable debug</text>
+	</string>
+
+
+	<string id="ui_mcm_blood_dismemberment_enable_stalker">
+		<text>Enable for stalkers</text>
+	</string>
+
+	<string id="ui_mcm_blood_dismemberment_threshold_stalker">
+		<text>Hit threshold for stalker dismemberment</text>
+	</string>
+
+	<string id="ui_mcm_blood_dismemberment_enable_mutant">
+		<text>Enable for mutants</text>
+	</string>
+
+	<string id="ui_mcm_blood_dismemberment_threshold_mutant">
+		<text>Hit threshold for mutant dismemberment</text>
+	</string>
+
+	<string id="ui_mcm_blood_dismemberment_enable_head">
+		<text>Enable for heads</text>
+	</string>
+
+
+
+    <!--Bullet Time-->
+
+	<string id="ui_mcm_blood_bullettime">
+		<text>Bullet Time</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_title">
+		<text>Bullet Time Settings</text>
+	</string>
+
+
+	<string id="ui_mcm_blood_bullettime_enable">
+		<text>Enable bullettime on headshot (requires debug mode enabled)</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_enable_debug">
+		<text>Enable debug</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_time_speed">
+		<text>Time scale of bullet time</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_length">
+		<text>How long bullet time lasts</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_enable_sounds">
+		<text>Enable sounds during bullet time activate and deactivate</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_enable_dodge">
+		<text>Speed up player movement during bullet time to account for slowing</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_enable_drain">
+		<text>Enable stamina drain during bullet time</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_drain_rate_coef">
+		<text>How much stamina is drained during bullet time</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_trigger_chance">
+		<text>Chance to trigger bullet time on headshot kill</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_enable_screenfx">
+		<text>Enable screen fx during bullet time</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_enable_screenfx_gravi">
+		<text>Add gravitational screen effect</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_enable_screenfx_brighten">
+		<text>Add brighten screen effect</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_enable_screenfx_contrast">
+		<text>Add contrast to screen effect</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_enable_screenfx_psychic">
+		<text>Add psychic screen effect</text>
+	</string>
+
+
+</string_table>

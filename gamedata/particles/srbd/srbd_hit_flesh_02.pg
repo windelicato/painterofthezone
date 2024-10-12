@@ -1,0 +1,105 @@
+[_group]
+        effects_count                    = 11
+        flags                            = 0
+        timelimit                        = 5.000000
+        version                          = 3
+ 
+[effect_0000]
+        effect_name                      = srbd\effects\dust\srbd_hit_hd_metal_puff_02
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0001]
+        effect_name                      = srbd\effects\cloud\srbd_hit_impact_blood_05
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0002]
+        effect_name                      = srbd\effects\dust\srbd_hit_impact_blood_06
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0003]
+        effect_name                      = srbd\effects\dust\srbd_hit_impact_blood_07
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0004]
+        effect_name                      = srbd\effects\dust\srbd_hit_impact_blood_08
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0005]
+        effect_name                      = srbd\effects\dust\srbd_hit_impact_smoke_00
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0006]
+        effect_name                      = srbd\effects\burst\srbd_hit_impact_blood_02
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0007]
+        effect_name                      = srbd\effects\dust\srbd_hit_impact_smoke_02
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0008]
+        effect_name                      = srbd\effects\misc\srbd_linger_blur
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0009]
+        effect_name                      = srbd\effects\burst\srbd_hit_impact_blood_31
+        flags                            = 22
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    = srbd\effects\fingers\srbd_smoke_point_blood_fingers_short
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0010]
+        effect_name                      = srbd\effects\burst\srbd_hit_impact_blood_10
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
