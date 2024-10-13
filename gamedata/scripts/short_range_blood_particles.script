@@ -142,11 +142,14 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
         if lookup:setting("dismemberment/enable") then
             table.insert(playlist, "dismemberment")
         elseif (bone_id and head_bones[bone_id]) and target.health <= 0 then
+            local hit_threshold = lookup:setting("dismemberment/threshold_stalker")
             local hit_power = s_hit.power
             if grok_bo ~= nil then
                 hit_power = lookup:grokDefuckulator(s_hit, target, bone_id)
             end
-            local hit_threshold = lookup:setting("dismemberment/threshold_stalker")
+            if cxv_artigrok_bo ~= nil then
+                hit_power = lookup:grokDefuckulator(s_hit, target, bone_id)
+            end
             if (not hit_power) or (hit_power < hit_threshold) then return end
 
             play_dismemberment_particle(s_hit, target, bone_id)

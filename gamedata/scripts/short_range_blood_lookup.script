@@ -27,6 +27,9 @@ death_log = {}
 class "lookup"
 
 function lookup:__init(args)
+    self.gbo = nil
+    if grok_bo then self.gbo = grok_bo end
+    if cxv_artigrok_bo then self.gbo = cxv_artigrok_bo end
 
     self.creatures_cls = {
         [clsid.script_stalker]			= { "human", "stalker_damage" },
@@ -1633,8 +1636,9 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
     if not s_hit then return end
     if not target then return end
     if not grok_bo then return end
-    if not grok_bo.custom_bone_ap then return end
-    if not grok_bo.custom_bone_dmg then return end
+    if not self.gbo then return end
+    if not self.gbo.custom_bone_ap then return end
+    if not self.gbo.custom_bone_dmg then return end
 
     local shooter = s_hit.draftsman
     local player = db.actor
@@ -1642,25 +1646,25 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
     if shooter:id() ~= player:id() then return end
 
     local grok_key = target:id() .. "_" .. bone_id
-    local custom_bone_ap_scale = grok_bo.custom_bone_ap[grok_key]
-    local custom_bone_dmg_mult = grok_bo.custom_bone_dmg[grok_key]
+    local custom_bone_ap_scale = self.gbo.custom_bone_ap[grok_key]
+    local custom_bone_dmg_mult = self.gbo.custom_bone_dmg[grok_key]
 
     if not custom_bone_dmg_mult or not custom_bone_ap_scale then
         pr("no shit flying in from grok")
 
         -- if nothing here, check custom bones
         local found_key = ""
-        local custom_bone_name = grok_bo.Bone_IDs[bone_id]
+        local custom_bone_name = self.gbo.Bone_IDs[bone_id]
         if not custom_bone_name then
             pr("found custom bone %s", custom_bone_name)
             -- because he uses math.random to generate these bone ids
             for id=52,55 do
                 local grok_key = target:id() .. "_" .. id
                 pr("checking in %s", grok_key)
-                if grok_bo.custom_bone_dmg[grok_key] ~= nil then
+                if self.gbo.custom_bone_dmg[grok_key] ~= nil then
                     -- keep the lowest in case of multiples found
-                    pr("Found a key %s %s", grok_key, grok_bo.custom_bone_dmg[grok_key])
-                    if not found_key or (grok_bo.custom_bone_dmg[grok_key] < grok_bo.custom_bone_dmg[found_key]) then
+                    pr("Found a key %s %s", grok_key, self.gbo.custom_bone_dmg[grok_key])
+                    if not found_key or (self.gbo.custom_bone_dmg[grok_key] < self.gbo.custom_bone_dmg[found_key]) then
                         found_key = grok_key
                         bone_id = id
                     end
@@ -1682,8 +1686,8 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
 
         grok_key = target:id() .. "_" .. bone_id
         pr("Trying again with custom key %s", grok_key)
-        custom_bone_ap_scale = grok_bo.custom_bone_ap[grok_key]
-        custom_bone_dmg_mult = grok_bo.custom_bone_dmg[grok_key]
+        custom_bone_ap_scale = self.gbo.custom_bone_ap[grok_key]
+        custom_bone_dmg_mult = self.gbo.custom_bone_dmg[grok_key]
     end
 
     pr("-----------------------GROK DEFUCKULATOR v3.FUCKKKKt-------------------------")
@@ -1755,6 +1759,7 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
 
     -- we ignore barrel_condition_corrected, sin resistance, sniper_bad_bone_shit_reduce because fuck this
     local power = wpn_hit_power / ( 1 + dist / 200 * ( air_res * 0.5 / ( 1 - air_res + 0.1 ))) * k_hit * custom_bone_dmg_mult * custom_bone_ap_scale * 1.1 * self.difficulty_multiplier[game_num] * ammo_mult * silencer_boost
+    pr("------defuckulator power---------------------%s----------------------------------------", power)
 
     return power
 end
