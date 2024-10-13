@@ -1629,6 +1629,18 @@ end
 
 -- this absolutely sucks and i should have just monkey patched grok_bo. at least this wont break on most updates
 function lookup:grokDefuckulator(s_hit, target, bone_id)
+    if not bone_id then return end
+    if not s_hit then return end
+    if not target then return end
+    if not grok_bo then return end
+    if not grok_bo.custom_bone_ap then return end
+    if not grok_bo.custom_bone_dmg then return end
+
+    local shooter = s_hit.draftsman
+    local player = db.actor
+    if target:id() == player:id() then return end
+    if shooter:id() ~= player:id() then return end
+
     local grok_key = target:id() .. "_" .. bone_id
     local custom_bone_ap_scale = grok_bo.custom_bone_ap[grok_key]
     local custom_bone_dmg_mult = grok_bo.custom_bone_dmg[grok_key]
@@ -1755,9 +1767,9 @@ function death_log_callback(s_hit, target, bone_id)
     if not bone_id then return end
     if not s_hit then return end
     if not target then return end
-    local shooter = s_hit.draftsman
     local player = db.actor
     if target:id() == player:id() then return end
+
 
     if target and target.health <= 0 or not target:alive() then
         if not death_log[target:id()] then

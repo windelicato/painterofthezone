@@ -6,214 +6,213 @@ MCM
 <string_table>
 
 <string id="ui_mcm_menu_blood">
-<text>РћС‚РјРµС‚РєРё РєСЂРѕРІРё</text>
+<text>Blood wallmarks</text>
 </string>
 
-<!-- РћР±С‰РёРµ -->
+<!-- Общие -->
 
 <string id="ui_mcm_blood_general">
-<text>РћР±С‰РёРµ</text>
+<text>Общие</text>
 </string>
 
 <string id="ui_mcm_blood_general_title">
-<text>РћР±С‰РёРµ РЅР°СЃС‚СЂРѕР№РєРё</text>
+<text>Общие настройки</text>
 </string>
 
 <string id="ui_mcm_blood_general_enable_debug">
-<text>Р’РєР»СЋС‡РёС‚СЊ РѕС‚Р»Р°РґРєСѓ</text>
+<text>Включить дебаг</text>
 </string>
 
-<!--РћС‚РјРµС‚РєРё-->
+<!--Кровь на стенах-->
 <string id="ui_mcm_blood_wm">
-<text>РћС‚РјРµС‚РєРё СЃС‚РµРЅС‹</text>
+<text>Кровь на стене</text>
 </string>
 
 <string id="ui_mcm_blood_wm_title">
-<text>РќР°СЃС‚СЂРѕР№РєРё РѕС‚РјРµС‚РєРё СЃС‚РµРЅС‹</text>
+<text>Настройка крови на стенах</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_debug">
-<text>Р’РєР»СЋС‡РёС‚СЊ РѕС‚Р»Р°РґРєСѓ</text>
+<text>Включить дебаг</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_floor">
-<text>Р’РєР»СЋС‡РёС‚СЊ РєСЂРѕРІСЊ РЅР° РїРѕР»Сѓ РїСЂРё РїРѕРїР°РґР°РЅРёРё</text>
+<text>Включить попадание крови на пол при попадании</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_floor_desc">
-<text>Р­С‚Рѕ РЅРѕРІС‹Рµ РЅР°РєР»РµР№РєРё РІ РґРѕРїРѕР»РЅРµРЅРёРµ Рє СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рј РѕС‚РјРµС‚РєР°Рј СЃС‚РµРЅС‹ РєСЂРѕРІРё Р°РЅРѕРјР°Р»РёРё</text>
+<text>Это новые декали в дополнение к стандартным настенным знакам аномалии крови</text>
 </string>
 
 <string id="ui_mcm_blood_wm_size">
-<text>Р Р°Р·РјРµСЂ РѕС‚РјРµС‚РєРё СЃС‚РµРЅС‹ РїРѕР»Р°.</text>
+<text>Размер напольного настенного покрытия.</text>
 </string>
 
 <string id="ui_mcm_blood_wm_size_desc">
-<text>РњРЅРѕР¶РёС‚РµР»СЊ РґР»СЏ СЂР°Р·РјРµСЂР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, РµСЃР»Рё РІРєР»СЋС‡РµРЅ РїР°СЂР°РјРµС‚СЂ В«РЎРґРµР»Р°С‚СЊ РІСЃРµ РѕС‚РјРµС‚РєРё РЅР° РїРѕР»Сѓ РѕРґРёРЅР°РєРѕРІС‹РјРёВ».</text>
+<text>Взаимозаменяющий множитель для размера по умолчанию, если включена опция «Сделать все метки пола одинакового размера.</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_static_size">
-<text>РЎРґРµР»Р°С‚СЊ РІСЃРµ РѕС‚РјРµС‚РєРё РЅР° РїРѕР»Сѓ РѕРґРёРЅР°РєРѕРІС‹РјРё</text>
+<text>Сделать все отметки на полу одинакового размера</text>
 </string>
 
 <string id="ui_mcm_blood_wm_gravity">
-<text>Р’РѕСЃРїСЂРёРЅРёРјР°РµРјР°СЏ РїР»РѕС‚РЅРѕСЃС‚СЊ РєСЂРѕРІРё</text>
+<text>Воспринимаемая тяжесть крови</text>
 </string>
 
 <string id="ui_mcm_blood_wm_gravity_desc">
-<text>Р‘РѕР»РµРµ РІС‹СЃРѕРєР°СЏ РіСЂР°РІРёС‚Р°С†РёСЏ РѕРїСѓСЃС‚РёС‚ РѕС‚РјРµС‚РєСѓ РЅР° РїРѕР»Сѓ Р±Р»РёР¶Рµ Рє NPC. РќРёР¶Рµ Р±СѓРґРµС‚ РґР°Р»СЊС€Рµ РѕС‚ РІС‹С…РѕРґРЅРѕРіРѕ РѕС‚РІРµСЂСЃС‚РёСЏ</text>
+<text>При более высокой гравитации метка пола будет располагаться ближе к нпс. При более низкой - дальше от выходной раны.</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_avoid_wallmark">
-<text>РћС‚РѕР±СЂР°Р¶Р°С‚СЊ С‚РѕР»СЊРєРѕ РѕС‚РјРµС‚РєРё РїРѕР»Р°, РµСЃР»Рё РґРІРёР¶РѕРє РЅРµ СЃРѕР·РґР°Р» РѕС‚РјРµС‚РєСѓ СЃС‚РµРЅС‹</text>
+<text>Отображение плавучих знаков только в том случае, если движок не создал стеновой знак</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_normal">
-<text>РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РѕР±С‹С‡РЅС‹Рµ РѕС‚РјРµС‚РєРё СЃС‚РµРЅС‹ (Р»СѓС‡С€Рµ РІСЃРµРіРѕ СЃ СЂРµР°Р»РёСЃС‚РёС‡РЅРѕР№ РєСЂРѕРІСЊСЋ)</text>
+<text>Использовать обычные настенные знаки (лучше всего с Realistic Blood).</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_drip">
-<text>РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РѕС‚РјРµС‚РєРё СЃС‚РµРЅС‹ РєР°РїРµР»СЊ (Р»СѓС‡С€Рµ РІСЃРµРіРѕ Р±РµР· СЃС‚Р°С‚РёС‡РµСЃРєРѕРіРѕ СЂР°Р·РјРµСЂР°)</text>
+<text>Использовать каплевидные настенные знаки (лучше всего без статического размера).</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_splash">
-<text>РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РѕС‚РјРµС‚РєРё СЃС‚РµРЅС‹ Р±СЂС‹Р·Рі (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ)</text>
+<text>Использовать заставки (по умолчанию)</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_pool">
-<text>Р’РєР»СЋС‡РёС‚СЊ Р±Р°СЃСЃРµР№РЅ РЅР° РїРѕР»Сѓ РїСЂРё СЃРјРµСЂС‚Рё</text>
+<text>Включить лужу крови на полу при смерти</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_pool_desc">
-<text>Р—Р°РјРµРЅСЏРµС‚ РјРµС‚РєСѓ РїРѕР»Р° РїСЂРё РїРѕРїР°РґР°РЅРёРё, РµСЃР»Рё РІРєР»СЋС‡РµРЅРѕ</text>
+<text>Заменяет флормарк при смерти, если он включен</text>
 </string>
 
 <string id="ui_mcm_blood_wm_size_pool">
-<text>Р Р°Р·РјРµСЂ РїСѓР»Р° РїРѕР»Р°</text>
+<text>Размер лужи крови</text>
 </string>
 
 <string id="ui_mcm_blood_wm_lifetime">
-<text>Р’СЂРµРјСЏ Р¶РёР·РЅРё РјРµС‚РєРё СЃС‚РµРЅС‹ (СЃРµРєСѓРЅРґС‹)</text>
+<text>Время жизни Wallmark (секунды)</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_particles">
-<text>Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ СЌС„С„РµРєС‚ С‡Р°СЃС‚РёС† РїСЂРё РїРѕРїР°РґР°РЅРёРё</text>
+<text>Воспроизведение дополнительного эффекта частиц при попадании</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_custom_particles">
-<text>РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС„С„РµРєС‚С‹ С‡Р°СЃС‚РёС† СЌС‚РѕРіРѕ РјРѕРґР°</text>
+<text>Использовать эффекты частиц этого мода</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_custom_particles_desc">
-<text>РћС‚РєР»СЋС‡РёС‚Рµ, РµСЃР»Рё РІС‹ РїСЂРµРґРїРѕС‡РёС‚Р°РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС„С„РµРєС‚С‹ С‡Р°СЃС‚РёС†, РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµРјС‹Рµ HFX РёР»Рё CVFX</text>
+<text>Отключите, если вы предпочитаете использовать эффекты частиц, предоставляемые HFX или CVFX.</text>
 </string>
 
 <string id="ui_mcm_blood_wm_particle_buffer_max_size">
-<text>РљРѕР»РёС‡РµСЃС‚РІРѕ Р°РЅРёРјР°С†РёР№ С‡Р°СЃС‚РёС†, СЂР°Р·СЂРµС€РµРЅРЅС‹С… РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ</text>
+<text>Количество анимаций частиц, разрешенных одновременно</text>
 </string>
 
-<!--Particles-->
+<!--Частицы крови-->
 
 <string id="ui_mcm_blood_particles">
-<text>Р§Р°СЃС‚РёС†С‹</text>
+<text>Частицы крови</text>
 </string>
 
 <string id="ui_mcm_blood_particles_title">
-<text>РќР°СЃС‚СЂРѕР№РєРё С‡Р°СЃС‚РёС†</text>
+<text>Настройка частиц крови</text>
 </string>
 
 <string id="ui_mcm_blood_particles_enable">
-<text>Р’РєР»СЋС‡РёС‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СЌС„С„РµРєС‚С‹ С‡Р°СЃС‚РёС†</text>
+<text>Включите дополнительные частицы VFX</text>
 </string>
 
-<string id="ui_mcm_blood_particles_enable_debug">
-<text>Р’РєР»СЋС‡РёС‚СЊ РѕС‚Р»Р°РґРєСѓ</text>
+<string id="ui_mcm_blood_particles_enable_debug"><text>Включить дебаг</text>
 </string>
 
 <string id="ui_mcm_blood_particles_debug_distance">
-<text>РќР° РєР°РєРѕРј СЂР°СЃСЃС‚РѕСЏРЅРёРё СЂРёСЃРѕРІР°С‚СЊ С‡Р°СЃС‚РёС†С‹ РѕС‚Р»Р°РґРєРё</text>
+<text>На каком расстоянии рисовать отладочные частицы</text>
 </string>
 
 <string id="ui_mcm_blood_particles_use_cvfx">
-<text>РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С‡Р°СЃС‚РёС†С‹ CVFX РІРјРµСЃС‚Рѕ СЌС‚РёС… РјРѕРґРѕРІ</text>
+<text>Использовать частицы крови CVFX вместо этого мода</text>
 </string>
 
 <string id="ui_mcm_blood_particles_buffer_max_size">
-<text>РљРѕР»РёС‡РµСЃС‚РІРѕ Р°РЅРёРјР°С†РёР№ С‡Р°СЃС‚РёС†, СЂР°Р·СЂРµС€РµРЅРЅС‹С… РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ</text>
+<text>Количество анимаций частиц, разрешенных одновременно</text>
 </string>
 
 <string id="ui_mcm_blood_particles_fingers_ttl">
-<text>РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ РІРѕР·СЂР°СЃС‚ С‡Р°СЃС‚РёС† РґРѕ РїРµСЂРµР·Р°РїРёСЃРё (РјСЃ)</text>
+<text>Максимальный срок хранения частиц до перезаписи (мс)</text>
 </string>
 
 <string id="ui_mcm_blood_particles_fingers_limit">
-<text>РћРіСЂР°РЅРёС‡РµРЅРёРµ РѕРґРЅРѕР№ С‡Р°СЃС‚РёС†РµР№ РїР°Р»СЊС†Р° Р·Р° СЂР°Р·. РСЃРїРѕР»СЊР·СѓР№С‚Рµ ttl РґР»СЏ РЅР°СЃС‚СЂРѕР№РєРё С‡Р°СЃС‚РѕС‚С‹ РїРµСЂРµСЂРёСЃРѕРІРєРё РїР°Р»СЊС†Р°</text>
+<text>Ограничьтесь одной частицей пальца за раз. Используйте ttl, чтобы настроить частоту перерисовки пальца</text>
 </string>
 
 <string id="ui_mcm_blood_particles_hit_enable">
-<text>Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅСѓСЋ С‡Р°СЃС‚РёС†Сѓ РїСЂРё РїРѕРїР°РґР°РЅРёРё</text>
+<text>Воспроизведение дополнительной частицы при попадании</text>
 </string>
 
 <string id="ui_mcm_blood_particles_hit_exclusive">
-<text>РќРµ РІРѕСЃРїСЂРѕРёР·РІРѕРґРёС‚СЊ СЌС‚Сѓ С‡Р°СЃС‚РёС†Сѓ РїСЂРё РІС‹СЃС‚СЂРµР»Рµ РІ РіРѕР»РѕРІСѓ РёР»Рё СЂР°СЃС‡Р»РµРЅРµРЅРёРё</text>
+<text>Не играйте с этой частицей на Headshot или Dismemberment</text>
 </string>
 
 <string id="ui_mcm_blood_particles_headshot_enable">
-<text>Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅСѓСЋ С‡Р°СЃС‚РёС†Сѓ РїСЂРё РІС‹СЃС‚СЂРµР»Рµ РІ РіРѕР»РѕРІСѓ</text>
+<text>Воспроизведение дополнительных частиц при выстреле в голову</text>
 </string>
 
 <string id="ui_mcm_blood_particles_headshot_exclusive">
-<text>РќРµ РІРѕСЃРїСЂРѕРёР·РІРѕРґРёС‚СЊ СЌС‚Сѓ С‡Р°СЃС‚РёС†Сѓ РїСЂРё СЂР°СЃС‡Р»РµРЅРµРЅРёРё</text>
+<text>Не играйте с этой частицей c Dismemberment</text>
 </string>
 
 <string id="ui_mcm_blood_particles_dismemberment_enable">
-<text>Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё С„Р°Р»СЊС€РёРІСѓСЋ С‡Р°СЃС‚РёС†Сѓ СЂР°СЃС‡Р»РµРЅРµРЅРёСЏ РїСЂРё РІС‹СЃС‚СЂРµР»Рµ РІ РіРѕР»РѕРІСѓ</text>
+<text>Воспроизведение частиц расчленения при выстреле в голову</text>
 </string>
 
 <string id="ui_mcm_blood_particles_fingers_enable">
-<text>Р’РѕСЃРїСЂРѕРёР·РІРµСЃС‚Рё С‡Р°СЃС‚РёС†Сѓ РѕС‚СЃС‚Р°СЋС‰РµРіРѕ РїР°Р»СЊС†Р° РїСЂРё СѓРґР°СЂРµ</text>
+<text>Воспроизведение частицы пальца при ударе</text>
 </string>
 
 <string id="ui_mcm_blood_particles_fingers_option">
-<text>РќР°РїСЂР°РІР»РµРЅРёРµ РїР°Р»СЊС†Р°: РІРІРµСЂС…, РЅР°СЂСѓР¶Сѓ РёР»Рё РЅР°СЂСѓР¶Сѓ Рё РІРІРµСЂС…</text>
+<text>Направление пальцев: вверх, наружу или наружу и вверх</text>
 </string>
 
-<!--Р Р°СЃС‡Р»РµРЅРµРЅРёРµ-->
+<!--Расчленения-->
 
 <string id="ui_mcm_blood_dismemberment">
-<text>Р Р°СЃС‡Р»РµРЅРµРЅРёРµ</text>
+<text>Расчленения</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_title">
-<text>РќР°СЃС‚СЂРѕР№РєРё СЂР°СЃС‡Р»РµРЅРµРЅРёСЏ</text>
+<text>Настройки расчленения</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_enable">
-<text>Р’РєР»СЋС‡РёС‚СЊ СЂР°СЃС‡Р»РµРЅРµРЅРёРµ</text>
+<text>Включить расчленение</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_enable_debug">
-<text>Р’РєР»СЋС‡РёС‚СЊ РѕС‚Р»Р°РґРєСѓ</text>
+<text>Включить дебаг</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_enable_stalker">
-<text>Р’РєР»СЋС‡РёС‚СЊ РґР»СЏ СЃС‚Р°Р»РєРµСЂРѕРІ</text>
+<text>Включить расчленение для сталкеров</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_threshold_stalker">
-<text>РџРѕСЂРѕРі РїРѕРїР°РґР°РЅРёСЏ РґР»СЏ СЂР°СЃС‡Р»РµРЅРµРЅРёСЏ СЃС‚Р°Р»РєРµСЂР°</text>
+<text>Порог расчленения сталкера</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_enable_mutant">
-<text>Р’РєР»СЋС‡РёС‚СЊ РґР»СЏ РјСѓС‚Р°РЅС‚РѕРІ</text>
+<text>Включить расчленение для мутантов</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_threshold_mutant">
-<text>РџРѕСЂРѕРі РїРѕРїР°РґР°РЅРёСЏ РґР»СЏ СЂР°СЃС‡Р»РµРЅРµРЅРёСЏ РјСѓС‚Р°РЅС‚Р°</text>
+<text>Пороговое значение для расчленения мутантов</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_enable_head">
-<text>Р’РєР»СЋС‡РёС‚СЊ С‚РѕР»СЊРєРѕ РґР»СЏ РіРѕР»РѕРІ</text>
+<text>Включить только для головы</text>
 </string>
 
 <!--Bullet Time-->
@@ -223,63 +222,63 @@ MCM
 </string>
 
 <string id="ui_mcm_blood_bullettime_title">
-<text>РќР°СЃС‚СЂРѕР№РєРё Bullet Time</text>
+<text>Настройки Bullet Time</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable">
-<text>Р’РєР»СЋС‡РёС‚СЊ Bullet Time РїСЂРё РІС‹СЃС‚СЂРµР»Рµ РІ РіРѕР»РѕРІСѓ</text>
+<text>Включить Bullet Time при выстреле в голову</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_debug">
-<text>Р’РєР»СЋС‡РёС‚СЊ РѕС‚Р»Р°РґРєСѓ</text>
+<text>Включить дебаг</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_time_speed">
-<text>Р’СЂРµРјРµРЅРЅР°СЏ С€РєР°Р»Р° РІСЂРµРјРµРЅРё РїСѓР»Рё</text>
+<text>Временная шкала Bullet Time</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_length">
-<text>РљР°Рє РґРѕР»РіРѕ РґР»РёС‚СЃСЏ РІСЂРµРјСЏ РїСѓР»Рё</text>
+<text>Как долго длится Bullet Time</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_sounds">
-<text>Р’РєР»СЋС‡РёС‚СЊ Р·РІСѓРєРё РІРѕ РІСЂРµРјСЏ РІСЂРµРјРµРЅРё РїСѓР»Рё Р°РєС‚РёРІРёСЂРѕРІР°С‚СЊ Рё РґРµР°РєС‚РёРІРёСЂРѕРІР°С‚СЊ</text>
+<text>Включение и выключение звуков во время Bullet Time</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_dodge">
-<text>РЈСЃРєРѕСЂРёС‚СЊ РґРІРёР¶РµРЅРёРµ РёРіСЂРѕРєР° РІРѕ РІСЂРµРјСЏ РІСЂРµРјРµРЅРё РїСѓР»Рё, С‡С‚РѕР±С‹ РєРѕРјРїРµРЅСЃРёСЂРѕРІР°С‚СЊ Р·Р°РјРµРґР»РµРЅРёРµ</text>
+<text>Ускорьте движение игрока во время Bullet Time, чтобы учесть замедление</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_drain">
-<text>Р’РєР»СЋС‡РёС‚СЊ РёСЃС‚РѕС‰РµРЅРёРµ РІС‹РЅРѕСЃР»РёРІРѕСЃС‚Рё РІРѕ РІСЂРµРјСЏ РїСѓР»Рё</text>
+<text>Включите трату выносливости во время Bullet Time</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_drain_rate_coef">
-<text>РЎРєРѕР»СЊРєРѕ РІС‹РЅРѕСЃР»РёРІРѕСЃС‚Рё С‚СЂР°С‚РёС‚СЃСЏ РІРѕ РІСЂРµРјСЏ РїСѓР»Рё</text>
+<text>Сколько выносливости расходуется во время Bullet Time</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_trigger_chance">
-<text>РЁР°РЅСЃ Р°РєС‚РёРІРёСЂРѕРІР°С‚СЊ РїСѓР»СЋ РїСЂРё СѓР±РёР№СЃС‚РІРµ РІС‹СЃС‚СЂРµР»РѕРј РІ РіРѕР»РѕРІСѓ</text>
+<text>Шанс включить Bullet Time при убийстве выстрелом в голову</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_screenfx">
-<text>Р’РєР»СЋС‡РёС‚СЊ СЌРєСЂР°РЅРЅС‹Рµ СЌС„С„РµРєС‚С‹ РІРѕ РІСЂРµРјСЏ РїСѓР»Рё</text>
+<text>Включить экранные эффекты во время Bullet Time</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_screenfx_gravi">
-<text>Р”РѕР±Р°РІРёС‚СЊ СЌС„С„РµРєС‚ РіСЂР°РІРёС‚Р°С†РёРѕРЅРЅРѕРіРѕ СЌРєСЂР°РЅР°</text>
+<text>Добавить эффект гравитационного экрана</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_screenfx_brighten">
-<text>Р”РѕР±Р°РІРёС‚СЊ СЌС„С„РµРєС‚ СЏСЂРєРѕСЃС‚Рё СЌРєСЂР°РЅР°</text>
+<text>Добавить эффект яркости экрана</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_screenfx_contrast">
-<text>Р”РѕР±Р°РІРёС‚СЊ РєРѕРЅС‚СЂР°СЃС‚РЅРѕСЃС‚СЊ Рє СЌС„С„РµРєС‚Сѓ СЌРєСЂР°РЅР°</text>
+<text>Добавить контрастность к эффекту экрана</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_screenfx_psychic">
-<text>Р”РѕР±Р°РІРёС‚СЊ СЌС„С„РµРєС‚ РїСЃРёС…РёС‡РµСЃРєРѕРіРѕ СЌРєСЂР°РЅР°</text>
+<text>Добавить эффект экстрасенсорного экрана</text>
 </string>
 
 </string_table>
