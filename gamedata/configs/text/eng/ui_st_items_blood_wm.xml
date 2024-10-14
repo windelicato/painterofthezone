@@ -36,6 +36,10 @@
 		<text>Enable debug</text>
 	</string>
 
+	<string id="ui_mcm_blood_wm_delay">
+		<text>How long to wait before drawing new wallmark</text>
+	</string>
+
 	<string id="ui_mcm_blood_wm_enable_floor">
 		<text>Enable blood on floor on hit</text>
 	</string>

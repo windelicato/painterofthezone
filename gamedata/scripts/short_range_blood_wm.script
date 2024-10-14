@@ -24,6 +24,10 @@ local geometry_ray = demonized_geometry_ray.geometry_ray
 local engine_wallmark_range = 5
 
 local lookup = short_range_blood_lookup.lookup()
+
+local update_trigger = 0
+local update_delay = lookup:setting("wm/delay")*1000
+
 -- debug stuff
 local debug_particle_buffer = {}
 local debug_particle_buffer_two = {}
@@ -199,13 +203,24 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
     local player = db.actor
     if target:id() == player:id() then return end
     if shooter:id() ~= player:id() then return end
+	update_delay = lookup:setting("wm/delay")*1000
 
-	if lookup:setting("wm/enable_floor") then
-		draw_floor_wm(s_hit, target, bone_id)
+	tg = time_global()
+	
+	if update_trigger == 0 then
+       	grok_delay = tg + update_delay
+		update_trigger = 1
 	end
+	if (update_trigger == 1 and tg > grok_delay) then
+		update_trigger = 0
 
-	if lookup:setting("wm/enable_pool") then
-		draw_pool_wm(s_hit, target, bone_id)
+		if lookup:setting("wm/enable_floor") then
+			draw_floor_wm(s_hit, target, bone_id)
+		end
+
+		if lookup:setting("wm/enable_pool") then
+			draw_pool_wm(s_hit, target, bone_id)
+		end
 	end
 end
 

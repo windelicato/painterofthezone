@@ -18,6 +18,7 @@ op = {
 		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_wm_title",size= {512,50},spacing= 20 },
 
 		    	{id = "enable_debug", type = "check", val = 1, def = false},
+		    	{id = "delay", type = "track", val = 2, min=0,max=5,step=0.1, def = 1},
 		    	{id = "enable_floor", type = "check", val = 1, def = true},
 		    	{id = "enable_static_size", type = "check", val = 1, def = true},
 		    	{id = "size", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7},
