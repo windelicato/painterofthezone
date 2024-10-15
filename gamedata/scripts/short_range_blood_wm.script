@@ -135,6 +135,80 @@ function draw_floor_wm(s_hit, target, bone_id)
 		end
 	end
 
+	-- wm to draw
+	local wm_styles = {
+		default = {
+			normal = {
+				name = "new_wm_default_blood_normal_",
+				count = 10
+			},
+			drip = {
+				name = "new_wm_default_blood_drip_",
+				count = 2
+			},
+			splash = {
+				name = "new_wm_default_blood_splash_",
+				count = 5
+			}
+		},
+		bbd = {
+			normal = {
+				name = "new_wm_bbd_blood_normal_",
+				count = 10
+			},
+			drip = {
+				name = "new_wm_bbd_blood_drip_",
+				count = 2
+			},
+			splash = {
+				name = "new_wm_bbd_blood_splash_",
+				count = 5
+			}
+		},
+		unreal = {
+			normal = {
+				name = "new_wm_unreal_blood_normal_",
+				count = 9
+			},
+			drip = {
+				name = "new_wm_unreal_blood_drip_",
+				count = 2
+			},
+			splash = {
+				name = "new_wm_unreal_blood_splash_",
+				count = 5
+			}
+		}
+	}
+	local wms_enabled = {}
+	local wms_total = 0
+
+	local wm_style = wm_styles.default
+	if tonumber(lookup:setting("wm/style")) == 2 then wm_style = wm_styles.bbd end
+	if tonumber(lookup:setting("wm/style")) == 3 then wm_style = wm_styles.unreal end
+
+	if lookup:setting("wm/enable_normal") then
+		for i=1, wm_style.normal.count do
+			table.insert(wms_enabled, wm_style.normal.name..i)
+		end
+		wms_total=wms_total + wm_style.normal.count
+	end
+
+	if lookup:setting("wm/enable_drip") then
+		for i=1, wm_style.drip.count do
+			table.insert(wms_enabled, wm_style.drip.name..i)
+		end
+		wms_total=wms_total + wm_style.drip.count
+	end
+
+	if lookup:setting("wm/enable_splash") then
+		for i=1, wm_style.splash.count do
+			table.insert(wms_enabled, wm_style.splash.name..i)
+		end
+		wms_total=wms_total + wm_style.splash.count
+	end
+	local picked_wm = wms_enabled[math.random(1,wms_total)]
+
 	-- check for engine wallmark
 	if lookup:setting("wm/enable_avoid_wallmark") then
 		local ray = geometry_ray({
@@ -148,46 +222,6 @@ function draw_floor_wm(s_hit, target, bone_id)
 			return
 		end
 	end
-
-	-- wm to draw
-	local wms = {
-		normal = {
-			name = "new_wm_blood_normal_",
-			count = 10
-		},
-		drip = {
-			name = "new_wm_blood_drip_",
-			count = 2
-		},
-		splash = {
-			name = "new_wm_blood_splash_",
-			count = 5
-		},
-		enabled = {},
-		total = 0
-	}
-
-	if lookup:setting("wm/enable_normal") then
-		for i=1, wms.normal.count do
-			table.insert(wms.enabled, wms.normal.name..i)
-		end
-		wms.total=wms.total+wms.normal.count
-	end
-
-	if lookup:setting("wm/enable_drip") then
-		for i=1, wms.drip.count do
-			table.insert(wms.enabled, wms.drip.name..i)
-		end
-		wms.total=wms.total+wms.drip.count
-	end
-
-	if lookup:setting("wm/enable_splash") then
-		for i=1, wms.splash.count do
-			table.insert(wms.enabled, wms.splash.name..i)
-		end
-		wms.total=wms.total+wms.splash.count
-	end
-	local picked_wm = wms.enabled[math.random(1,wms.total)]
 
 	pr("bone_hit: %s", bone_name)
 	pr("- draw our wm || size: %s || sec: %s", wm_size, picked_wm)

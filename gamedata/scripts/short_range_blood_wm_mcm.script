@@ -24,6 +24,10 @@ op = {
 		    	{id = "size", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7},
 		    	{id = "lifetime", type = "track", val = 2, min=100,max=1200,step=50, def = 600},
 		    	{id = "gravity", type = "track", val = 2, min=0.1 ,max=9,step=0.1, def = 5},
+
+		    	{id = "line", type = "line"},
+
+		    	{id = "style", type = "track", val = 2, min=1,max=3,step=1, def = 1},
 		    	{id = "enable_avoid_wallmark", type = "check", val = 1, def = true},
 		    	{id = "enable_normal", type = "check", val = 1, def = false},
 		    	{id = "enable_drip", type = "check", val = 1, def = false},

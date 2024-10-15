@@ -72,6 +72,10 @@
 		<text>Only display floormarks when no wallmark created by engine</text>
 	</string>
 
+	<string id="ui_mcm_blood_wm_style">
+		<text>1 - Default Anomaly, 2 - Upscaled Better Blood Decals, 3 - Unreal engine</text>
+	</string>
+
 	<string id="ui_mcm_blood_wm_enable_normal">
 		<text>Use normal wallmarks (best with Realistic Blood)</text>
 	</string>
