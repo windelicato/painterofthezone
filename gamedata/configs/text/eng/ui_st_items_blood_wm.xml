@@ -6,7 +6,7 @@
 <string_table>
 
 	<string id="ui_mcm_menu_blood">
-		<text>Blood wallmarks</text>
+		<text>Painter of the Zone</text>
 	</string>
 
     <!-- General -->
@@ -16,7 +16,7 @@
 	</string>
 
 	<string id="ui_mcm_blood_general_title">
-		<text>General Settings</text>
+		<text>General</text>
 	</string>
 
 	<string id="ui_mcm_blood_general_enable_debug">
@@ -28,8 +28,16 @@
 		<text>Wallmarks</text>
 	</string>
 
-	<string id="ui_mcm_blood_wm_title">
-		<text>Wallmark Settings</text>
+	<string id="ui_mcm_blood_wm_static_title">
+		<text>Extra Wallmarks</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_pool_title">
+		<text>Blood Pools</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_advanced_title">
+		<text>Advanced</text>
 	</string>
 
 	<string id="ui_mcm_blood_wm_enable_debug">
@@ -72,20 +80,16 @@
 		<text>Only display floormarks when no wallmark created by engine</text>
 	</string>
 
-	<string id="ui_mcm_blood_wm_style">
-		<text>1 - Default Anomaly, 2 - Upscaled Better Blood Decals, 3 - Unreal engine</text>
-	</string>
-
 	<string id="ui_mcm_blood_wm_enable_normal">
-		<text>Use normal wallmarks (best with Realistic Blood)</text>
+		<text>Use normal wallmarks</text>
 	</string>
 
 	<string id="ui_mcm_blood_wm_enable_drip">
-		<text>Use drip wallmarks (best without static size)</text>
+		<text>Use drip wallmarks</text>
 	</string>
 
 	<string id="ui_mcm_blood_wm_enable_splash">
-		<text>Use splash wallmarks (default)</text>
+		<text>Use splash wallmarks</text>
 	</string>
 
 	<string id="ui_mcm_blood_wm_enable_pool">
@@ -104,21 +108,6 @@
 		<text>Wallmark lifetime (seconds)</text>
 	</string>
 
-	<string id="ui_mcm_blood_wm_enable_particles">
-		<text>Play an extra particle effect on hit</text>
-	</string>
-
-	<string id="ui_mcm_blood_wm_enable_custom_particles">
-		<text>Use this mod's particle effects</text>
-	</string>
-
-	<string id="ui_mcm_blood_wm_enable_custom_particles_desc">
-		<text>Disable if you'd rather use particle effects provided by HFX or CVFX</text>
-	</string>
-
-	<string id="ui_mcm_blood_wm_particle_buffer_max_size">
-		<text>Number of particle animations to allow at once</text>
-	</string>
 	
 
 	<!--Particles-->
@@ -128,11 +117,19 @@
 	</string>
 
 	<string id="ui_mcm_blood_particles_title">
-		<text>Particle Settings</text>
+		<text>Particles</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_options_title">
+		<text>Display Options</text>
+	</string>
+
+	<string id="ui_mcm_blood_particles_advanced_title">
+		<text>Advanced</text>
 	</string>
 
 	<string id="ui_mcm_blood_particles_enable">
-		<text>Enable additional particle VFX</text>
+		<text>Enable particle effects</text>
 	</string>
 
 	<string id="ui_mcm_blood_particles_enable_debug">
@@ -143,24 +140,24 @@
 		<text>How far to draw debug particles</text>
 	</string>
 
-	<string id="ui_mcm_blood_particles_use_cvfx">
-		<text>Use CVFX particles instead of this mods</text>
+	<string id="ui_mcm_blood_particles_enable_armor_feedback">
+		<text>Change particle based on armor type (glass, exo, heavy armor)</text>
 	</string>
 
 	<string id="ui_mcm_blood_particles_buffer_max_size">
 		<text>Number of particle animations to allow at once</text>
 	</string>
 
-	<string id="ui_mcm_blood_particles_fingers_ttl">
-		<text>Max age of particles before overwriting (ms)</text>
+	<string id="ui_mcm_blood_particles_limit">
+		<text>Play only one of each particle at a time</text>
 	</string>
 
-	<string id="ui_mcm_blood_particles_fingers_limit">
-		<text>Limit to one finger particle at a time. Use ttl to tune how often the finger is redrawn</text>
+	<string id="ui_mcm_blood_particles_ttl">
+		<text>How long to let particle finish before replacing with a new one</text>
 	</string>
 
 	<string id="ui_mcm_blood_particles_hit_enable">
-		<text>Play additional particle on hit</text>
+		<text>Play particle on hit</text>
 	</string>
 
 	<string id="ui_mcm_blood_particles_hit_exclusive">
@@ -168,7 +165,7 @@
 	</string>
 
 	<string id="ui_mcm_blood_particles_headshot_enable">
-		<text>Play additional particle on headshot</text>
+		<text>Play particle on headshot</text>
 	</string>
 
 	<string id="ui_mcm_blood_particles_headshot_exclusive">
@@ -180,7 +177,7 @@
 	</string>
 
 	<string id="ui_mcm_blood_particles_fingers_enable">
-		<text>Play trailing finger particle on hit</text>
+		<text>Play blood smoke finger particles on hit</text>
 	</string>
 
 	<string id="ui_mcm_blood_particles_fingers_option">
@@ -195,7 +192,15 @@
 	</string>
 
 	<string id="ui_mcm_blood_dismemberment_title">
-		<text>Dismemberment Settings</text>
+		<text>Dismemberment</text>
+	</string>
+
+	<string id="ui_mcm_blood_dismemberment_enable_head">
+		<text>Only dismember heads</text>
+	</string>
+
+	<string id="ui_mcm_blood_dismemberment_enable_bone_removal">
+		<text>Allow limb removal. Disable to place a big blood wallmark over the limb instead</text>
 	</string>
 
 	<string id="ui_mcm_blood_dismemberment_enable">
@@ -205,7 +210,6 @@
 	<string id="ui_mcm_blood_dismemberment_enable_debug">
 		<text>Enable debug</text>
 	</string>
-
 
 	<string id="ui_mcm_blood_dismemberment_enable_stalker">
 		<text>Enable for stalkers</text>
@@ -223,10 +227,6 @@
 		<text>Hit threshold for mutant dismemberment</text>
 	</string>
 
-	<string id="ui_mcm_blood_dismemberment_enable_head">
-		<text>Enable for heads only</text>
-	</string>
-
 
 
     <!--Bullet Time-->
@@ -236,7 +236,15 @@
 	</string>
 
 	<string id="ui_mcm_blood_bullettime_title">
-		<text>Bullet Time Settings</text>
+		<text>Bullet Time</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_effects_title">
+		<text>Screen Effects and Sounds</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_advanced_title">
+		<text>Advanced</text>
 	</string>
 
 
@@ -249,7 +257,7 @@
 	</string>
 
 	<string id="ui_mcm_blood_bullettime_time_speed">
-		<text>Time scale of bullet time</text>
+		<text>Time scale of bullet time. Lower is slower</text>
 	</string>
 
 	<string id="ui_mcm_blood_bullettime_length">
@@ -258,18 +266,6 @@
 
 	<string id="ui_mcm_blood_bullettime_enable_sounds">
 		<text>Enable sounds during bullet time activate and deactivate</text>
-	</string>
-
-	<string id="ui_mcm_blood_bullettime_enable_dodge">
-		<text>Speed up player movement during bullet time to account for slowing</text>
-	</string>
-
-	<string id="ui_mcm_blood_bullettime_enable_drain">
-		<text>Enable stamina drain during bullet time</text>
-	</string>
-
-	<string id="ui_mcm_blood_bullettime_drain_rate_coef">
-		<text>How much stamina is drained during bullet time</text>
 	</string>
 
 	<string id="ui_mcm_blood_bullettime_trigger_chance">
@@ -294,6 +290,91 @@
 
 	<string id="ui_mcm_blood_bullettime_enable_screenfx_psychic">
 		<text>Add psychic screen effect</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_smooth_start">
+		<text>Start of time shift happens gradually instead of instantly</text>
+	</string>
+	<string id="ui_mcm_blood_bullettime_smooth_end">
+		<text>End of time shift happens gradually instead of instantly</text>
+	</string>
+
+	<string id="ui_mcm_blood_bullettime_smooth_start_factor">
+		<text>Start of time shift smoothing factor</text>
+	</string>
+	<string id="ui_mcm_blood_bullettime_smooth_end_factor">
+		<text>End of time shift smoothing factor</text>
+	</string>
+
+
+	<string id="ui_mcm_blood_killcam">
+		<text>Kill Cam</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_title">
+		<text>Kill Cam</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_triggers_title">
+		<text>Trigger Options</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_advanced_title">
+		<text>Advanced</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_enable">
+		<text>Enable Fallout-style killcam</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_time_speed">
+		<text>Time scale of killcam. Lower is slower</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_length">
+		<text>How long killcam lasts</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_distance">
+		<text>Camera distance from target</text>
+	</string>
+
+
+	<string id="ui_mcm_blood_killcam_gamify">
+		<text>Trigger killcam after this many bullettime kills</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_trigger_range_desc">
+		<text>Requires you to land a few kills before triggering killcam</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_trigger_range">
+		<text>Trigger killcam only when target is this distance away</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_trigger_range_desc">
+		<text>Camera position does not show the player so looks awkward close up</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_safemode_distance">
+		<text>Trigger killcam only when no other enemies are this distance away</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_smooth_start">
+		<text>Start of killcam time shift happens gradually instead of instantly</text>
+	</string>
+	<string id="ui_mcm_blood_killcam_smooth_end">
+		<text>End of killcam time shift happens gradually instead of instantly</text>
+	</string>
+
+	<string id="ui_mcm_blood_killcam_smooth_start_factor">
+		<text>Start of killcam time shift smoothing factor</text>
+	</string>
+	<string id="ui_mcm_blood_killcam_smooth_end_factor">
+		<text>End of killcam time shift smoothing factor</text>
+	</string>
+	<string id="ui_mcm_blood_killcam_enable_debug">
+		<text>Enable Debug</text>
 	</string>
 
 

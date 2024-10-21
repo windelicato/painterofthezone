@@ -6,7 +6,7 @@ MCM
 <string_table>
 
 <string id="ui_mcm_menu_blood">
-<text>Blood wallmarks</text>
+<text>Художник зоны</text>
 </string>
 
 <!-- Общие -->
@@ -16,175 +16,188 @@ MCM
 </string>
 
 <string id="ui_mcm_blood_general_title">
-<text>Общие настройки</text>
+<text>Общие</text>
 </string>
 
 <string id="ui_mcm_blood_general_enable_debug">
-<text>Включить дебаг</text>
+<text>Включить отладку</text>
 </string>
 
-<!--Кровь на стенах-->
+<!--Wallmarks-->
 <string id="ui_mcm_blood_wm">
-<text>Кровь на стене</text>
+<text>Wallmarks</text>
 </string>
 
-<string id="ui_mcm_blood_wm_title">
-<text>Настройка крови на стенах</text>
+<string id="ui_mcm_blood_wm_static_title">
+<text>Дополнительные настенные отметки</text>
+</string>
+
+<string id="ui_mcm_blood_wm_pool_title">
+<text>Кровяные пулы</text>
+</string>
+
+<string id="ui_mcm_blood_wm_advanced_title">
+<text>Дополнительно</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_debug">
-<text>Включить дебаг</text>
+<text>Включить отладку</text>
+</string>
+
+<string id="ui_mcm_blood_wm_delay">
+<text>Сколько ждать перед нанесением новой настенной отметки</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_floor">
-<text>Включить попадание крови на пол при попадании</text>
+<text>Включить кровь на пол при ударе</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_floor_desc">
-<text>Это новые декали в дополнение к стандартным настенным знакам аномалии крови</text>
+<text>Это новые наклейки в дополнение к стандартным аномальным отметкам на стене</text>
 </string>
 
 <string id="ui_mcm_blood_wm_size">
-<text>Размер напольного настенного покрытия.</text>
+<text>Размер отметки на стене.</text>
 </string>
 
 <string id="ui_mcm_blood_wm_size_desc">
-<text>Взаимозаменяющий множитель для размера по умолчанию, если включена опция «Сделать все метки пола одинакового размера.</text>
+<text>Множитель для размера по умолчанию, если включен параметр «Сделать все отметки на полу одинаковыми».</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_static_size">
-<text>Сделать все отметки на полу одинакового размера</text>
+<text>Сделать все отметки на полу одинаковыми</text>
 </string>
 
 <string id="ui_mcm_blood_wm_gravity">
-<text>Воспринимаемая тяжесть крови</text>
+<text>Воспринимаемая гравитация крови</text>
 </string>
 
 <string id="ui_mcm_blood_wm_gravity_desc">
-<text>При более высокой гравитации метка пола будет располагаться ближе к нпс. При более низкой - дальше от выходной раны.</text>
+<text>Более высокая гравитация опустит отметку пола ближе к NPC. Ниже будет дальше от выходного отверстия</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_avoid_wallmark">
-<text>Отображение плавучих знаков только в том случае, если движок не создал стеновой знак</text>
+<text>Отображать только отметки пола, если движок не создал отметку стены</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_normal">
-<text>Использовать обычные настенные знаки (лучше всего с Realistic Blood).</text>
+<text>Использовать обычные отметки стены</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_drip">
-<text>Использовать каплевидные настенные знаки (лучше всего без статического размера).</text>
+<text>Использовать отметки стены капель</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_splash">
-<text>Использовать заставки (по умолчанию)</text>
+<text>Использовать отметки стены брызг</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_pool">
-<text>Включить лужу крови на полу при смерти</text>
+<text>Включить бассейн на полу при смерти</text>
 </string>
 
 <string id="ui_mcm_blood_wm_enable_pool_desc">
-<text>Заменяет флормарк при смерти, если он включен</text>
+<text>Заменяет метку пола при смерти, если включено</text>
 </string>
 
 <string id="ui_mcm_blood_wm_size_pool">
-<text>Размер лужи крови</text>
+<text>Размер пула пола</text>
 </string>
 
 <string id="ui_mcm_blood_wm_lifetime">
-<text>Время жизни Wallmark (секунды)</text>
+<text>Время жизни метки стены (секунды)</text>
 </string>
 
-<string id="ui_mcm_blood_wm_enable_particles">
-<text>Воспроизведение дополнительного эффекта частиц при попадании</text>
-</string>
-
-<string id="ui_mcm_blood_wm_enable_custom_particles">
-<text>Использовать эффекты частиц этого мода</text>
-</string>
-
-<string id="ui_mcm_blood_wm_enable_custom_particles_desc">
-<text>Отключите, если вы предпочитаете использовать эффекты частиц, предоставляемые HFX или CVFX.</text>
-</string>
-
-<string id="ui_mcm_blood_wm_particle_buffer_max_size">
-<text>Количество анимаций частиц, разрешенных одновременно</text>
-</string>
-
-<!--Частицы крови-->
+<!--Particles-->
 
 <string id="ui_mcm_blood_particles">
-<text>Частицы крови</text>
+<text>Частицы</text>
 </string>
 
 <string id="ui_mcm_blood_particles_title">
-<text>Настройка частиц крови</text>
+<text>Частицы</text>
+</string>
+
+<string id="ui_mcm_blood_particles_options_title">
+<text>Параметры отображения</text>
+</string>
+
+<string id="ui_mcm_blood_particles_advanced_title">
+<text>Дополнительно</text>
 </string>
 
 <string id="ui_mcm_blood_particles_enable">
-<text>Включите дополнительные частицы VFX</text>
+<text>Включить эффекты частиц</text>
 </string>
 
-<string id="ui_mcm_blood_particles_enable_debug"><text>Включить дебаг</text>
+<string id="ui_mcm_blood_particles_enable_debug">
+<text>Включить отладку</text>
 </string>
 
 <string id="ui_mcm_blood_particles_debug_distance">
-<text>На каком расстоянии рисовать отладочные частицы</text>
+<text>Как далеко рисовать частицы отладки</text>
 </string>
 
-<string id="ui_mcm_blood_particles_use_cvfx">
-<text>Использовать частицы крови CVFX вместо этого мода</text>
+<string id="ui_mcm_blood_particles_enable_armor_feedback">
+<text>Изменить частица на основе типа брони (стеклянная, экзо, тяжелая броня)</text>
 </string>
 
 <string id="ui_mcm_blood_particles_buffer_max_size">
 <text>Количество анимаций частиц, разрешенных одновременно</text>
 </string>
 
-<string id="ui_mcm_blood_particles_fingers_ttl">
-<text>Максимальный срок хранения частиц до перезаписи (мс)</text>
+<string id="ui_mcm_blood_particles_limit">
+<text>Воспроизводить только одну частицу каждой частицы за раз</text>
 </string>
 
-<string id="ui_mcm_blood_particles_fingers_limit">
-<text>Ограничьтесь одной частицей пальца за раз. Используйте ttl, чтобы настроить частоту перерисовки пальца</text>
+<string id="ui_mcm_blood_particles_ttl">
+<text>Сколько времени частице нужно дать закончить работу перед заменой на новую</text>
 </string>
 
 <string id="ui_mcm_blood_particles_hit_enable">
-<text>Воспроизведение дополнительной частицы при попадании</text>
+<text>Воспроизводить частицу при попадании</text>
 </string>
 
 <string id="ui_mcm_blood_particles_hit_exclusive">
-<text>Не играйте с этой частицей на Headshot или Dismemberment</text>
+<text>Не воспроизводить эту частицу на выстрел в голову или расчленение</text>
 </string>
 
 <string id="ui_mcm_blood_particles_headshot_enable">
-<text>Воспроизведение дополнительных частиц при выстреле в голову</text>
+<text>Воспроизвести частицу при выстреле в голову</text>
 </string>
 
 <string id="ui_mcm_blood_particles_headshot_exclusive">
-<text>Не играйте с этой частицей c Dismemberment</text>
+<text>Не воспроизводить эту частицу при расчленении</text>
 </string>
 
 <string id="ui_mcm_blood_particles_dismemberment_enable">
-<text>Воспроизведение частиц расчленения при выстреле в голову</text>
+<text>Воспроизвести поддельную частицу расчленения при выстреле в голову</text>
 </string>
 
 <string id="ui_mcm_blood_particles_fingers_enable">
-<text>Воспроизведение частицы пальца при ударе</text>
+<text>Воспроизвести частицы дыма и крови при попадании</text>
 </string>
 
 <string id="ui_mcm_blood_particles_fingers_option">
-<text>Направление пальцев: вверх, наружу или наружу и вверх</text>
+<text>Направление пальца: вверх, наружу или наружу и вверх</text>
 </string>
 
-<!--Расчленения-->
+<!--Расчленение-->
 
 <string id="ui_mcm_blood_dismemberment">
-<text>Расчленения</text>
+<text>Расчленение</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_title">
-<text>Настройки расчленения</text>
+<text>Расчленение</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_enable_head">
+<text>Расчленять только головы</text>
+</string>
+
+<string id="ui_mcm_blood_dismemberment_enable_bone_removal">
+<text>Разрешить удаление конечностей. Отключить, чтобы вместо этого разместить большую кровавую отметку на конечности</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_enable">
@@ -192,27 +205,23 @@ MCM
 </string>
 
 <string id="ui_mcm_blood_dismemberment_enable_debug">
-<text>Включить дебаг</text>
+<text>Включить отладку</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_enable_stalker">
-<text>Включить расчленение для сталкеров</text>
+<text>Включить для сталкеров</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_threshold_stalker">
-<text>Порог расчленения сталкера</text>
+<text>Порог попадания для расчленения сталкера</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_enable_mutant">
-<text>Включить расчленение для мутантов</text>
+<text>Включить для мутанты</text>
 </string>
 
 <string id="ui_mcm_blood_dismemberment_threshold_mutant">
-<text>Пороговое значение для расчленения мутантов</text>
-</string>
-
-<string id="ui_mcm_blood_dismemberment_enable_head">
-<text>Включить только для головы</text>
+<text>Порог попадания для расчленения мутанта</text>
 </string>
 
 <!--Bullet Time-->
@@ -222,51 +231,47 @@ MCM
 </string>
 
 <string id="ui_mcm_blood_bullettime_title">
-<text>Настройки Bullet Time</text>
+<text>Bullet Time</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_effects_title">
+<text>Экранные эффекты и звуки</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_advanced_title">
+<text>Дополнительно</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable">
-<text>Включить Bullet Time при выстреле в голову</text>
+<text>Включить bullettime при выстреле в голову</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_debug">
-<text>Включить дебаг</text>
+<text>Включить отладку</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_time_speed">
-<text>Временная шкала Bullet Time</text>
+<text>Временная шкала bullettime. Ниже — медленнее</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_length">
-<text>Как долго длится Bullet Time</text>
+<text>Как долго длится время пули</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_sounds">
-<text>Включение и выключение звуков во время Bullet Time</text>
-</string>
-
-<string id="ui_mcm_blood_bullettime_enable_dodge">
-<text>Ускорьте движение игрока во время Bullet Time, чтобы учесть замедление</text>
-</string>
-
-<string id="ui_mcm_blood_bullettime_enable_drain">
-<text>Включите трату выносливости во время Bullet Time</text>
-</string>
-
-<string id="ui_mcm_blood_bullettime_drain_rate_coef">
-<text>Сколько выносливости расходуется во время Bullet Time</text>
+<text>Включить звуки во время времени пули активировать и деактивировать</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_trigger_chance">
-<text>Шанс включить Bullet Time при убийстве выстрелом в голову</text>
+<text>Шанс активировать время пули при убийстве выстрелом в голову</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_screenfx">
-<text>Включить экранные эффекты во время Bullet Time</text>
+<text>Включить экранные эффекты во время времени пули</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_screenfx_gravi">
-<text>Добавить эффект гравитационного экрана</text>
+<text>Добавить гравитационный экран эффект</text>
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_screenfx_brighten">
@@ -278,7 +283,90 @@ MCM
 </string>
 
 <string id="ui_mcm_blood_bullettime_enable_screenfx_psychic">
-<text>Добавить эффект экстрасенсорного экрана</text>
+<text>Добавить эффект психического экрана</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_smooth_start">
+<text>Начало сдвига времени происходит постепенно, а не мгновенно</text>
+</string>
+<string id="ui_mcm_blood_bullettime_smooth_end">
+<text>Окончание сдвига времени происходит постепенно, а не мгновенно</text>
+</string>
+
+<string id="ui_mcm_blood_bullettime_smooth_start_factor">
+<text>Начало сглаживающего фактора сдвига времени</text>
+</string>
+<string id="ui_mcm_blood_bullettime_smooth_end_factor">
+<text>Конец сглаживающего фактора сдвига времени</text>
+</string>
+
+<string id="ui_mcm_blood_killcam">
+<text>Камера убийства</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_title">
+<text>Камера убийства</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_triggers_title">
+<text>Параметры триггера</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_advanced_title">
+<text>Дополнительно</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_enable">
+<text>Включить камеру убийства в стиле Fallout</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_time_speed">
+<text>Временная шкала камеры убийства. Ниже — медленнее</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_length">
+<text>Как долго длится killcam</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_distance">
+<text>Расстояние камеры от цели</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_gamify">
+<text>Активировать killcam после указанного количества убийств с помощью bullettime</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_trigger_range_desc">
+<text>Требуется, чтобы вы совершили несколько убийств перед активацией killcam</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_trigger_range">
+<text>Активировать killcam только тогда, когда цель находится на этом расстоянии вдали</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_trigger_range_desc">
+<text>Положение камеры не показывает игрока, поэтому выглядит неловко вблизи</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_safemode_distance">
+<text>Активировать killcam только тогда, когда на таком расстоянии нет других врагов</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_smooth_start">
+<text>Начало сдвига времени killcam происходит постепенно, а не мгновенно</text>
+</string>
+<string id="ui_mcm_blood_killcam_smooth_end">
+<text>Конец сдвига времени killcam происходит постепенно, а не мгновенно</text>
+</string>
+
+<string id="ui_mcm_blood_killcam_smooth_start_factor">
+<text>Начало сглаживающего фактора сдвига времени killcam</text>
+</string>
+<string id="ui_mcm_blood_killcam_smooth_end_factor">
+<text>Конец сглаживающего фактора сдвига времени killcam</text>
+</string>
+<string id="ui_mcm_blood_killcam_enable_debug">
+<text>Включить отладку</text>
 </string>
 
 </string_table>

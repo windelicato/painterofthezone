@@ -1,0 +1,159 @@
+[_group]
+        effects_count                    = 17
+        flags                            = 0
+        timelimit                        = 5.000000
+        version                          = 3
+ 
+[effect_0000]
+        effect_name                      = srbd\effects\hfx\linger_clear
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.200000
+        time1                            = 0.000000
+ 
+[effect_0001]
+        effect_name                      = srbd\effects\hfx\hit_impact_dust_concrete
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0002]
+        effect_name                      = srbd\effects\hfx\hit_stucco_inner
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0003]
+        effect_name                      = srbd\effects\hfx\hit_hd_concrete_puff_00
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0004]
+        effect_name                      = srbd\effects\hfx\hit_hd_concrete_puff_01
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0005]
+        effect_name                      = srbd\effects\hfx\hit_hd_concrete_puff_02
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0006]
+        effect_name                      = srbd\effects\hfx\hit_hd_concrete_puff_03
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0007]
+        effect_name                      = srbd\effects\hfx\hit_hd_farcry4_puff_grey_base
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0008]
+        effect_name                      = srbd\effects\hfx\hit_hd_metal_puff_00
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 2.000000
+ 
+[effect_0009]
+        effect_name                      = srbd\effects\hfx\hit_hd_pieces_sparks_03
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0010]
+        effect_name                      = srbd\effects\hfx\hit_hd_pieces_sparks_06
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0011]
+        effect_name                      = srbd\effects\hfx\hit_hd_farcry4_puff_grey_fingers
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0012]
+        effect_name                      = srbd\effects\hfx\hit_impact_sparks_dist
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0013]
+        effect_name                      = srbd\effects\hfx\hit_hd_dirt_fly_00
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0014]
+        effect_name                      = srbd\effects\hfx\hit_hd_dirt_fly_01
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0015]
+        effect_name                      = srbd\effects\hfx\hit_hd_dirt_center
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0016]
+        effect_name                      = srbd\effects\hfx\smoke_point_pilot
+        flags                            = 6
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    = srbd\effects\hfx\smoke_point_concrete_fingers
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 

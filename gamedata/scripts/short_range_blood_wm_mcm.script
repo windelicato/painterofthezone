@@ -15,28 +15,29 @@ op = {
 		    text = "ui_mcm_blood_wm",
 		    sh = true,
 		    gr = {           
-		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_wm_title",size= {512,50},spacing= 20 },
-
-		    	{id = "enable_debug", type = "check", val = 1, def = false},
-		    	{id = "delay", type = "track", val = 2, min=0,max=5,step=0.1, def = 1},
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_wm_static_title",size= {512,50},spacing= 20 },
 		    	{id = "enable_floor", type = "check", val = 1, def = true},
 		    	{id = "enable_static_size", type = "check", val = 1, def = true},
 		    	{id = "size", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7},
-		    	{id = "lifetime", type = "track", val = 2, min=100,max=1200,step=50, def = 600},
-		    	{id = "gravity", type = "track", val = 2, min=0.1 ,max=9,step=0.1, def = 5},
 
 		    	{id = "line", type = "line"},
 
-		    	{id = "style", type = "track", val = 2, min=1,max=3,step=1, def = 1},
-		    	{id = "enable_avoid_wallmark", type = "check", val = 1, def = true},
 		    	{id = "enable_normal", type = "check", val = 1, def = false},
-		    	{id = "enable_drip", type = "check", val = 1, def = false},
+		    	{id = "enable_drip", type = "check", val = 1, def = true},
 		    	{id = "enable_splash", type = "check", val = 1, def = true},
 
-		    	{id = "line", type = "line"},
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_wm_pool_title",size= {512,50},spacing= 20 },
 
 		    	{id = "enable_pool", type = "check", val = 1, def = false},
-		    	{id = "size_pool", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7}
+		    	{id = "size_pool", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7},
+
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_wm_advanced_title",size= {512,50},spacing= 20 },
+
+		    	{id = "enable_avoid_wallmark", type = "check", val = 1, def = false},
+		    	{id = "delay", type = "track", val = 2, min=0,max=5,step=0.1, def = 1},
+		    	{id = "lifetime", type = "track", val = 2, min=100,max=1200,step=50, def = 600},
+		    	{id = "gravity", type = "track", val = 2, min=0.1 ,max=9,step=0.1, def = 5},
+		    	{id = "enable_debug", type = "check", val = 1, def = false},
 			}
 		},
 		{
@@ -46,12 +47,9 @@ op = {
 		    gr = {           
 		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_particles_title",size= {512,50},spacing= 20 },
 		    	{id = "enable", type = "check", val = 1, def = true},
-		    	{id = "enable_debug", type = "check", val = 1, def = false},
-		    	{id = "debug_distance", type = "track", val = 2, min=1,max=40,step=1, def = 5},
-		    	{id = "use_cvfx", type = "check", val = 1, def = false},
-		    	{id = "buffer_max_size", type = "track", val = 2, min=2,max=40,step=1, def = 40},
+		    	{id = "enable_armor_feedback", type = "check", val = 1, def = true},
 
-		    	{id = "line", type = "line"},
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_particles_options_title",size= {512,50},spacing= 20 },
 
 		    	{id = "hit_enable", type = "check", val = 1, def = true},
 		    	{id = "hit_exclusive", type = "check", val = 1, def = false},
@@ -63,14 +61,20 @@ op = {
 
 		    	{id = "line", type = "line"},
 
-		    	{id = "dismemberment_enable", type = "check", val = 1, def = true},
+		    	{id = "fingers_enable", type = "check", val = 1, def = true},
+		    	{id = "fingers_option", type = "track", val = 2, min=1,max=3,step=1, def = 3},
 
 		    	{id = "line", type = "line"},
 
-		    	{id = "fingers_enable", type = "check", val = 1, def = true},
-		    	{id = "fingers_option", type = "track", val = 2, min=1,max=3,step=1, def = 3},
-		    	{id = "fingers_limit", type = "check", val = 1, def = true},
-		    	{id = "fingers_ttl", type = "track", val = 2, min=100,max=100000,step=100, def = 1000},
+		    	{id = "dismemberment_enable", type = "check", val = 1, def = true},
+
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_particles_advanced_title",size= {512,50},spacing= 20 },
+		    	{id = "limit", type = "check", val = 1, def = false},
+		    	{id = "ttl", type = "track", val = 2, min=0.1,max=20,step=0.1, def = 5},
+		    	{id = "buffer_max_size", type = "track", val = 2, min=2,max=40,step=1, def = 40},
+
+		    	{id = "enable_debug", type = "check", val = 1, def = false},
+		    	{id = "debug_distance", type = "track", val = 2, min=1,max=40,step=1, def = 5},
 
 		    	{id = "line", type = "line"}
 			}
@@ -82,21 +86,24 @@ op = {
 		    gr = {           
 		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_dismemberment_title",size= {512,50},spacing= 20 },
 		    	{id = "enable", type = "check", val = 1, def = true},
-		    	{id = "enable_debug", type = "check", val = 1, def = false},
+
+		    	{id = "line", type = "line"},
+
+		    	{id = "enable_head", type = "check", val = 1, def = true},
+		    	{id = "enable_bone_removal", type = "check", val = 1, def = true},
 
 		    	{id = "line", type = "line"},
 
 		    	{id = "enable_mutant", type = "check", val = 1, def = true},
 				{id = "threshold_mutant", type = "track", val = 2, min=0.01,max=2,step=0.01, def = 0.36},
 
-		    	{id = "line", type = "line"},
-
 		    	{id = "enable_stalker", type = "check", val = 1, def = true},
-				{id = "threshold_stalker", type = "track", val = 2, min=0.01,max=5.99,step=0.01, def = 4.5},
+				{id = "threshold_stalker", type = "track", val = 2, min=0.01,max=5.99,step=0.01, def = 3.4},
 
 		    	{id = "line", type = "line"},
 
-		    	{id = "enable_head", type = "check", val = 1, def = false},
+		    	{id = "enable_debug", type = "check", val = 1, def = false},
+
 
 
 		    	{id = "line", type = "line"}
@@ -109,24 +116,60 @@ op = {
 		    gr = {           
 		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_bullettime_title",size= {512,50},spacing= 20 },
 				{id = "enable", type = "check", val = 1, def = true},
-		    	{id = "enable_debug", type = "check", val = 1, def = false},
 				{id = "time_speed", type = "track", val = 2, min=0.1,max=0.99,step=0.01, def = 0.6},
-				{id = "length", type = "track", val = 2, min=1,max=30,step=0.5, def = 2},
-				{id = "enable_sounds", type = "check", val = 1, def = true},
-				{id = "enable_drain", type = "check", val = 1, def = false},
-				{id = "drain_rate_coef", type = "track", val = 2, min=0.1,max=10,step=0.1, def = 1},
-
-				{id = "line", type = "line"},
-
+				{id = "length", type = "track", val = 2, min=0,max=30,step=0.5, def = 2},
 				{id = "trigger_chance", type = "track", val = 2, min=0.01,max=1,step=0.05, def = 1},
 
-				{id = "line", type = "line"},
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_bullettime_effects_title",size= {512,50},spacing= 20 },
 
+				{id = "enable_sounds", type = "check", val = 1, def = false},
 				{id = "enable_screenfx", type = "check", val = 1, def = false},
 				{id = "enable_screenfx_gravi", type = "check", val = 1, def = true},
 				{id = "enable_screenfx_brighten", type = "check", val = 1, def = false},
 				{id = "enable_screenfx_contrast", type = "check", val = 1, def = false},
-				{id = "enable_screenfx_psychic", type = "check", val = 1, def = false}
+				{id = "enable_screenfx_psychic", type = "check", val = 1, def = false},
+
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_bullettime_advanced_title",size= {512,50},spacing= 20 },
+
+		    	{id = "smooth_start", type = "check", val = 1, def = true},
+		    	{id = "smooth_end", type = "check", val = 1, def = false},
+
+				{id = "smooth_start_factor", type = "track", val = 2, min=0.001,max=0.1,step=0.001, def = 0.008},
+				{id = "smooth_end_factor", type = "track", val = 2, min=0.001,max=0.1,step=0.001, def = 0.01},
+		    	{id = "enable_debug", type = "check", val = 1, def = false},
+
+				{id = "line", type = "line"},
+			}
+		},
+		{
+		    id = "killcam", 
+		    text = "ui_mcm_blood_killcam",
+		    sh = true,
+		    gr = {           
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_killcam_title",size= {512,50},spacing= 20 },
+
+		    	{id = "enable", type = "check", val = 1, def = true},
+				{id = "time_speed", type = "track", val = 2, min=0.1,max=0.99,step=0.01, def = 0.2},
+				{id = "length", type = "track", val = 2, min=0.1,max=2,step=0.1, def = 0.6},
+				{id = "distance", type = "track", val = 2, min=1,max=50,step=0.1, def = 5},
+
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_killcam_triggers_title",size= {512,50},spacing= 20 },
+
+				{id = "trigger_range", type = "track", val = 2, min=0,max=100,step=1, def = 5},
+				{id = "gamify", type = "track", val = 2, min=0,max=10,step=1, def = 0},
+				{id = "safemode_distance", type = "track", val = 2, min=0,max=100,step=1, def = 25},
+
+
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_killcam_advanced_title",size= {512,50},spacing= 20 },
+
+		    	{id = "smooth_start", type = "check", val = 1, def = false},
+		    	{id = "smooth_end", type = "check", val = 1, def = false},
+
+				{id = "smooth_start_factor", type = "track", val = 2, min=0.001,max=0.1,step=0.001, def = 0.02},
+				{id = "smooth_end_factor", type = "track", val = 2, min=0.001,max=0.1,step=0.001, def = 0.01},
+		    	{id = "enable_debug", type = "check", val = 1, def = false},
+
+				{id = "line", type = "line"},
 			}
 		}
 		

@@ -7,19 +7,26 @@
 
 local buffer = {}
 local buffer_index = 1
+local trigger_delay = 10
+local trigger_timer = 0
+
+local camera_test = false
 
 local lookup = short_range_blood_lookup.lookup()
 local head_bones = lookup:get_head_bones()
 local fingers = {
-    [1] = "srbd\\hit\\srbd_hit_finger_up",
-    [2] = "srbd\\hit\\srbd_hit_finger_out",
-    [3] = "srbd\\hit\\srbd_hit_finger_out_up"
+    [1] = "srbd_hit_finger_up",
+    [2] = "srbd_hit_finger_out",
+    [3] = "srbd_hit_finger_out_up"
 }
 
 function play_particle(particle_name, pos, dir, ttl, limit)
+    if not particle_name then return end
+    if not pos then return end
     if buffer_index > lookup:setting("particles/buffer_max_size") then buffer_index = 1 end
 
-    ttl = ttl or 100000 --10s
+    ttl = ttl or 10--10s
+    ttl = ttl*1000 --ms
     limit = limit or false
     tg = time_global()
 
@@ -51,8 +58,7 @@ function play_particle(particle_name, pos, dir, ttl, limit)
     if buffer[buffer_index].object and not buffer[buffer_index].object:playing() then
         pr("playing particle %s in particle buffer position %s", particle_name, buffer_index)
 
-        if not dir then dir = vector():set(0, 0, 0) end
-        buffer[buffer_index].object:set_direction(dir)
+        if dir then buffer[buffer_index].object:set_direction(dir) end
         buffer[buffer_index].object:play_at_pos(pos)
         --pr("playing particle %s in position %s %s %s", particle_name, pos.x, pos.y, pos.z)
         --pr("playing particle %s in direction %s %s %s", particle_name, dir.x, dir.y, dir.z)
@@ -79,7 +85,12 @@ function play_dismemberment_particle(s_hit, target, bone_id)
 
     play_particle("srbd\\hit\\pg_00", pos, dir)
     play_particle("srbd\\wound\\pg_00", pos, dir)
-    play_particle("srbd\\headshot\\pg_00", pos, dir)
+    play_particle("srbd\\headshot\\srbd_head_dust", pos, dir)
+
+    local particles = { "0", "1", "2"} -- 3
+    local particle_path = "srbd\\headshot\\dismember_0"
+    local picked_particle = particle_path .. particles[math.random(1, #particles)]
+    play_particle(picked_particle, pos, dir)
 end
 
 function play_headshot_particle(s_hit, target, bone_id)
@@ -87,39 +98,83 @@ function play_headshot_particle(s_hit, target, bone_id)
     -- grok_bo.headshot_feedback_enable = false
 
     local picked_particle = "srbd\\srbd_hit_flesh_headshot"
-    if lookup:setting("particles/use_cvfx") then picked_particle = "srbd\\hit_flesh_headshot" end
+
+    if target and lookup:setting("particles/enable_armor_feedback") and not lookup:death_log(target) then
+        local helmetType = lookup:get_helmet_type_by_npc(target)
+        if helmetType == "helmet" then picked_particle = "srbd\\headshot\\srbd_headshot_armor" end
+        if helmetType == "glass" then picked_particle = "srbd\\headshot\\srbd_headshot_glass" end
+    end
 
     local bone_name = bone_id and target:bone_name(bone_id)
     local pos = target:bone_position(bone_name)
     local dir = s_hit.direction
 --    dir = vector():set(dir):normalize()
 
-    play_particle(picked_particle, pos, dir)
+    play_particle(picked_particle, pos, dir,lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
 end
 
 function play_hit_particle(s_hit, target, bone_id)
     local particles = { "0", "1", "2", "2a" } -- 4
     local particle_path = "srbd\\srbd_hit_flesh_0"
-    if lookup:setting("particles/use_cvfx") then particle_path = "hit_fx\\hit_flesh_0" end
     local picked_particle = particle_path .. particles[math.random(1, 4)]
+    
+    if target and lookup:setting("particles/enable_armor_feedback") and not lookup:death_log(target) then
+        local armorType = lookup:get_armor_type_by_npc(target)
+        if armorType == "medium" then 
+            local armor_particles = { "0", "1", "2"} -- 3
+            picked_particle = "srbd\\hit\\body_impact_armor_0" .. armor_particles[math.random(1,3)]
+        end
+        if armorType == "exo" then
+            local exo_particles = { "0", "1", "2"} -- 3
+            picked_particle = "srbd\\hit\\body_impact_sparks_0" .. exo_particles[math.random(1,3)]
+        end
+    end
 
     local bone_name = bone_id and target:bone_name(bone_id)
     local pos = target:bone_position(bone_name)
     local dir = s_hit.direction
 --    dir = vector():set(dir):normalize()
 
-    play_particle(picked_particle, pos, dir)
+    play_particle(picked_particle, pos, dir,lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
 end
 
 function play_fingers_particle(s_hit, target, bone_id)
+    if target and lookup:death_log(target) then return end
     local picked_particle = fingers[lookup:setting("particles/fingers_option")]
 
     local bone_name = bone_id and target:bone_name(bone_id)
     local pos = target:bone_position(bone_name)
     local dir = s_hit.direction
---    dir = vector():set(dir):normalize()
 
-    play_particle(picked_particle, pos, dir, lookup:setting("particles/fingers_ttl"), lookup:setting("particles/fingers_limit"))
+    if lookup:setting("particles/enable_armor_feedback") then
+        local armorType = lookup:get_armor_type_by_npc(target)
+        if armorType == "exo" or armorType == "medium" then
+            local hit_fraction = lookup:get_bone_hit_fraction_by_npc(target, s_hit, bone_id)
+            if hit_fraction then
+                local fraction_blood = math.floor(20*hit_fraction+0.5)
+                if fraction_blood > 10 then fraction_blood = 10 end
+                if fraction_blood < 1 then fraction_blood = 1 end
+                local fraction_armor = 10-fraction_blood
+                pr("Hit fraction %s", fraction_blood)
+                pr("Hit fraction armor %s", fraction_armor)
+
+                if fraction_blood < 11 and fraction_blood > 0 then
+                    local blood_part = "srbd\\hit\\fractional\\"..fraction_blood.."\\"..picked_particle
+                    play_particle(blood_part, pos, dir, lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
+                end
+                if fraction_armor < 11 and fraction_armor > 0 then
+                    local armor_part = "srbd\\hit\\fractional\\"..fraction_armor.."\\"..picked_particle.."_armor"
+                    play_particle(armor_part, pos, dir, lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
+                end
+
+                return
+            end
+
+            picked_particle = picked_particle .. "_armor"
+        end
+    end
+    play_particle("srbd\\hit\\"..picked_particle, pos, dir, lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
+
 end
 
 function on_before_hit_after_calcs(s_hit, target, bone_id)
@@ -132,16 +187,12 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
     if target:id() == player:id() then return true end
     if shooter:id() ~= player:id() then return true end
 
-
-
     -- keep track of what we've played
     local playlist = {}
 
     -- dismemberment particle
     if lookup:setting("particles/dismemberment_enable") then
-        if lookup:setting("dismemberment/enable") then
-            table.insert(playlist, "dismemberment")
-        elseif (bone_id and head_bones[bone_id]) and target.health <= 0 then
+        if not lookup:setting("dismemberment/enable") and (bone_id and head_bones[bone_id]) and target.health <= 0 then
             local hit_threshold = lookup:setting("dismemberment/threshold_stalker")
             local hit_power = s_hit.power
             if grok_bo ~= nil then
@@ -157,31 +208,43 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
         end
     end
 
-    -- headshot particle
-    if lookup:setting("particles/headshot_enable") then
-        if (bone_id and head_bones[bone_id]) then
-            if not lookup:setting("particles/headshot_exclusive") or next(playlist) == nil then
-                play_headshot_particle(s_hit, target, bone_id)
-                table.insert(playlist, "headshot")
+    tg = time_global()
+    if tg > trigger_timer + trigger_delay then
+        trigger_timer = tg
+        -- headshot particle
+        if lookup:setting("particles/headshot_enable") then
+            if (bone_id and head_bones[bone_id]) then
+                if not lookup:setting("particles/headshot_exclusive") or next(playlist) == nil then
+                    play_headshot_particle(s_hit, target, bone_id)
+                    table.insert(playlist, "headshot")
+                end
             end
         end
-    end
 
-    -- hit particle
-    if lookup:setting("particles/hit_enable") then
-        if not lookup:setting("particles/hit_exclusive") or next(playlist) == nil then
-            play_hit_particle(s_hit, target, bone_id)
-            table.insert(playlist, "hit")
+        -- hit particle
+        if lookup:setting("particles/hit_enable") then
+            if not lookup:setting("particles/hit_exclusive") or next(playlist) == nil then
+                play_hit_particle(s_hit, target, bone_id)
+                table.insert(playlist, "hit")
+            end
         end
-    end
 
-    -- hit fingers
-    if lookup:setting("particles/fingers_enable") then
-        play_fingers_particle(s_hit, target, bone_id)
-        table.insert(playlist, "fingers")
+        -- hit fingers
+        if lookup:setting("particles/fingers_enable") then
+            play_fingers_particle(s_hit, target, bone_id)
+            table.insert(playlist, "fingers")
+        end
     end
 end
 
+-- debug stuff
+local test_particles = {
+    "srbd\\headshot\\dismember_00",
+    "srbd\\headshot\\dismember_01",
+    "srbd\\headshot\\dismember_02",
+    "srbd\\headshot\\srbd_head_dust"
+}
+local test_particle_index = 1
 function on_weapon_fired(obj, wpn, ammo_elapsed, grenade_elapsed, ammo_type, grenade_type)
     if not lookup:setting("particles/enable_debug") then return end
     local distance = lookup:setting("particles/debug_distance")
@@ -198,12 +261,12 @@ function on_weapon_fired(obj, wpn, ammo_elapsed, grenade_elapsed, ammo_type, gre
 
     pr("pos %s %s %s", pos.x, pos.y, pos.z)
     pr("dir %s %s %s", dir.x, dir.y, dir.z)
-    play_particle(fingers[lookup:setting("particles/fingers_option")], pos, dir, lookup:setting("particles/fingers_ttl"), lookup:setting("particles/fingers_limit"))
 
-    --play_particle("srbd\\hit\\pg_00", pos, dir)
-    --play_particle("srbd\\wound\\pg_00", pos, dir)
-    --play_particle("srbd\\headshot\\pg_00", pos, dir)
-    --play_particle("srbd\\headshot\\debris_armor", pos, dir)
+--    play_particle(test_particles[test_particle_index], pos, dir)
+    test_particle_index = test_particle_index + 1
+    if test_particle_index > #test_particles then
+        test_particle_index = 1
+    end
 end
 
 -- clean out on loading

@@ -1,0 +1,186 @@
+[_group]
+        effects_count                    = 20
+        flags                            = 0
+        timelimit                        = 5.000000
+        version                          = 3
+ 
+[effect_0000]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_00
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0001]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_01
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0002]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_02
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0003]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_03
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0004]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_04
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0005]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_05
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0006]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_06
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0007]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_07
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0008]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_08
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0009]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_09
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0010]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_10
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0011]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_11
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0012]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_12
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0013]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_13
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0014]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_14
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0015]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_15
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0016]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_16
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0017]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_17
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0018]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_18
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 
+[effect_0019]
+        effect_name                      = srbd\effects\hfx\body_impact_sparks_19
+        flags                            = 4
+        on_birth_child                   =
+        on_death_child                   =
+        on_play_child                    =
+        time0                            = 0.000000
+        time1                            = 0.000000
+ 

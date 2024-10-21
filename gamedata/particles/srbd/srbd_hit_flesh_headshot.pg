@@ -59,7 +59,7 @@
         time1                            = 0.000000
  
 [effect_0006]
-        effect_name                      = srbd\effects\tear\srbd_body_tear_blood_18
+        effect_name                      = srbd\headshot\srbd_headshot_tear
         flags                            = 4
         on_birth_child                   =
         on_death_child                   =

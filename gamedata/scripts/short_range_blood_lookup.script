@@ -31,6 +31,8 @@ function lookup:__init(args)
     if grok_bo then self.gbo = grok_bo end
     if cxv_artigrok_bo then self.gbo = cxv_artigrok_bo end
 
+    self.gbo_calculations = {}
+
     self.creatures_cls = {
         [clsid.script_stalker]			= { "human", "stalker_damage" },
         [clsid.dog_s] 					= { "dog", "m_dog_damage" },
@@ -63,7 +65,7 @@ function lookup:__init(args)
         human = {
             -- head
             bip01_head = { "bip01_head", { nil, nil, -1 } },
-            jaw_1 = { "jaw_1", { nil, nil, -1 } },
+            jaw_1 = { "bip01_head", { nil, nil, -1 } },
             eye_left = { "bip01_head", { nil, nil, -1 } },
             eyelid_1 = { "bip01_head", { nil, nil, -1 } },
             eye_right = { "bip01_head", { nil, nil, -1 }},
@@ -76,16 +78,16 @@ function lookup:__init(args)
     --		bip01_l_upperarm = { "bip01_l_upperarm", nil, arm_delay },
 
             -- left hand
-            bip01_l_hand = { "bip01_l_hand", nil, arm_delay },
-            bip01_l_finger2 = { "bip01_l_hand", nil, arm_delay },
-            bip01_l_finger21 = { "bip01_l_hand", nil, arm_delay },
-            bip01_l_finger22 = { "bip01_l_hand", nil, arm_delay },
-            bip01_l_finger1 = { "bip01_l_hand", nil, arm_delay },
-            bip01_l_finger11 = { "bip01_l_hand", nil, arm_delay },
-            bip01_l_finger12 = { "bip01_l_hand", nil, arm_delay },
-            bip01_l_finger0 = { "bip01_l_hand", nil, arm_delay },
-            bip01_l_finger01 = { "bip01_l_hand", nil, arm_delay },
-            bip01_l_finger02 = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_hand = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_finger2 = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_finger21 = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_finger22 = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_finger1 = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_finger11 = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_finger12 = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_finger0 = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_finger01 = { "bip01_l_hand", nil, arm_delay },
+--            bip01_l_finger02 = { "bip01_l_hand", nil, arm_delay },
 
             -- right arm
     --		bip01_r_forearm = { "bip01_r_forearm", nil, arm_delay },
@@ -94,16 +96,16 @@ function lookup:__init(args)
     --		bip01_r_upperarm = { "bip01_r_upperarm", nil, arm_delay },
 
             -- right hand
-            bip01_r_hand = { "bip01_r_hand", nil, arm_delay },
-            bip01_r_finger2 = { "bip01_r_hand", nil, arm_delay },
-            bip01_r_finger21 = { "bip01_r_hand", nil, arm_delay },
-            bip01_r_finger22 = { "bip01_r_hand", nil, arm_delay },
-            bip01_r_finger1 = { "bip01_r_hand", nil, arm_delay },
-            bip01_r_finger11 = { "bip01_r_hand", nil, arm_delay },
-            bip01_r_finger12 = { "bip01_r_hand", nil, arm_delay },
-            bip01_r_finger0 = { "bip01_r_hand", nil, arm_delay },
-            bip01_r_finger01 = { "bip01_r_hand", nil, arm_delay },
-            bip01_r_finger02 = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_hand = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_finger2 = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_finger21 = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_finger22 = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_finger1 = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_finger11 = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_finger12 = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_finger0 = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_finger01 = { "bip01_r_hand", nil, arm_delay },
+ -----------           bip01_r_finger02 = { "bip01_r_hand", nil, arm_delay },
 
             -- left foot
             bip01_l_toe0 = { enable_foot and "bip01_l_foot" or "bip01_l_calf" },
@@ -1327,9 +1329,9 @@ function lookup:__init(args)
     self.bone_groups = {
         human = {
             { "jaw_1", "bip01_head" },
-            { "bip01_l_hand" },
+--            { "bip01_l_hand" },
             { "bip01_l_foot", "bip01_l_calf", "bip01_l_thigh" },
-            { "bip01_r_hand" },
+--            { "bip01_r_hand" },
             { "bip01_r_foot", "bip01_r_calf", "bip01_r_thigh" },
         },
 
@@ -1604,7 +1606,28 @@ function lookup:get_armor_type_by_npc(npc)
 			end
 		end
 	end
+	
     return armorType
+end
+
+function lookup:get_bone_hit_fraction_by_npc(npc, s_hit, bone_id)
+    if not npc then return end
+    if self.gbo and s_hit and bone_id then return self:get_gbo_calculation("k_ap", s_hit, npc, bone_id) end
+
+--    local npc_viz = npc:get_visual_name()
+--    printf("NPC visual model: %s",npc_viz)
+--
+--    if not ini_capture:section_exist(npc_viz) then
+--        printf("NPC model doesn't have a bone profile, loading berill no helm config")
+--        npc_viz = "actors\\stalker_bandit\\stalker_bandit_berill_nohelm_1"
+--    end
+--
+--    local npc_armor_path = ini_capture:r_string(npc_viz,"model_path")
+--    local ini_npc_armor = ini_file(npc_armor_path)
+--    local npc_armor_section = ini_npc_armor:r_string('bone_protection','bones_protection_sect')
+--    local npc_hit_fraction = ini_bones:r_string(npc_armor_section,"hit_fraction_npc")
+--    return tonumber(npc_hit_fraction)
+    return nil
 end
 
 function lookup:get_helmet_type_by_npc(npc)
@@ -1627,11 +1650,11 @@ function lookup:get_helmet_type_by_npc(npc)
 			end
 		end
 	end
+	
     return helmetType
 end
 
--- this absolutely sucks and i should have just monkey patched grok_bo. at least this wont break on most updates
-function lookup:grokDefuckulator(s_hit, target, bone_id)
+function lookup:getGrokDefuckulatorKey(s_hit, target, bone_id)
     if not bone_id then return end
     if not s_hit then return end
     if not target then return end
@@ -1690,19 +1713,39 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
         custom_bone_dmg_mult = self.gbo.custom_bone_dmg[grok_key]
     end
 
-    pr("-----------------------GROK DEFUCKULATOR v3.FUCKKKKt-------------------------")
-    pr("-----------------------------grok identifier: %s-----------------------------", grok_key)
-    pr("------bone dmg---------------------%s----------------------------------------", custom_bone_dmg_mult)
-    pr("------bone ap scale---------------------%s----------------------------------------", custom_bone_ap_scale)
-    pr("------s_hit power---------------------%s----------------------------------------", s_hit.power)
-
     -- finally if we still can't find it give up
     if not custom_bone_dmg_mult or not custom_bone_ap_scale then
         pr("I give up does %s match grok_bo?", grok_key)
         return
     end
+    return grok_key
+end
 
+-- this absolutely sucks and i should have just monkey patched grok_bo. at least this wont break on most updates
+function lookup:grokDefuckulator(s_hit, target, bone_id)
+    if not bone_id then return end
+    if not s_hit then return end
+    if not target then return end
+    if not grok_bo then return end
+    if not self.gbo then return end
+    if not self.gbo.custom_bone_ap then return end
+    if not self.gbo.custom_bone_dmg then return end
+
+    local grok_key = self:getGrokDefuckulatorKey(s_hit, target, bone_id)
+    if not grok_key then
+        pr("I give up does %s match grok_bo?", grok_key)
+        return
+    end
+
+    local custom_bone_ap_scale = self.gbo.custom_bone_ap[grok_key]
+    local custom_bone_dmg_mult = self.gbo.custom_bone_dmg[grok_key]
+
+    -- lets begin shall we?
     local shooter = s_hit.draftsman
+    local player = db.actor
+    if target:id() == player:id() then return end
+    if shooter:id() ~= player:id() then return end
+
     wpn = level.object_by_id(s_hit.weapon_id)
 	sec = wpn:section()
 
@@ -1759,9 +1802,56 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
 
     -- we ignore barrel_condition_corrected, sin resistance, sniper_bad_bone_shit_reduce because fuck this
     local power = wpn_hit_power / ( 1 + dist / 200 * ( air_res * 0.5 / ( 1 - air_res + 0.1 ))) * k_hit * custom_bone_dmg_mult * custom_bone_ap_scale * 1.1 * self.difficulty_multiplier[game_num] * ammo_mult * silencer_boost
+    pr("-----------------------GROK DEFUCKULATOR v3.FUCKKKKt-------------------------")
+    pr("-----------------------------grok identifier: %s-----------------------------", grok_key)
+    pr("------bone dmg---------------------%s----------------------------------------", custom_bone_dmg_mult)
+    pr("------bone ap scale---------------------%s----------------------------------------", custom_bone_ap_scale)
+    pr("------s_hit power---------------------%s----------------------------------------", s_hit.power)
     pr("------defuckulator power---------------------%s----------------------------------------", power)
 
+    -- save these calculations for later
+    self.gbo_calculations[grok_key] = {
+        wpn_hit_power = wpn_hit_power,
+        k_ap = k_ap,
+        k_hit = k_hit,
+        air_res = air_res,
+        dist = dist,
+        power = power
+    }
     return power
+end
+
+function lookup:get_gbo_calculation(field, s_hit, target, bone_id)
+    if not bone_id then return end
+    if not s_hit then return end
+    if not target then return end
+    if not field then return end
+    if not grok_bo then return end
+    if not self.gbo then return end
+    if not self.gbo.custom_bone_ap then return end
+    if not self.gbo.custom_bone_dmg then return end
+
+    local grok_key = self:getGrokDefuckulatorKey(s_hit, target, bone_id)
+    if not grok_key then return end
+
+    -- check to see if GBO has registered something for this hit
+    if self.gbo.custom_bone_dmg[grok_key] then
+        if self.gbo[field] and self.gbo[field][grok_key] then
+            pr("found field from grok")
+            return self.gbo[field][grok_key]
+        end
+    end
+
+    if not self.gbo_calculations[grok_key] then
+        pr("no gbo key yet")
+        self:grokDefuckulator(s_hit, target, bone_id)
+    end
+
+    if self.gbo_calculations[grok_key] and self.gbo_calculations[grok_key][field] then
+        pr("found field from lookup")
+        return self.gbo_calculations[grok_key][field]
+    end
+    return nil
 end
 
 function lookup:death_log(target)
