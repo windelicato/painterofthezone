@@ -54,10 +54,9 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
         hit_power = s_hit.power
 
         -- defuckulator is logic to recalculate grok_bo power D:
-        if grok_bo ~= nil then 
+        if grok_bo ~= nil then
             hit_power = lookup:get_gbo_calculation("power", s_hit, target, bone_id) or hit_power
         end
-
     elseif IsMonster(target) then
         if not lookup:setting("dismemberment/enable_mutant") then return end
         hit_threshold = lookup:setting("dismemberment/threshold_mutant")
@@ -72,7 +71,8 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
     if (not hit_power) then return end
     -- sum up hit power over 0.5s
     local hit_power_sum_key = target:id()
-    hit_power_sum[hit_power_sum_key] = (hit_power_sum[hit_power_sum_key] and hit_power_sum[hit_power_sum_key]+hit_power) or hit_power
+    hit_power_sum[hit_power_sum_key] = (hit_power_sum[hit_power_sum_key] and hit_power_sum[hit_power_sum_key] + hit_power) or
+    hit_power
     CreateTimeEvent("reset_hit_power_e", "reset_hit_power_" .. hit_power_sum_key, 0.5, reset_hit_power, hit_power_sum_key)
 
     pr("total summed power: %s threshold: %s", hit_power_sum[hit_power_sum_key], hit_threshold)
@@ -91,7 +91,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
     -- TODO: redo all of this
     local target_kind = ini_sys:r_string_ex(target:section(), "kind")
     local target_key = (creatures_cls[target:clsid()] and creatures_cls[target:clsid()][1]) or
-    (target_kind and creatures_kind[target_kind] and creatures_kind[target_kind][1])
+        (target_kind and creatures_kind[target_kind] and creatures_kind[target_kind][1])
     local target_bone_table = target_key and limb_map[target_key]
     local bone_groups = bone_groups[target_key]
     if not target_bone_table then return end
@@ -126,28 +126,28 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
         if lookup:setting("dismemberment/enable_bone_removal") then
             dismember(target, bone_group[i])
         end
-        removed_bone_count = removed_bone_count +1
-
+        removed_bone_count = removed_bone_count + 1
     end
 
     if removed_bone_count > 0 then
-        if lookup:setting("bullettime/enable") or lookup:setting("killcam/enable") and lookup:get_head_bones()[bone_id] then short_range_blood_bullet_time.trigger(target, bone_id) end
-        if lookup:setting("particles/dismemberment_enable") then short_range_blood_particles.play_dismemberment_particle(s_hit, target, bone_id) end
-
+        if lookup:setting("bullettime/enable") or lookup:setting("killcam/enable") and lookup:get_head_bones()[bone_id] then
+            short_range_blood_bullet_time.trigger(target, bone_id) end
+        if lookup:setting("particles/dismemberment_enable") then short_range_blood_particles.play_dismemberment_particle(
+            s_hit, target, bone_id) end
     end
 end
 
 -- clean out on loading
 local clear_hit_power_sum = 0
 function save_state(m_data)
-	if clear_hit_power_sum == 1 then
+    if clear_hit_power_sum == 1 then
         m_data.hit_power_sum = 0
     end
 end
 
 function load_state(m_data)
     if m_data.hit_power_sum then
-		clear_hit_power_sum = 1
+        clear_hit_power_sum = 1
         m_data.hit_power_sum = 0
     end
 end
@@ -158,7 +158,7 @@ function pr(...)
 end
 
 function on_game_start()
-    RegisterScriptCallback("save_state",save_state)
-	RegisterScriptCallback("load_state",load_state)
+    RegisterScriptCallback("save_state", save_state)
+    RegisterScriptCallback("load_state", load_state)
     RegisterScriptCallback("on_before_hit_after_calcs", on_before_hit_after_calcs)
 end

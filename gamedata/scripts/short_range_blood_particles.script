@@ -25,13 +25,13 @@ function play_particle(particle_name, pos, dir, ttl, limit)
     if not pos then return end
     if buffer_index > lookup:setting("particles/buffer_max_size") then buffer_index = 1 end
 
-    ttl = ttl or 10--10s
-    ttl = ttl*1000 --ms
+    ttl = ttl or 10 --10s
+    ttl = ttl * 1000 --ms
     limit = limit or false
     tg = time_global()
 
 
-    for i=1,lookup:setting("particles/buffer_max_size") do
+    for i = 1, lookup:setting("particles/buffer_max_size") do
         if buffer[i] ~= nil then
             if buffer[i].object:playing() and tg > buffer[i].timestamp + ttl then
                 pr("particle over ttl killed: ttl %s timestamp %s tg %s", ttl, buffer[i].timestamp, tg)
@@ -71,9 +71,9 @@ function play_dismemberment_particle(s_hit, target, bone_id)
     local bone_name = bone_id and target:bone_name(bone_id)
     local pos = target:bone_position(bone_name)
     local dir = s_hit.direction
---    dir = vector():set(dir):normalize()
+    --    dir = vector():set(dir):normalize()
 
-	local helmetType = lookup:get_helmet_type_by_npc(target)
+    local helmetType = lookup:get_helmet_type_by_npc(target)
 
     if helmetType == "helmet" then
         play_particle("srbd\\headshot\\debris_armor", pos, dir)
@@ -87,7 +87,7 @@ function play_dismemberment_particle(s_hit, target, bone_id)
     play_particle("srbd\\wound\\pg_00", pos, dir)
     play_particle("srbd\\headshot\\srbd_head_dust", pos, dir)
 
-    local particles = { "0", "1", "2"} -- 3
+    local particles = { "0", "1", "2" } -- 3
     local particle_path = "srbd\\headshot\\dismember_0"
     local picked_particle = particle_path .. particles[math.random(1, #particles)]
     play_particle(picked_particle, pos, dir)
@@ -108,34 +108,34 @@ function play_headshot_particle(s_hit, target, bone_id)
     local bone_name = bone_id and target:bone_name(bone_id)
     local pos = target:bone_position(bone_name)
     local dir = s_hit.direction
---    dir = vector():set(dir):normalize()
+    --    dir = vector():set(dir):normalize()
 
-    play_particle(picked_particle, pos, dir,lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
+    play_particle(picked_particle, pos, dir, lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
 end
 
 function play_hit_particle(s_hit, target, bone_id)
     local particles = { "0", "1", "2", "2a" } -- 4
     local particle_path = "srbd\\srbd_hit_flesh_0"
     local picked_particle = particle_path .. particles[math.random(1, 4)]
-    
+
     if target and lookup:setting("particles/enable_armor_feedback") and not lookup:death_log(target) then
         local armorType = lookup:get_armor_type_by_npc(target)
-        if armorType == "medium" then 
-            local armor_particles = { "0", "1", "2"} -- 3
-            picked_particle = "srbd\\hit\\body_impact_armor_0" .. armor_particles[math.random(1,3)]
+        if armorType == "medium" then
+            local armor_particles = { "0", "1", "2" } -- 3
+            picked_particle = "srbd\\hit\\body_impact_armor_0" .. armor_particles[math.random(1, 3)]
         end
         if armorType == "exo" then
-            local exo_particles = { "0", "1", "2"} -- 3
-            picked_particle = "srbd\\hit\\body_impact_sparks_0" .. exo_particles[math.random(1,3)]
+            local exo_particles = { "0", "1", "2" } -- 3
+            picked_particle = "srbd\\hit\\body_impact_sparks_0" .. exo_particles[math.random(1, 3)]
         end
     end
 
     local bone_name = bone_id and target:bone_name(bone_id)
     local pos = target:bone_position(bone_name)
     local dir = s_hit.direction
---    dir = vector():set(dir):normalize()
+    --    dir = vector():set(dir):normalize()
 
-    play_particle(picked_particle, pos, dir,lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
+    play_particle(picked_particle, pos, dir, lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
 end
 
 function play_fingers_particle(s_hit, target, bone_id)
@@ -151,20 +151,22 @@ function play_fingers_particle(s_hit, target, bone_id)
         if armorType == "exo" or armorType == "medium" then
             local hit_fraction = lookup:get_k_ap_by_npc(target, s_hit, bone_id)
             if hit_fraction then
-                local fraction_blood = math.floor(20*hit_fraction+0.5)
+                local fraction_blood = math.floor(20 * hit_fraction + 0.5)
                 if fraction_blood > 10 then fraction_blood = 10 end
                 if fraction_blood < 1 then fraction_blood = 1 end
-                local fraction_armor = 10-fraction_blood
+                local fraction_armor = 10 - fraction_blood
                 pr("Hit fraction %s", fraction_blood)
                 pr("Hit fraction armor %s", fraction_armor)
 
                 if fraction_blood < 11 and fraction_blood > 0 then
-                    local blood_part = "srbd\\hit\\fractional\\"..fraction_blood.."\\"..picked_particle
-                    play_particle(blood_part, pos, dir, lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
+                    local blood_part = "srbd\\hit\\fractional\\" .. fraction_blood .. "\\" .. picked_particle
+                    play_particle(blood_part, pos, dir, lookup:setting("particles/ttl"),
+                        lookup:setting("particles/limit"))
                 end
                 if fraction_armor < 11 and fraction_armor > 0 then
-                    local armor_part = "srbd\\hit\\fractional\\"..fraction_armor.."\\"..picked_particle.."_armor"
-                    play_particle(armor_part, pos, dir, lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
+                    local armor_part = "srbd\\hit\\fractional\\" .. fraction_armor .. "\\" .. picked_particle .. "_armor"
+                    play_particle(armor_part, pos, dir, lookup:setting("particles/ttl"),
+                        lookup:setting("particles/limit"))
                 end
 
                 return
@@ -173,8 +175,8 @@ function play_fingers_particle(s_hit, target, bone_id)
             picked_particle = picked_particle .. "_armor"
         end
     end
-    play_particle("srbd\\hit\\"..picked_particle, pos, dir, lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
-
+    play_particle("srbd\\hit\\" .. picked_particle, pos, dir, lookup:setting("particles/ttl"),
+        lookup:setting("particles/limit"))
 end
 
 function on_before_hit_after_calcs(s_hit, target, bone_id)
@@ -262,7 +264,7 @@ function on_weapon_fired(obj, wpn, ammo_elapsed, grenade_elapsed, ammo_type, gre
     pr("pos %s %s %s", pos.x, pos.y, pos.z)
     pr("dir %s %s %s", dir.x, dir.y, dir.z)
 
---    play_particle(test_particles[test_particle_index], pos, dir)
+    --    play_particle(test_particles[test_particle_index], pos, dir)
     test_particle_index = test_particle_index + 1
     if test_particle_index > #test_particles then
         test_particle_index = 1

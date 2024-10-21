@@ -1,4 +1,4 @@
---[[  
+--[[
     Edit of Dismemberment mod to remove bones without spawning objects
     Original Author: bvcx
 	https://www.moddb.com/members/bvcx
@@ -6,20 +6,20 @@
 	Edit by: sunn
     10/10/2024
 ]]
-local ltxOutfits = ini_file( "plugins\\wepl_hit_effect_outfits.ltx" )
-local ltxVisuals = ini_file( "plugins\\wepl_hit_effect_visuals.ltx" )
+local ltxOutfits = ini_file("plugins\\wepl_hit_effect_outfits.ltx")
+local ltxVisuals = ini_file("plugins\\wepl_hit_effect_visuals.ltx")
 
 -- Postpone on next n tick
 local nextTick = _G.nextTick or function(f, n)
-	n = floor(max(n or 1, 1))
-	AddUniqueCall(function()
-		if n == 1 then
-			return f()
-		else
-			n = n - 1
-			return false
-		end
-	end)
+    n = floor(max(n or 1, 1))
+    AddUniqueCall(function()
+        if n == 1 then
+            return f()
+        else
+            n = n - 1
+            return false
+        end
+    end)
 end
 
 death_log = {}
@@ -46,7 +46,6 @@ function lookup:__init(args)
     self.grok_head_bones = short_range_blood_lookup_tables.grok_head_bones
     self.grok_upper_body_group = short_range_blood_lookup_tables.grok_upper_body_group
     self.grok_lower_body_group = short_range_blood_lookup_tables.grok_lower_body_group
-
 end
 
 function lookup:get_creatures_cls()
@@ -79,7 +78,7 @@ end
 
 function lookup:setting(key)
     if ui_mcm then
-        return ui_mcm.get("blood/"..key)
+        return ui_mcm.get("blood/" .. key)
     end
 end
 
@@ -88,23 +87,24 @@ function lookup:get_armor_type_by_npc(npc)
 
 
     local armorType = nil
-	if ltxVisuals then
-		local npcVisual = npc:get_visual_name()
-		
-		if npcVisual then
-			npcVisual = string.lower( npcVisual )
-			local npcVisualExt = string.find( npcVisual, ".ogf" )
-			
-			if npcVisualExt then
-				npcVisual = string.sub( npcVisual, 1, npcVisualExt - 1 )
-			end
-			
-			if ltxVisuals:section_exist( npcVisual ) then
-				armorType = ltxVisuals:line_exist( npcVisual, "armorType" ) and ltxVisuals:r_string_ex( npcVisual, "armorType" ) or armorType
-			end
-		end
-	end
-	
+    if ltxVisuals then
+        local npcVisual = npc:get_visual_name()
+
+        if npcVisual then
+            npcVisual = string.lower(npcVisual)
+            local npcVisualExt = string.find(npcVisual, ".ogf")
+
+            if npcVisualExt then
+                npcVisual = string.sub(npcVisual, 1, npcVisualExt - 1)
+            end
+
+            if ltxVisuals:section_exist(npcVisual) then
+                armorType = ltxVisuals:line_exist(npcVisual, "armorType") and
+                ltxVisuals:r_string_ex(npcVisual, "armorType") or armorType
+            end
+        end
+    end
+
     return armorType
 end
 
@@ -112,23 +112,24 @@ function lookup:get_helmet_type_by_npc(npc)
     if not npc or not IsStalker(npc) then return nil end
 
     local helmetType = nil
-	if ltxVisuals then
-		local npcVisual = npc:get_visual_name()
-		
-		if npcVisual then
-			npcVisual = string.lower( npcVisual )
-			local npcVisualExt = string.find( npcVisual, ".ogf" )
-			
-			if npcVisualExt then
-				npcVisual = string.sub( npcVisual, 1, npcVisualExt - 1 )
-			end
-			
-			if ltxVisuals:section_exist( npcVisual ) then
-                helmetType = ltxVisuals:line_exist( npcVisual, "helmetType" ) and ltxVisuals:r_string_ex( npcVisual, "helmetType" ) or helmetType
-			end
-		end
-	end
-	
+    if ltxVisuals then
+        local npcVisual = npc:get_visual_name()
+
+        if npcVisual then
+            npcVisual = string.lower(npcVisual)
+            local npcVisualExt = string.find(npcVisual, ".ogf")
+
+            if npcVisualExt then
+                npcVisual = string.sub(npcVisual, 1, npcVisualExt - 1)
+            end
+
+            if ltxVisuals:section_exist(npcVisual) then
+                helmetType = ltxVisuals:line_exist(npcVisual, "helmetType") and
+                ltxVisuals:r_string_ex(npcVisual, "helmetType") or helmetType
+            end
+        end
+    end
+
     return helmetType
 end
 
@@ -200,7 +201,7 @@ function lookup:getGrokDefuckulatorKey(s_hit, target, bone_id)
         if not custom_bone_name then
             pr("found custom bone %s", custom_bone_name)
             -- because he uses math.random to generate these bone ids
-            for id=52,55 do
+            for id = 52, 55 do
                 local grok_key = target:id() .. "_" .. id
                 pr("checking in %s", grok_key)
                 if self.gbo.custom_bone_dmg[grok_key] ~= nil then
@@ -217,11 +218,11 @@ function lookup:getGrokDefuckulatorKey(s_hit, target, bone_id)
         if self.grok_upper_body_group[bone_id] then
             bone_id = 11
         end
-        
+
         if self.grok_lower_body_group[bone_id] then
             bone_id = 2
         end
-        
+
         if self.grok_head_bones[bone_id] then
             bone_id = 15
         end
@@ -263,61 +264,62 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
     if shooter:id() ~= player:id() then return end
 
     wpn = level.object_by_id(s_hit.weapon_id)
-	sec = wpn:section()
+    sec = wpn:section()
 
-	if sec == "explosive_barrel" or sec == "explosive_barrel_low" or sec == "explosive_tank" or sec == "explosive_grenade" or sec == "explosive_hide" or sec == "explosive_particle" or sec == "explosive_fuelcan" 
-	or sec == "explosive_mobiltank" or sec == "explosive_dinamit" then
-		return
-	end
+    if sec == "explosive_barrel" or sec == "explosive_barrel_low" or sec == "explosive_tank" or sec == "explosive_grenade" or sec == "explosive_hide" or sec == "explosive_particle" or sec == "explosive_fuelcan"
+        or sec == "explosive_mobiltank" or sec == "explosive_dinamit" then
+        return
+    end
 
-	if IsGrenade(wpn) then return end
-	if wpn == nil then return end
+    if IsGrenade(wpn) then return end
+    if wpn == nil then return end
 
-	local wpn_id = wpn:id()
-	local ammo_type_number = wpn:get_ammo_type()
-	local ammo_list = utils_item.get_ammo(sec, wpn_id)
-	local ammo_section = ammo_list[ammo_type_number+1]
-	local wpn_hit_power = ui_wpn_params.read_float(sec, "", "hit_power")
+    local wpn_id = wpn:id()
+    local ammo_type_number = wpn:get_ammo_type()
+    local ammo_list = utils_item.get_ammo(sec, wpn_id)
+    local ammo_section = ammo_list[ammo_type_number + 1]
+    local wpn_hit_power = ui_wpn_params.read_float(sec, "", "hit_power")
 
     if wpn and wpn:weapon_is_silencer() then
         silencer_boost = 1.07
-	else
-		silencer_boost = 1
-	end
-	
-	if sec and self.integrated_silencer[sec] then
-		silencer_boost = 1.07
-	end
+    else
+        silencer_boost = 1
+    end
 
-	if string.find(sec, "wpn_toz106") then
-		wpn_hit_power = 0.8
-	end
+    if sec and self.integrated_silencer[sec] then
+        silencer_boost = 1.07
+    end
+
+    if string.find(sec, "wpn_toz106") then
+        wpn_hit_power = 0.8
+    end
     local k_ap = ini_sys:r_float_ex(ammo_section, "k_ap") * 10 or 0
-	local k_hit = ini_sys:r_float_ex(ammo_section, "k_hit") or 1
-	local air_res = ini_sys:r_float_ex(ammo_section, "k_air_resistance") or 0.05
-	local wm_size = ini_sys:r_float_ex(ammo_section, "wm_size") or 0.05
-	local target_pos = target:position()
-	local shooter_pos = shooter:position()
-	local dist = target_pos:distance_to(shooter_pos)
+    local k_hit = ini_sys:r_float_ex(ammo_section, "k_hit") or 1
+    local air_res = ini_sys:r_float_ex(ammo_section, "k_air_resistance") or 0.05
+    local wm_size = ini_sys:r_float_ex(ammo_section, "wm_size") or 0.05
+    local target_pos = target:position()
+    local shooter_pos = shooter:position()
+    local dist = target_pos:distance_to(shooter_pos)
 
     local gameplay = alife_storage_manager.get_state().diff_game
-	if not (type(gameplay) == "table") then -- for old saves
-		alife_storage_manager.get_state().diff_game = {}
-		alife_storage_manager.get_state().diff_game["type"] = game_num
-		gameplay = alife_storage_manager.get_state().diff_game
-	end
+    if not (type(gameplay) == "table") then -- for old saves
+        alife_storage_manager.get_state().diff_game = {}
+        alife_storage_manager.get_state().diff_game["type"] = game_num
+        gameplay = alife_storage_manager.get_state().diff_game
+    end
 
-	local game_num = gameplay["type"] or 1
+    local game_num = gameplay["type"] or 1
 
-	ammo_mult = 1.00
+    ammo_mult = 1.00
 
-	if ammo_section == "ammo_7.62x25_p"  or ammo_section == "ammo_7.62x25_p_bad" then
-		ammo_mult = 1.75
-	end
+    if ammo_section == "ammo_7.62x25_p" or ammo_section == "ammo_7.62x25_p_bad" then
+        ammo_mult = 1.75
+    end
 
 
     -- we ignore barrel_condition_corrected, sin resistance, sniper_bad_bone_shit_reduce because fuck this
-    local power = wpn_hit_power / ( 1 + dist / 200 * ( air_res * 0.5 / ( 1 - air_res + 0.1 ))) * k_hit * custom_bone_dmg_mult * custom_bone_ap_scale * 1.1 * self.difficulty_multiplier[game_num] * ammo_mult * silencer_boost
+    local power = wpn_hit_power / (1 + dist / 200 * (air_res * 0.5 / (1 - air_res + 0.1))) * k_hit * custom_bone_dmg_mult *
+    custom_bone_ap_scale * 1.1 * self.difficulty_multiplier[game_num] * ammo_mult * silencer_boost
     pr("-----------------------GROK DEFUCKULATOR v3.FUCKKKKt-------------------------")
     pr("-----------------------------grok identifier: %s-----------------------------", grok_key)
     pr("------bone dmg---------------------%s----------------------------------------", custom_bone_dmg_mult)
@@ -381,7 +383,7 @@ function pr(...)
 end
 
 function on_game_start()
-    RegisterScriptCallback("save_state",save_state)
-	RegisterScriptCallback("load_state",load_state)
+    RegisterScriptCallback("save_state", save_state)
+    RegisterScriptCallback("load_state", load_state)
     RegisterScriptCallback("on_before_hit_after_calcs", death_log_callback)
 end

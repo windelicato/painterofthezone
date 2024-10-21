@@ -1,4 +1,4 @@
---[[  
+--[[
     Edit of Bullet Time mod to trigger automatically and create fallout style VATS zoom
     Original Author: exDeMODER
     https://www.moddb.com/members/exDeMODER
@@ -59,7 +59,7 @@ local screenfx = {
 -- Keep track of events
 local slowmo_flag = 0
 local zoom_flag = 0
-local reset_counter= 0
+local reset_counter = 0
 local reset_counter_timer = 0
 local trigger_delay = 100
 local trigger_timer = 0
@@ -117,7 +117,6 @@ function end_slowmo(event_id)
     return true
 end
 
-
 -----------------------------------------------------------------------------------------------
 -- INITIAL CALLBACK
 -----------------------------------------------------------------------------------------------
@@ -159,14 +158,14 @@ end
 -----------------------------------------------------------------------------------------------
 function _slowmo_zoom_on_update()
     tg = time_global()
-	
-	if update_trigger == 0 then
-       	grok_delay = tg + update_delay
-		update_trigger = 1
-	end
-	
-	if (update_trigger == 1 and tg > grok_delay) then
-		update_trigger = 0
+
+    if update_trigger == 0 then
+        grok_delay = tg + update_delay
+        update_trigger = 1
+    end
+
+    if (update_trigger == 1 and tg > grok_delay) then
+        update_trigger = 0
 
         if not db.actor:alive() then
             end_slowmo_zoom(current_slowmo_event)
@@ -180,14 +179,14 @@ end
 
 function _slowmo_zoom_on_end()
     tg = time_global()
-	
-	if update_trigger == 0 then
-       	grok_delay = tg + update_delay
-		update_trigger = 1
-	end
-    	
-	if (update_trigger == 1 and tg > grok_delay) then
-		update_trigger = 0
+
+    if update_trigger == 0 then
+        grok_delay = tg + update_delay
+        update_trigger = 1
+    end
+
+    if (update_trigger == 1 and tg > grok_delay) then
+        update_trigger = 0
         if (time_factor >= lookup:setting("bullettime/time_speed")) then
             set_time_factor(lookup:setting("bullettime/time_speed"))
             slowmo_start()
@@ -203,39 +202,37 @@ end
 -----------------------------------------------------------------------------------------------
 function _slowmo_on_update()
     tg = time_global()
-	
-	if update_trigger == 0 then
-       	grok_delay = tg + update_delay
-		update_trigger = 1
-	end
-	
-	if (update_trigger == 1 and tg > grok_delay) then
-		update_trigger = 0
+
+    if update_trigger == 0 then
+        grok_delay = tg + update_delay
+        update_trigger = 1
+    end
+
+    if (update_trigger == 1 and tg > grok_delay) then
+        update_trigger = 0
 
         if (not db.actor:alive()) then
             end_slowmo(current_slowmo_event)
         end
 
         if time_factor > lookup:setting("bullettime/time_speed") then
-            set_time_factor(time_factor-lookup:setting("bullettime/smooth_start_factor"))
+            set_time_factor(time_factor - lookup:setting("bullettime/smooth_start_factor"))
             focus_coef = focus_coef + 0.005;
             update_bullettime_screenfx(focus_coef)
         end
-
     end
 end
 
 function _slowmo_on_end()
     tg = time_global()
-	
-	if update_trigger == 0 then
-       	grok_delay = tg + update_delay
-		update_trigger = 1
-	end
 
-	if (update_trigger == 1 and tg > grok_delay) then
+    if update_trigger == 0 then
+        grok_delay = tg + update_delay
+        update_trigger = 1
+    end
 
-		update_trigger = 0
+    if (update_trigger == 1 and tg > grok_delay) then
+        update_trigger = 0
         if (time_factor >= 1) then
             set_time_factor(1)
             remove_callbacks()
@@ -247,7 +244,6 @@ function _slowmo_on_end()
     pr("slowmo on end")
 end
 
-
 -----------------------------------------------------------------------------------------------
 -- NON CALLBACK FUNCTIONS
 -----------------------------------------------------------------------------------------------
@@ -255,13 +251,13 @@ end
 -- CALLBACK UTILS
 
 function set_time_factor(tf)
-    if tf >= 1 then 
+    if tf >= 1 then
         slowmo_flag = 0
         zoom_flag = 0
         reset_counter = 0
         focus_coef = 0
 
-        current_slowmo_event = current_slowmo_event+1
+        current_slowmo_event = current_slowmo_event + 1
     end
     time_factor = tf
     get_console():execute("time_factor " .. tostring(tf))
@@ -288,7 +284,8 @@ function slowmo_zoom_start(target, bone_id)
     else
         set_time_factor(lookup:setting("killcam/time_speed"))
     end
-    CreateTimeEvent("end_slowmo_zoom_e", "end_slowmo_zoom_" .. current_slowmo_event, lookup:setting("killcam/length"), end_slowmo_zoom, current_slowmo_event)
+    CreateTimeEvent("end_slowmo_zoom_e", "end_slowmo_zoom_" .. current_slowmo_event, lookup:setting("killcam/length"),
+        end_slowmo_zoom, current_slowmo_event)
     zoom_flag = 1
     slowmo_flag = 1
 end
@@ -308,7 +305,8 @@ function slowmo_start()
         if remaining_time > 0.1 then slowmo_length = remaining_time end
         pr("coming from killcam with time left: %s", remaining_time)
     end
-    CreateTimeEvent("end_slowmo_e", "end_slowmo_" .. current_slowmo_event, slowmo_length, end_slowmo, current_slowmo_event)
+    CreateTimeEvent("end_slowmo_e", "end_slowmo_" .. current_slowmo_event, slowmo_length, end_slowmo,
+        current_slowmo_event)
     slowmo_flag = 1
     reset_counter = 0
 end
@@ -323,7 +321,7 @@ function play_bullettime_sound(sound)
 end
 
 function cleanup_bullettime_screenfx()
-    for k,v in pairs(screenfx) do
+    for k, v in pairs(screenfx) do
         level.remove_pp_effector(v.id)
     end
 end
@@ -388,7 +386,7 @@ function trigger(target, bone_id)
 
         local function __bullettime_start_conditional()
             if not lookup:setting("bullettime/enable") then return false end
-            if lookup:setting("bullettime/trigger_chance")*100 < math.random(100) then return false end
+            if lookup:setting("bullettime/trigger_chance") * 100 < math.random(100) then return false end
             return true
         end
 
@@ -407,7 +405,7 @@ function trigger(target, bone_id)
         elseif slowmo_flag == 1 then
             tg = time_global()
             if tg > reset_counter_timer + trigger_delay then
-                reset_counter = reset_counter+1
+                reset_counter = reset_counter + 1
                 reset_counter_timer = tg
                 pr("resetting time event: %s", reset_counter)
             end
@@ -425,11 +423,11 @@ function actor_is_safe(radius)
     pr("testing nearby enemies")
     local count = 0
     local pos = db.actor:position()
-    for id,v in pairs(xr_combat_ignore.fighting_with_actor_npcs) do
+    for id, v in pairs(xr_combat_ignore.fighting_with_actor_npcs) do
         local npc = db.storage[id] and db.storage[id].object
         if npc and npc:alive() and (pos:distance_to(npc:position()) <= radius) then
             pr("npc in safemode radius: %s", id)
-            count = count+1
+            count = count + 1
         end
     end
     pr("enemies in combat within radius of %s: %s", radius, count)
@@ -459,37 +457,38 @@ function move_camera(target, bone_id)
     local real_camera_distance = nil
     local points = 25
     local cycle = 0
-    local b=0
-    local x=0
-    local y=1
-    local z=0
+    local b = 0
+    local x = 0
+    local y = 1
+    local z = 0
 
     for i = 1, points do
         b = i / points
-        local c = cycle + (360 * b)            -- to lessen the computation cost
+        local c = cycle + (360 * b) -- to lessen the computation cost
         x = tonumber(lookup:setting("killcam/distance")) * math.sin(math.rad(c))
         z = tonumber(lookup:setting("killcam/distance")) * math.cos(math.rad(c))
-        cycle = cycle+0.5
+        cycle = cycle + 0.5
 
         if cycle >= 360 then
             cycle = 0
         end
 
-        local cycle_cam_pos = vector():set(pos.x + x, pos.y+y, pos.z+z)
+        local cycle_cam_pos = vector():set(pos.x + x, pos.y + y, pos.z + z)
         local cycle_cam_dir = vec_sub(vector():set(pos), vector():set(cycle_cam_pos))
 
         if not real_camera_distance then
-            real_camera_distance = math.sqrt((cycle_cam_pos.x - pos.x)^2 +(cycle_cam_pos.y - pos.y)^2 +(cycle_cam_pos.z - pos.z)^2)
+            real_camera_distance = math.sqrt((cycle_cam_pos.x - pos.x) ^ 2 + (cycle_cam_pos.y - pos.y) ^ 2 +
+            (cycle_cam_pos.z - pos.z) ^ 2)
             pr("real camera distance: %s", real_camera_distance)
         end
 
-		local ray = geometry_ray({
-			ray_range = real_camera_distance,
-			flags = 2,
-			ignore_object = target
-		})
-		local camera_ray = ray:get(cycle_cam_pos, cycle_cam_dir:normalize())
-		if not camera_ray.success then
+        local ray = geometry_ray({
+            ray_range = real_camera_distance,
+            flags = 2,
+            ignore_object = target
+        })
+        local camera_ray = ray:get(cycle_cam_pos, cycle_cam_dir:normalize())
+        if not camera_ray.success then
             table.insert(safe_cam_positions, cycle_cam_pos)
             table.insert(safe_cam_directions, cycle_cam_dir)
             if lookup:setting("killcam/enable_debug") then
@@ -499,8 +498,7 @@ function move_camera(target, bone_id)
                 part_outside[i] = particles_object("_samples_particles_\\flash_light")
                 part_outside[i]:play_at_pos(cycle_cam_pos)
             end
-		end
-
+        end
     end
 
     if #safe_cam_positions == 0 then return end
@@ -525,21 +523,20 @@ function move_camera(target, bone_id)
     end
 end
 
-
 -----------------------------------------------------------------------------------------------
 -- UTILS
 -----------------------------------------------------------------------------------------------
 -- clean out on loading
 local clear_event_counter = 0
 function save_state(m_data)
-	if clear_event_counter == 1 then
+    if clear_event_counter == 1 then
         m_data.current_slowmo_event = 0
     end
 end
 
 function load_state(m_data)
     if m_data.current_slowmo_event then
-		clear_event_counter = 1
+        clear_event_counter = 1
         m_data.current_slowmo_event = 0
     end
 end
@@ -554,19 +551,19 @@ function main_menu_on_init()
     remove_callbacks()
     reset_camera()
 end
+
 function main_menu_on_quit()
     set_time_factor(1)
     remove_callbacks()
     reset_camera()
 end
 
-
 function on_game_start()
-    RegisterScriptCallback("save_state",save_state)
-	RegisterScriptCallback("load_state",load_state)
+    RegisterScriptCallback("save_state", save_state)
+    RegisterScriptCallback("load_state", load_state)
 
     RegisterScriptCallback("main_menu_on_init", main_menu_on_init)
-	RegisterScriptCallback("main_menu_on_quit", main_menu_on_quit)
+    RegisterScriptCallback("main_menu_on_quit", main_menu_on_quit)
 
     RegisterScriptCallback("on_before_hit_after_calcs", _on_before_hit_after_calcs)
     --RegisterScriptCallback("monster_on_death_callback", npc_on_death)
