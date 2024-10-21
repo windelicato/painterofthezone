@@ -55,7 +55,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
 
         -- defuckulator is logic to recalculate grok_bo power D:
         if grok_bo ~= nil then 
-            hit_power = lookup:grokDefuckulator(s_hit, target, bone_id) or hit_power
+            hit_power = lookup:get_gbo_calculation("power", s_hit, target, bone_id) or hit_power
         end
 
     elseif IsMonster(target) then

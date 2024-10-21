@@ -1,4 +1,5 @@
 # 1.2.1
+```
     MCM moved from "Blood wallmarks" to "Painter of the zone"
 
     Particle updates:
@@ -18,10 +19,12 @@
     Killcam updates:
     - Seperated kill cam settings into their own section
     - Kill cam can be enabled independantly from bullet time
+```
 
 
 # 1.2.0
 
+```
 Added slow motion killcam like Fallout
 	- Raytraces around target to find safe camera angle
 	- By default this triggers on headshot kills from powerful ammo
@@ -112,44 +115,63 @@ Other fixes
        - Replaced all on_before_hit with demonized EXE on_before_hit_after_calcs to avoid any timing collisions with other mods
    - Russian translation for MCM
        - Просто гугл-переводчик. Пожалуйста, сообщите о плохом переводе.
+```
 
 # 1.0.5c
+```
     - Fixed timing issues when NPC died before on_hit callback completed. If you notice missing pools or no bullet time after a one hit kill, up "tick delay" in MCM > Blood Wallmarks > General
     - No longer requires debug mode for bullet time
+```
 
 # 1.0.5b
+```
     - Place extra checks to avoid triggering on npc vs npc kills
+```
 
 # 1.0.5a
+```
     - Separated MCM menus
     - Added option to configure chance to trigger bullettime in MCM
+```
 
 # 1.0.5
+```
     - Added optional "bullet time" that triggers when you get a headshot kill
     - Bullet time is extended on each consecutive headshot kill
     - Unfortunately requires debug mode on
     - Added MCM options for bullet time
+```
 
 # 1.0.4
+```
     - Edited particles and moved the ones we are using into this mod
     - Added particle buffer to prevent overwriting eachother
     - Clean out tables on save/load to prevent memory increase
     - Added optional headshot particle for monkeypatching
     - Added MCM options for buffer size, wallmark tracing, particle choices for custom vfx overrides
     - Updated suggestions for monkeypatch and particle rate
+```
 
 # 1.0.3
+```
     - Cleaned up optional extra particles on hit to be nice and visible :) Enable in MCM
     - Added grok_bo monkeypatch recommendation/suggestion in pins^^^
+```
 
 # 1.0.2
+```
   - Enabled for mutants
   - Try and handle pools overlapping with floormarks better. Might have to delay floormark display until grok_bo is done
   - No longer shows floormark when engine displays wallmark (ray traced 5m, some mods might show wallmarks further). Should fix double decals when npc is in a corner
   - Removed debug file accidently placed in last release D:
+```
 
 # 1.0.1
+```
   - Renamed dltx files and sections to avoid any load order requirements
+```
 
 # 1.0
+```
   - Initial release
+```

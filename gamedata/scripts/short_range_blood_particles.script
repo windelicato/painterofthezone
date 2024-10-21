@@ -149,7 +149,7 @@ function play_fingers_particle(s_hit, target, bone_id)
     if lookup:setting("particles/enable_armor_feedback") then
         local armorType = lookup:get_armor_type_by_npc(target)
         if armorType == "exo" or armorType == "medium" then
-            local hit_fraction = lookup:get_bone_hit_fraction_by_npc(target, s_hit, bone_id)
+            local hit_fraction = lookup:get_k_ap_by_npc(target, s_hit, bone_id)
             if hit_fraction then
                 local fraction_blood = math.floor(20*hit_fraction+0.5)
                 if fraction_blood > 10 then fraction_blood = 10 end
@@ -196,10 +196,10 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
             local hit_threshold = lookup:setting("dismemberment/threshold_stalker")
             local hit_power = s_hit.power
             if grok_bo ~= nil then
-                hit_power = lookup:grokDefuckulator(s_hit, target, bone_id)
+                hit_power = lookup:get_gbo_calculation("power", s_hit, target, bone_id)
             end
             if cxv_artigrok_bo ~= nil then
-                hit_power = lookup:grokDefuckulator(s_hit, target, bone_id)
+                hit_power = lookup:get_gbo_calculation("power", s_hit, target, bone_id)
             end
             if (not hit_power) or (hit_power < hit_threshold) then return end
 
