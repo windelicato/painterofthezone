@@ -318,3 +318,35 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 
 # 1.0
   - Initial release
+
+# Condensed for Discord (ignore)
+
+# Painter of the zone (previously short range blood decals)
+ANY OF THIS CAN BE DISABLED IN MCM 
+- 8k blood wallmark textures
+- Short range bloodstains on the ground when NPCs are hit but no walls are nearby
+- Adds back static blood pools but without the resizing or footsteps to avoid busyhands (disabled by default)
+- New on hit particles like glass particles for glass helmets, heads exploding, bloody finger clouds, armor chunks
+- Bullet time. Temporarily slows down in game time when you kill an NPC with a headshot
+- Slowmo killcam like Fallout VATS with lots of options for triggering
+- Dismemberment using particles instead of game objects that fully respects GAMMA's damage calculations. No game objects spawned to avoid busyhands
+- A massive MCM menu with all of the above fully configurable. Use what you want, don't use what you dont want
+- Safety checks to the best of my knowledge to avoid engine bugs / busyhands. No save bloat, no actor_on_update every frame, time critical functions delayed with nextTick to avoid collisions
+
+#[DOCS](https://github.com/windelicato/painterofthezone/tree/main?tab=readme-ov-file#painter-of-the-zone)
+
+#[SETTINGS](https://github.com/windelicato/painterofthezone/tree/main?tab=readme-ov-file#available-mcm-settings)
+
+#[CHANGELOG](https://github.com/windelicato/painterofthezone/tree/main?tab=readme-ov-file#changelog)
+
+#[TODO](https://github.com/windelicato/painterofthezone/tree/main?tab=readme-ov-file#changelog)
+
+
+
+#[ДОКУМЕНТЫ](https://github.com/windelicato/painterofthezone/blob/main/README.ru.md#%D1%85%D1%83%D0%B4%D0%BE%D0%B6%D0%BD%D0%B8%D0%BA-%D0%B7%D0%BE%D0%BD%D1%8B)
+
+#[НАСТРОЙКИ](https://github.com/windelicato/painterofthezone/blob/main/README.ru.md#%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8-mcm)
+
+#[СПРАВКА](https://github.com/windelicato/painterofthezone/blob/main/README.ru.md#%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F)
+
+#[СПИСОК ДЕЛ](https://github.com/windelicato/painterofthezone/blob/main/README.ru.md#%D0%B2%D1%81%D0%B5)
