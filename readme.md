@@ -1,5 +1,7 @@
 # PAINTER OF THE ZONE
 
+#  >>> [РУССКИЙ](https://github.com/windelicato/painterofthezone/blob/main/README.ru.md) <<<
+
 Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. with extensive MCM configuration
 
 # FEATURES
