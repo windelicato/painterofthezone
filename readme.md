@@ -1,12 +1,12 @@
 # PAINTER OF THE ZONE
 
-Combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. 
+Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. with extensive MCM configuration
 
 # FEATURES
 
-## High resolution wallmark textures with parallax and material support
+### High resolution wallmark textures with parallax and material support
 
-## Extensive MCM options to configure or disable any of the following:
+### Extensive MCM options to enable, disable, or tweak everything possible
 
 ### Enhancements to engine wallmarks
 - When no walls are nearby places blood marks on the floor

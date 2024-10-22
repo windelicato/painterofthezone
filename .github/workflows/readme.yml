@@ -19,7 +19,3 @@ jobs:
         uses: dephraiim/translate-readme@main
         with:
           LANG: ru
-      - name: Adding README - Ukranian
-        uses: dephraiim/translate-readme@main
-        with:
-          LANG: uk
