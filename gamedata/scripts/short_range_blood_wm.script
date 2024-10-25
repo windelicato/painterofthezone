@@ -26,10 +26,107 @@ local engine_wallmark_range = 5
 local lookup = short_range_blood_lookup.lookup()
 
 local draw_time = time_global()
--- debug stuff
-local debug_particle_buffer = {}
-local debug_particle_buffer_two = {}
+local dismemb_draw_time = time_global()
 ----------------
+
+function shuffle(tbl)
+	for i = #tbl, 2, -1 do
+		local j = math.random(i)
+		tbl[i], tbl[j] = tbl[j], tbl[i]
+	end
+	return tbl
+end
+
+function draw_dismemberment_wm(target, bone_id)
+	pr("starting dismemb wallmark")
+	local update_delay = lookup:setting("wm/delay") * 1000
+	local tg = time_global()
+
+	if (tg > dismemb_draw_time + update_delay) then
+		dismemb_draw_time = tg
+		pr("starting delay wallmark")
+		if not lookup:setting("wm/enable_dismemberment") then return end
+		if not target then return end
+		if not bone_id then return end
+		local bone_name = bone_id and target:bone_name(bone_id)
+		if not bone_name then return end
+		local pos = target:bone_position(bone_name)
+		if not pos then return end
+
+		local radius = lookup:setting("wm/dismemberment_distance")
+
+		pr("getting cam dist")
+		local unsafe_cam_directions = lookup:get_unsafe_camera_directions(target, bone_id, pos, radius)
+		if not unsafe_cam_directions or #unsafe_cam_directions == 0 then return end
+
+		local wallmark_limit = lookup:setting("wm/dismemberment_count")
+		local wallmark_count = #unsafe_cam_directions
+		pr("possible walls: %s", wallmark_count)
+		if wallmark_count > 0 then
+			if wallmark_count > wallmark_limit then wallmark_count = wallmark_limit end
+			unsafe_cam_directions = shuffle(unsafe_cam_directions)
+			for i = 1, wallmark_count do
+				local picked_wm = "new_wm_blood_drip_" .. math.random(1, 6)
+				local wm_size = 0.3 + 0.0001 * math.random(1, 4000)
+				if i == 1 then
+					picked_wm = "new_wm_blood_wound_" .. math.random(1, 3)
+					wm_size = 0.1 + 0.0001 * math.random(1, 4000)
+				end
+				if i == 2 then
+					wm_size = 0.5 + 0.0001 * math.random(1, 10000)
+					picked_wm = "new_wm_blood_splash_" .. math.random(1, 12)
+				end
+
+				local direction = unsafe_cam_directions[i]
+				local vec_down = vector():set(0, -0.001 * math.random(1, 1000), 0)
+				direction = vec_add(vec_down, direction):normalize()
+
+				pr("checking normal")
+				local wall, normal, surface_position = get_surface_normal(pos, direction, radius, target)
+				if wall then
+					local wallmark_start = vector():set(surface_position.x + normal.x, surface_position.y + normal.y,
+						surface_position.z + normal.z)
+					local wallmark_dir = vector():set(-1 * normal.x, -1 * normal.y, -1 * normal.z)
+
+					pr("found a wall and placing %s in %s", picked_wm, direction)
+
+					wallmarks_manager():place(wallmark_dir, wallmark_start, radius, wm_size, picked_wm, target,
+						lookup:setting("wm/lifetime"), false)
+
+					local dust_part = "srbd\\headshot\\srbd_head_dust"
+					short_range_blood_particles.play_particle(dust_part, surface_position, normal)
+					pr("dismember wm placed")
+				end
+			end
+		end
+	end
+end
+
+function get_surface_normal(start_pos, start_direction, range, ignore)
+	local ray = geometry_ray({
+		ray_range = range,
+		flags = 2,
+		ignore_object = ignore,
+		visualize = lookup:setting("wm/enable_debug")
+	})
+	local res = ray:get(start_pos, start_direction)
+	if res.success then
+		local normal = demonized_geometry_ray.get_surface_normal(
+			start_pos,
+			start_direction,
+			{
+				flags = 2,
+				visualize = lookup:setting("wm/enable_debug")
+			},
+			nil,
+			res
+		)
+		if not normal then return end
+
+		local angle = math.abs(math.deg(math.asin(normal.y)))
+		return angle < 30, normal, res.position
+	end
+end
 
 function draw_pool_wm(s_hit, target, bone_id)
 	if target:alive() then return end
@@ -44,20 +141,6 @@ function draw_pool_wm(s_hit, target, bone_id)
 	local wm_size = lookup:setting("wm/size_pool")
 
 	pr("- draw our wm || size: %s || sec: %s", wm_size, picked_wm)
-
-	if lookup:setting("wm/enable_debug") then
-		for i = 1, 10 do
-			local nx = wm_dir.x * i
-			local ny = wm_dir.y * i
-			local nz = wm_dir.z * i
-
-			if debug_particle_buffer_two[i] ~= nil then
-				debug_particle_buffer_two[i]:stop()
-			end
-			debug_particle_buffer_two[i] = particles_object("_samples_particles_\\flash_light")
-			debug_particle_buffer_two[i]:play_at_pos(vector():set(wm_pos.x + nx, wm_pos.y + ny, wm_pos.z + nz))
-		end
-	end
 
 	wallmarks_manager():place(wm_dir, wm_pos, 10, wm_size, picked_wm, target, lookup:setting("wm/lifetime"), false)
 end
@@ -97,41 +180,10 @@ function draw_floor_wm(s_hit, target, bone_id)
 	local pos_to = bone_name and vector():set(target:bone_position(bone_name))
 	local wm_dir = wpn_pos and pos_to and vec_sub(vector():set(pos_to), vector():set(wpn_pos)):normalize()
 
-	if lookup:setting("wm/enable_debug") then
-		for i = 1, 10 do
-			local nx = (wpn_pos.x - pos_to.x) / 10
-			local ny = (wpn_pos.y - pos_to.y) / 10
-			local nz = (wpn_pos.z - pos_to.z) / 10
-
-			if debug_particle_buffer[i] ~= nil then
-				debug_particle_buffer[i]:stop()
-			end
-
-			debug_particle_buffer[i] = particles_object("_samples_particles_\\flash_light")
-			debug_particle_buffer[i]:play_at_pos(vector():set(wpn_pos.x - nx * i, wpn_pos.y - ny * i, wpn_pos.z - nz * i))
-		end
-	end
-
-
-
 	local gravity = lookup:setting("wm/gravity")
 	local vec_down = vector():set(0, gravity * -1, 0)
 	local vec_dir = vec_add(vector():set(vec_down), vector():set(wm_dir)):normalize()
 	local vec_pos = pos_to
-
-	if lookup:setting("wm/enable_debug") then
-		for i = 1, 10 do
-			local nx = vec_dir.x * i
-			local ny = vec_dir.y * i
-			local nz = vec_dir.z * i
-
-			if debug_particle_buffer_two[i] ~= nil then
-				debug_particle_buffer_two[i]:stop()
-			end
-			debug_particle_buffer_two[i] = particles_object("_samples_particles_\\flash_light")
-			debug_particle_buffer_two[i]:play_at_pos(vector():set(vec_pos.x + nx, vec_pos.y + ny, vec_pos.z + nz))
-		end
-	end
 
 	-- wm to draw
 	local wms = {
@@ -231,11 +283,31 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
 	end
 end
 
+function on_weapon_fired(obj, wpn, ammo_elapsed, grenade_elapsed, ammo_type, grenade_type)
+	if not lookup:setting("wm/enable_debug") then return end
+	local actor_pos = db.actor:position()
+	local actor_dir = device().cam_dir
+	local cam_pos = device().cam_pos
+	local wm_dir = actor_dir
+	wm_dir = vector():set(actor_dir.x, actor_dir.y, actor_dir.z):normalize()
+	local pos = actor_pos
+
+	local wpn = db.actor:active_item()
+	if not (wpn and IsWeapon(wpn)) then return end
+	local wpn_pos = vector():set(wpn:bone_position("wpn_body"))
+
+	local wm_size = lookup:setting("wm/size")
+	--local picked_wm = "new_wm_blood_wound_"..math.random(1,3)
+	local picked_wm = "new_wm_blood_wound_1"
+	--wallmarks_manager():place(wm_dir, wpn_pos, 20, wm_size, picked_wm, db.actor, lookup:setting("wm/lifetime"))
+end
+
 function pr(...)
 	if not lookup:setting("wm/enable_debug") then return end
 	printf(...)
 end
 
 function on_game_start()
+	RegisterScriptCallback("actor_on_weapon_fired", on_weapon_fired)
 	RegisterScriptCallback("on_before_hit_after_calcs", on_before_hit_after_calcs)
 end

@@ -6,6 +6,8 @@
 	Edit by: sunn
     10/10/2024
 ]]
+local geometry_ray = demonized_geometry_ray.geometry_ray
+
 local ltxOutfits = ini_file("plugins\\wepl_hit_effect_outfits.ltx")
 local ltxVisuals = ini_file("plugins\\wepl_hit_effect_visuals.ltx")
 
@@ -32,6 +34,16 @@ function lookup:__init(args)
     if cxv_artigrok_bo then self.gbo = cxv_artigrok_bo end
 
     self.gbo_calculations = {}
+    self.camera_buffer = {
+        safe = {
+            position = {},
+            direction = {}
+        },
+        unsafe = {
+            position = {},
+            direction = {}
+        }
+    }
 
     self.creatures_cls = short_range_blood_lookup_tables.creatures_cls
     self.creatures_kind = short_range_blood_lookup_tables.creatures_kind
@@ -100,7 +112,7 @@ function lookup:get_armor_type_by_npc(npc)
 
             if ltxVisuals:section_exist(npcVisual) then
                 armorType = ltxVisuals:line_exist(npcVisual, "armorType") and
-                ltxVisuals:r_string_ex(npcVisual, "armorType") or armorType
+                    ltxVisuals:r_string_ex(npcVisual, "armorType") or armorType
             end
         end
     end
@@ -125,7 +137,7 @@ function lookup:get_helmet_type_by_npc(npc)
 
             if ltxVisuals:section_exist(npcVisual) then
                 helmetType = ltxVisuals:line_exist(npcVisual, "helmetType") and
-                ltxVisuals:r_string_ex(npcVisual, "helmetType") or helmetType
+                    ltxVisuals:r_string_ex(npcVisual, "helmetType") or helmetType
             end
         end
     end
@@ -319,7 +331,7 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
 
     -- we ignore barrel_condition_corrected, sin resistance, sniper_bad_bone_shit_reduce because fuck this
     local power = wpn_hit_power / (1 + dist / 200 * (air_res * 0.5 / (1 - air_res + 0.1))) * k_hit * custom_bone_dmg_mult *
-    custom_bone_ap_scale * 1.1 * self.difficulty_multiplier[game_num] * ammo_mult * silencer_boost
+        custom_bone_ap_scale * 1.1 * self.difficulty_multiplier[game_num] * ammo_mult * silencer_boost
     pr("-----------------------GROK DEFUCKULATOR v3.FUCKKKKt-------------------------")
     pr("-----------------------------grok identifier: %s-----------------------------", grok_key)
     pr("------bone dmg---------------------%s----------------------------------------", custom_bone_dmg_mult)
@@ -337,6 +349,126 @@ function lookup:grokDefuckulator(s_hit, target, bone_id)
         power = power
     }
     return power
+end
+
+function lookup:get_safe_camera_positions(target, bone_id, pos, radius)
+    return self:camera_safety_fetch("safe", "position", target, bone_id, pos, radius)
+end
+
+function lookup:get_safe_camera_directions(target, bone_id, pos, radius)
+    return self:camera_safety_fetch("safe", "direction", target, bone_id, pos, radius)
+end
+
+function lookup:get_unsafe_camera_directions(target, bone_id, pos, radius)
+    return self:camera_safety_fetch("unsafe", "direction", target, bone_id, pos, radius)
+end
+
+function lookup:get_unsafe_camera_positions(target, bone_id, pos, radius)
+    return self:camera_safety_fetch("unsafe", "position", target, bone_id, pos, radius)
+end
+
+function lookup:camera_safety_fetch(safety, type, target, bone_id, pos, radius)
+    if not safety then return end
+    if not type then return end
+    if not bone_id then return end
+    if not target then return end
+    if not pos then return end
+    if not radius then return end
+    if not self.camera_buffer then return end
+    if not self.camera_buffer[safety] then return end
+    if not self.camera_buffer[safety][type] then return end
+
+    local key = target:id() .. '-' .. bone_id .. '-' .. radius
+    if self.camera_buffer[safety][type][key] then
+        pr("CAMERA FOUND FROM CACHE")
+        return self.camera_buffer[safety][type][key]
+    else
+        return self:camera_checker(target, bone_id, pos, radius, key, safety, type)
+    end
+end
+
+function lookup:camera_checker(target, bone_id, pos, radius, key, safety, type)
+    if not bone_id then return end
+    if not target then return end
+    if not pos then return end
+    if not radius then return end
+    if not key then return end
+
+    -- for now we just rotate around the circle. eventually raytrace from each to look for collisions
+    local safe_cam_positions = {}
+    local safe_cam_directions = {}
+    local unsafe_cam_directions = {}
+    local unsafe_cam_positions = {}
+    local real_camera_distance = nil
+    local points = 25
+    local cycle = 0
+    local b = 0
+    local x = 0
+    local y = 1
+    local z = 0
+
+    -- debug stuff
+    local part_outside = {}
+
+    for i = 1, points do
+        b = i / points
+        local c = cycle + (360 * b) -- to lessen the computation cost
+        x = tonumber(radius) * math.sin(math.rad(c))
+        z = tonumber(radius) * math.cos(math.rad(c))
+        cycle = cycle + 0.5
+
+        if cycle >= 360 then
+            cycle = 0
+        end
+
+        local cycle_cam_pos = vector():set(pos.x + x, pos.y + y, pos.z + z)
+        local cycle_cam_dir = vec_sub(vector():set(pos), vector():set(cycle_cam_pos))
+
+        if not real_camera_distance then
+            real_camera_distance = math.sqrt((cycle_cam_pos.x - pos.x) ^ 2 + (cycle_cam_pos.y - pos.y) ^ 2 +
+                (cycle_cam_pos.z - pos.z) ^ 2)
+            pr("real camera distance: %s", real_camera_distance)
+        end
+
+        local ray = geometry_ray({
+            ray_range = real_camera_distance,
+            flags = 2,
+            ignore_object = target,
+            visualize = self:setting("general/enable_debug")
+        })
+        local reverse_cycle_cam_dir = vector():set(-1 * cycle_cam_dir.x, -1 * cycle_cam_dir.y, -1 * cycle_cam_dir.z)
+        :normalize()
+        local camera_ray = ray:get(pos, reverse_cycle_cam_dir)
+        if not camera_ray.success then
+            table.insert(safe_cam_positions, cycle_cam_pos)
+            table.insert(safe_cam_directions, cycle_cam_dir)
+            if self:setting("general/enable_debug") then
+                if part_outside[i] ~= nil then
+                    part_outside[i]:stop()
+                end
+                part_outside[i] = particles_object("_samples_particles_\\flash_light")
+                part_outside[i]:play_at_pos(cycle_cam_pos)
+            end
+        else
+            table.insert(unsafe_cam_directions, reverse_cycle_cam_dir)
+            table.insert(unsafe_cam_positions, cycle_cam_pos)
+        end
+    end
+    if #unsafe_cam_directions then
+        self.camera_buffer.unsafe.direction[key] = unsafe_cam_directions
+    end
+    if #unsafe_cam_positions then
+        self.camera_buffer.unsafe.position[key] = unsafe_cam_positions
+    end
+    if #safe_cam_positions then
+        self.camera_buffer.safe.position[key] = safe_cam_positions
+    end
+    if #safe_cam_directions then
+        self.camera_buffer.safe.direction[key] = safe_cam_directions
+    end
+    if type and safety then
+        return self.camera_buffer[safety][type][key]
+    end
 end
 
 function lookup:death_log(target)

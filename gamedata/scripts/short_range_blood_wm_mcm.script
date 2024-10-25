@@ -18,7 +18,7 @@ op = {
 		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_wm_static_title",size= {512,50},spacing= 20 },
 		    	{id = "enable_floor", type = "check", val = 1, def = true},
 		    	{id = "enable_static_size", type = "check", val = 1, def = true},
-		    	{id = "size", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7},
+		    	{id = "size", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 1.0},
 
 		    	{id = "line", type = "line"},
 
@@ -30,6 +30,11 @@ op = {
 
 		    	{id = "enable_pool", type = "check", val = 1, def = false},
 		    	{id = "size_pool", type = "track", val = 2, min=0.05,max=3,step=0.05, def = 0.7},
+
+		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_wm_dismemberment_title",size= {512,50},spacing= 20 },
+		    	{id = "enable_dismemberment", type = "check", val = 1, def = true},
+		    	{id = "dismemberment_distance", type = "track", val = 2, min=1 ,max=20,step=1, def = 3},
+		    	{id = "dismemberment_count", type = "track", val = 2, min=1 ,max=10,step=1, def = 3},
 
 		    	{ id= "title",type= "slide",link= "ui_options_slider_player",text="ui_mcm_blood_wm_advanced_title",size= {512,50},spacing= 20 },
 
@@ -90,7 +95,7 @@ op = {
 		    	{id = "line", type = "line"},
 
 		    	{id = "enable_head", type = "check", val = 1, def = true},
-		    	{id = "enable_bone_removal", type = "check", val = 1, def = true},
+		    	{id = "enable_bone_removal", type = "check", val = 1, def = false},
 
 		    	{id = "line", type = "line"},
 

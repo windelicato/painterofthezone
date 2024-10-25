@@ -26,13 +26,14 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 ### Dismemberment
 - Reworked @xcvb's mod to not spawn meshes and have a lower footprint
 - Option to use a body wallmark instead of removing limbs to indicate massive hits
+- Option to place blood splashes and wound textures on walls around dismemberment
 
 ### Bullet Time
 - Slows down time for 2s after landing a powerful headshot to highlight visual fx
 - Time can be extended by landing multiple consecutive headshots
 - Rewards player for accuracy by making it easy to land follow up shots
 
-### Kill cam
+### камера убийства / Kill cam
 - Slow motion kill cam that moves the camera to the target's location on kill
 - Many options for triggering to make it rewarding:
     - Only when current weapon does way more damage than necessary for a kill
@@ -54,6 +55,10 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 - Enable / disable pools on death
 - Option to keep engine wallmark size
 - Option to make all wallmarks the same size
+- Enable / disable extra wallmarks around point of dismemberment
+- Option to set distance from dismemberment for wallmarks
+- Option to set number of extra wallmarks
+    - First 3 wallmarks will always include a blood splash, upscaled wound texture, and blood drips
 - Options to pick from 3 categories of wallmark style:
     - Normal: bullet hole bloodmarks with trails
     - Drip: drips like those from bleeding player
@@ -93,7 +98,7 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
     - Uses dismemberment threshold with dismemberment enabled
     - Option to set flat chance to trigger on headshot kill
 
-### Killcam
+### камера убийства / Killcam
 - Enable / disable killcam
 - Option to choose how much time is slowed down
 - Option to choose how long killcam will last
@@ -110,7 +115,8 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 - @xcvb_ for their Long Range Blood Decals and Dismemberment mods I used as a basis for this
 - Bullet time was ported from BULLET TIME by exDeMODER (https://www.moddb.com/members/exdemoder)
 - Some particles modified from HFX by Death Orchird (https://www.moddb.com/mods/stalker-anomaly/addons/hollywoodfx3)
-- @0scar for help formatting textures in XRay
+- @0scoar for help formatting textures in XRay
+- @Kaiser for painful help with translation
 
 # DEPENDENCIES FOR NON-GAMMA INSTALLS
 - Modified EXEs from themrdemonized https://github.com/themrdemonized/xray-monolith
@@ -126,10 +132,10 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 ### Textures
 
 * [x] Remake textures they've been artifacted by re*exporting
-* [ ] Fix bump and height maps
-* [ ] Remove 8k textures
-* [ ] Downscale to 1k, 2k, and 4k
-* [ ] Create better wound textures
+* [x] Fix bump and height maps
+* [x] Remove 8k textures
+* [x] Downscale to 1k, 2k, and 4k
+* [x] Create better wound textures
 * [ ] Create better pool textures
 
 ### Particles
@@ -145,8 +151,8 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 ### Dismemberment
 * [ ] Rework code and recreate objects
 * [ ] Investigate if we can just pull the info we need from .ltx
-* [ ] Delay body wallmark
-* [ ] Place wound wallmarks on walls near point of dismemberment
+* [x] Delay body wallmark
+* [x] Place wound wallmarks on walls near point of dismemberment
 * [ ] Go through and recheck all the mutant bones
 
 ### General
@@ -163,7 +169,40 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 
 # CHANGELOG
 
-# 1.2.1
+
+# 1.2.3
+
+Texture updates:
+    - Replaced 8k textures with 1k, 2k, and optional seperate 8k
+    - Added bumps and fixed reflections
+    - First pass at wound texture upgrade
+    - Thanks @Oscoar for dealing with me this week
+    - Fixed LTX for blood drops
+
+Dismemberment updates:
+    - Option in MCM to place more wallmarks around point of dismemberment
+    - Much better wallmark placement on head when "Allow removal of bones" is disabled
+
+Slowmo / камера убийства / Kill cam updates:
+    - Much better safe camera detection. Let me know if kill camera is behind a wall
+    - Cache wall positions around dismemberment so that we never have to recalculate
+    - Better handling of resetting camera / timescale when game is reloaded in the middle of an event
+
+Particle updates:
+    - Fixed weird dismemberment brain bits not destroying on contact
+        - I reinstalled GAMMA and this wasn't happening on my old install. Very sorry to anyone who had to look at those
+    - Stopped extra blood finger particles from playing during dismemberment
+
+Performance updates:
+    - Cached lookups to GBO hit_power so that we only have to calculate it once
+
+General updates:
+    - Moved installation instructions and MCM documentation to github
+    - убить камера doesn't mean камера убийства (thanks @kaiser)
+    - Updated defaults
+
+
+# 1.2.2
 - MCM moved from "Blood wallmarks" to "Painter of the zone"
 
 - Particle updates:
@@ -323,7 +362,7 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 
 # Painter of the zone (previously short range blood decals)
 ANY OF THIS CAN BE DISABLED IN MCM 
-- 8k blood wallmark textures
+- 8k, 2k, or 1k blood wallmark textures
 - Short range bloodstains on the ground when NPCs are hit but no walls are nearby
 - Adds back static blood pools but without the resizing or footsteps to avoid busyhands (disabled by default)
 - New on hit particles like glass particles for glass helmets, heads exploding, bloody finger clouds, armor chunks

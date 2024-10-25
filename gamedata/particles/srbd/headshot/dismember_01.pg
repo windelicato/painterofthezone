@@ -6,9 +6,9 @@
  
 [effect_0000]
         effect_name                      = srbd\headshot\debris_brain_00
-        flags                            = 102
+        flags                            = 38
         on_birth_child                   = srbd\headshot\srbd_brain_spawn_cloud
-        on_death_child                   = srbd\headshot\debris_brain_ground
+        on_death_child                   =
         on_play_child                    = srbd\headshot\smoke_point_blood_fingers_short_00
         time0                            = 0.010000
         time1                            = 0.000000

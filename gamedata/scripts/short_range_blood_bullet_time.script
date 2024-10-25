@@ -14,7 +14,6 @@
 ]]
 -- Libraries
 local lookup = short_range_blood_lookup.lookup()
-local geometry_ray = demonized_geometry_ray.geometry_ray
 
 -- On update globals
 local update_trigger = 0
@@ -187,7 +186,10 @@ function _slowmo_zoom_on_end()
 
     if (update_trigger == 1 and tg > grok_delay) then
         update_trigger = 0
-        if (time_factor >= lookup:setting("bullettime/time_speed")) then
+        if (time_factor >= 1) then
+            set_time_factor(1)
+            remove_callbacks()
+        elseif lookup:setting("bullettime/enable") and (time_factor >= lookup:setting("bullettime/time_speed")) then
             set_time_factor(lookup:setting("bullettime/time_speed"))
             slowmo_start()
         else
@@ -260,7 +262,8 @@ function set_time_factor(tf)
         current_slowmo_event = current_slowmo_event + 1
     end
     time_factor = tf
-    get_console():execute("time_factor " .. tostring(tf))
+    --get_console():execute("time_factor " .. tostring(tf))
+    exec_console_cmd(("time_factor %s"):format(time_factor))
     --pr("timefactor: %s", tf)
 end
 
@@ -446,62 +449,14 @@ function move_camera(target, bone_id)
     local pos = target:bone_position(bone_name)
     if not pos then return end
 
-    if lookup:setting("killcam/enable_debug") then
-        part_center:stop()
-        part_center:play_at_pos(pos)
-    end
+    local radius = lookup:setting("killcam/distance")
 
-    -- for now we just rotate around the circle. eventually raytrace from each to look for collisions
-    local safe_cam_positions = {}
-    local safe_cam_directions = {}
-    local real_camera_distance = nil
-    local points = 25
-    local cycle = 0
-    local b = 0
-    local x = 0
-    local y = 1
-    local z = 0
+    local safe_cam_positions = lookup:get_safe_camera_positions(target, bone_id, pos, radius)
+    local safe_cam_directions = lookup:get_safe_camera_directions(target, bone_id, pos, radius)
 
-    for i = 1, points do
-        b = i / points
-        local c = cycle + (360 * b) -- to lessen the computation cost
-        x = tonumber(lookup:setting("killcam/distance")) * math.sin(math.rad(c))
-        z = tonumber(lookup:setting("killcam/distance")) * math.cos(math.rad(c))
-        cycle = cycle + 0.5
+    if not safe_cam_positions or #safe_cam_positions == 0 then return end
+    if not safe_cam_directions or #safe_cam_directions == 0 then return end
 
-        if cycle >= 360 then
-            cycle = 0
-        end
-
-        local cycle_cam_pos = vector():set(pos.x + x, pos.y + y, pos.z + z)
-        local cycle_cam_dir = vec_sub(vector():set(pos), vector():set(cycle_cam_pos))
-
-        if not real_camera_distance then
-            real_camera_distance = math.sqrt((cycle_cam_pos.x - pos.x) ^ 2 + (cycle_cam_pos.y - pos.y) ^ 2 +
-            (cycle_cam_pos.z - pos.z) ^ 2)
-            pr("real camera distance: %s", real_camera_distance)
-        end
-
-        local ray = geometry_ray({
-            ray_range = real_camera_distance,
-            flags = 2,
-            ignore_object = target
-        })
-        local camera_ray = ray:get(cycle_cam_pos, cycle_cam_dir:normalize())
-        if not camera_ray.success then
-            table.insert(safe_cam_positions, cycle_cam_pos)
-            table.insert(safe_cam_directions, cycle_cam_dir)
-            if lookup:setting("killcam/enable_debug") then
-                if part_outside[i] ~= nil then
-                    part_outside[i]:stop()
-                end
-                part_outside[i] = particles_object("_samples_particles_\\flash_light")
-                part_outside[i]:play_at_pos(cycle_cam_pos)
-            end
-        end
-    end
-
-    if #safe_cam_positions == 0 then return end
     local cam_pos = nil
     local cam_dir = nil
     local picked_camera = math.random(1, #safe_cam_positions)
@@ -514,7 +469,6 @@ function move_camera(target, bone_id)
     local cam_dir_hpr = vector():set(cam_dir:getH(), cam_dir:getP(), 0)
 
     level.set_cam_custom_position_direction(cam_pos, cam_dir_hpr, 1)
-
     level.remove_pp_effector(screenfx.bloody.id)
 
     if lookup:setting("bullettime/enable_screenfx") then
@@ -546,16 +500,10 @@ function pr(...)
     printf(...)
 end
 
-function main_menu_on_init()
-    set_time_factor(1)
-    remove_callbacks()
+function clear_events()
     reset_camera()
-end
-
-function main_menu_on_quit()
-    set_time_factor(1)
     remove_callbacks()
-    reset_camera()
+    set_time_factor(1)
 end
 
 function on_game_start()
@@ -564,6 +512,8 @@ function on_game_start()
 
     RegisterScriptCallback("main_menu_on_init", main_menu_on_init)
     RegisterScriptCallback("main_menu_on_quit", main_menu_on_quit)
+    RegisterScriptCallback("actor_on_first_update", clear_events)
+    RegisterScriptCallback("actor_on_net_destroy", clear_events)
 
     RegisterScriptCallback("on_before_hit_after_calcs", _on_before_hit_after_calcs)
     --RegisterScriptCallback("monster_on_death_callback", npc_on_death)

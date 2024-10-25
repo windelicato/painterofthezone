@@ -25,7 +25,7 @@ function play_particle(particle_name, pos, dir, ttl, limit)
     if not pos then return end
     if buffer_index > lookup:setting("particles/buffer_max_size") then buffer_index = 1 end
 
-    ttl = ttl or 10 --10s
+    ttl = ttl or 10  --10s
     ttl = ttl * 1000 --ms
     limit = limit or false
     tg = time_global()
@@ -91,6 +91,8 @@ function play_dismemberment_particle(s_hit, target, bone_id)
     local particle_path = "srbd\\headshot\\dismember_0"
     local picked_particle = particle_path .. particles[math.random(1, #particles)]
     play_particle(picked_particle, pos, dir)
+
+    short_range_blood_wm.draw_dismemberment_wm(target, bone_id)
 end
 
 function play_headshot_particle(s_hit, target, bone_id)
@@ -216,7 +218,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
         -- headshot particle
         if lookup:setting("particles/headshot_enable") then
             if (bone_id and head_bones[bone_id]) then
-                if not lookup:setting("particles/headshot_exclusive") or next(playlist) == nil then
+                if not lookup:setting("particles/headshot_exclusive") or not #playlist then
                     play_headshot_particle(s_hit, target, bone_id)
                     table.insert(playlist, "headshot")
                 end
@@ -225,7 +227,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
 
         -- hit particle
         if lookup:setting("particles/hit_enable") then
-            if not lookup:setting("particles/hit_exclusive") or next(playlist) == nil then
+            if not lookup:setting("particles/hit_exclusive") or not #playlist then
                 play_hit_particle(s_hit, target, bone_id)
                 table.insert(playlist, "hit")
             end
@@ -233,17 +235,27 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
 
         -- hit fingers
         if lookup:setting("particles/fingers_enable") then
-            play_fingers_particle(s_hit, target, bone_id)
-            table.insert(playlist, "fingers")
+            local play = true
+            if #playlist then
+                for k, v in pairs(playlist) do
+                    if v == "dismemberment" then
+                        play = false
+                        pr("playlist item: %s", v)
+                    end
+                    pr("playlist item: %s : %s", k, v)
+                end
+            end
+            if play then
+                play_fingers_particle(s_hit, target, bone_id)
+                pr("playlist count: %s", #playlist)
+                table.insert(playlist, "fingers")
+            end
         end
     end
 end
 
 -- debug stuff
 local test_particles = {
-    "srbd\\headshot\\dismember_00",
-    "srbd\\headshot\\dismember_01",
-    "srbd\\headshot\\dismember_02",
     "srbd\\headshot\\srbd_head_dust"
 }
 local test_particle_index = 1
@@ -264,11 +276,11 @@ function on_weapon_fired(obj, wpn, ammo_elapsed, grenade_elapsed, ammo_type, gre
     pr("pos %s %s %s", pos.x, pos.y, pos.z)
     pr("dir %s %s %s", dir.x, dir.y, dir.z)
 
-    --    play_particle(test_particles[test_particle_index], pos, dir)
-    test_particle_index = test_particle_index + 1
     if test_particle_index > #test_particles then
         test_particle_index = 1
     end
+    --play_particle(test_particles[test_particle_index], pos, dir)
+    test_particle_index = test_particle_index + 1
 end
 
 -- clean out on loading

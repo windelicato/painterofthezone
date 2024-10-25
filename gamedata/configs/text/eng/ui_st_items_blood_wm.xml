@@ -36,6 +36,10 @@
 		<text>Blood Pools</text>
 	</string>
 
+	<string id="ui_mcm_blood_wm_dismemberment_title">
+		<text>Dismemberment</text>
+	</string>
+
 	<string id="ui_mcm_blood_wm_advanced_title">
 		<text>Advanced</text>
 	</string>
@@ -98,6 +102,17 @@
 
 	<string id="ui_mcm_blood_wm_enable_pool_desc">
 		<text>Replaces hit floormark on death if enabled</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_enable_dismemberment">
+		<text>Place additional wallmarks from dismemberment</text>
+	</string>
+
+	<string id="ui_mcm_blood_wm_dismemberment_count">
+		<text>Number of wallmarks to draw from dismemberment</text>
+	</string>
+	<string id="ui_mcm_blood_wm_dismemberment_distance">
+		<text>Distance from dismemberment to draw WMs</text>
 	</string>
 
 	<string id="ui_mcm_blood_wm_size_pool">
