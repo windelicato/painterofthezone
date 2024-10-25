@@ -172,31 +172,31 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 
 # 1.2.3
 
-Texture updates:
+- Texture updates:
     - Replaced 8k textures with 1k, 2k, and optional seperate 8k
     - Added bumps and fixed reflections
     - First pass at wound texture upgrade
     - Thanks @Oscoar for dealing with me this week
     - Fixed LTX for blood drops
 
-Dismemberment updates:
+- Dismemberment updates:
     - Option in MCM to place more wallmarks around point of dismemberment
     - Much better wallmark placement on head when "Allow removal of bones" is disabled
 
-Slowmo / камера убийства / Kill cam updates:
+- Slowmo / камера убийства / Kill cam updates:
     - Much better safe camera detection. Let me know if kill camera is behind a wall
     - Cache wall positions around dismemberment so that we never have to recalculate
     - Better handling of resetting camera / timescale when game is reloaded in the middle of an event
 
-Particle updates:
+- Particle updates:
     - Fixed weird dismemberment brain bits not destroying on contact
         - I reinstalled GAMMA and this wasn't happening on my old install. Very sorry to anyone who had to look at those
     - Stopped extra blood finger particles from playing during dismemberment
 
-Performance updates:
+- Performance updates:
     - Cached lookups to GBO hit_power so that we only have to calculate it once
 
-General updates:
+- General updates:
     - Moved installation instructions and MCM documentation to github
     - убить камера doesn't mean камера убийства (thanks @kaiser)
     - Updated defaults
