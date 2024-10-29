@@ -171,6 +171,11 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 
 # CHANGELOG
 
+# 1.2.4a
+- Fix mutant hits showing armor dust clouds
+- Fix hit exclusive not playing on dead npcs
+- Respect cloud max size when armor feedback is disabled
+
 # 1.2.4
 - Particle updates:
     - Blood dust cloud fingers vary in size to reflects current shot hit power
