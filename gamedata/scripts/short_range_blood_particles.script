@@ -76,12 +76,14 @@ function play_dismemberment_particle(s_hit, target, bone_id)
 
     local helmetType = lookup:get_helmet_type_by_npc(target)
 
-    if helmetType == "helmet" then
-        play_particle("srbd\\headshot\\debris_armor", pos, dir)
-    elseif helmetType == "glass" then
-        play_particle("srbd\\headshot\\debris_glass", pos, dir)
-    else
-        play_particle("srbd\\headshot\\debris_skin", pos, dir)
+    if lookup:setting("particles/enable_armor_feedback") then
+        if helmetType == "helmet" then
+            play_particle("srbd\\headshot\\debris_armor", pos, dir)
+        elseif helmetType == "glass" then
+            play_particle("srbd\\headshot\\debris_glass", pos, dir)
+        else
+            play_particle("srbd\\headshot\\debris_skin", pos, dir)
+        end
     end
 
     play_particle("srbd\\hit\\pg_00", pos, dir)
@@ -230,12 +232,13 @@ function play_fingers_particle(s_hit, target, bone_id)
             return
         end
 
-        picked_particle = picked_particle .. "_armor"
+        --picked_particle = picked_particle .. "_armor"
     end
+    local size_max = lookup:setting("particles/fingers_size_max")
     tg = time_global()
     if tg > finger_trigger_timer + trigger_delay then
         finger_trigger_timer = tg
-        play_particle("srbd\\fingers\\" .. picked_particle, pos, dir, lookup:setting("particles/ttl"),
+        play_particle("srbd\\fingers\\fractional\\"..size_max.."\\10\\" .. picked_particle, pos, dir, lookup:setting("particles/ttl"),
             lookup:setting("particles/limit"))
     else
         pr("waiting to draw")
@@ -280,7 +283,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
         -- headshot particle
         if lookup:setting("particles/headshot_enable") then
             if (bone_id and head_bones[bone_id]) then
-                if not lookup:setting("particles/headshot_exclusive") or not #playlist then
+                if not lookup:setting("particles/headshot_exclusive") or #playlist == 0 then
                     play_headshot_particle(s_hit, target, bone_id)
                     table.insert(playlist, "headshot")
                 end
@@ -289,7 +292,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
 
         -- hit particle
         if lookup:setting("particles/hit_enable") then
-            if not lookup:setting("particles/hit_exclusive") or not #playlist then
+            if not lookup:setting("particles/hit_exclusive") or #playlist == 0 then
                 play_hit_particle(s_hit, target, bone_id)
                 table.insert(playlist, "hit")
             end
