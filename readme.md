@@ -73,6 +73,8 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 - Enable / disable reactive particle system
 - Enable / disable particle on hit
 - Enable / disable trailing cloud of dust and blood on hit
+- Option to pick direction of blood cloud
+- Option to set size of blood cloud
 - Enable / disable particle on headshot
 - Enable / disable particle on headshot kill over dismemberment threshold
 - Options to play all of these particles per shot or just one
@@ -141,7 +143,7 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 ### Particles
 * [ ] Clean up unused .pe's in particles/
 * [ ] Clone all effects with 50% less particles (script it with find/replace)
-* [ ] Add option to use 9 blood / 1 smoke for no armor instead of all red
+* [x] Add option to use 9 blood / 1 smoke for no armor instead of all red
 
 ### Killcam
 * [ ] Option to slowly pan camera between two points
@@ -169,6 +171,19 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 
 # CHANGELOG
 
+# 1.2.4
+- Particle updates:
+    - Blood dust cloud fingers vary in size to reflects current shot hit power
+    - Blood dust cloud fingers now react in size and color against all enemies (only armored and exo before)
+    - Added MCM values for minimum and maximum size of cloud particles
+        - Set both minimum and maximum to 10 if you want things to stay the same
+    - Tweaked a few dismemberment particles to not fade so quickly
+    - Removed slow blood drop particle from flesh wound animation
+- Dismemberment updates:
+    - Placement of body wound mark more consistent
+    - Extra particle effects play at the point of impact when dismemberment creates a new wallmark to simulate impact
+- General updates:
+    - Fixed edge case where certain mods inflict hits to npcs but not a specific bone (surrender)
 
 # 1.2.3
 

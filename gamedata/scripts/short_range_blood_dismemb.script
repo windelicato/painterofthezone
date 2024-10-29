@@ -41,6 +41,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
     if target:id() == player:id() then return end
     if shooter:id() ~= player:id() then return end
     if target and lookup:death_log(target) then return end
+    if target:bone_name(bone_id) == "" then return true end --surrender
 
     pr("dismember beginning")
 

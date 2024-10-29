@@ -199,6 +199,13 @@
 		<text>Finger direction: up, out, or out and up</text>
 	</string>
 
+	<string id="ui_mcm_blood_particles_fingers_size_min">
+		<text>Minimum size of the cloud</text>
+	</string>
+	<string id="ui_mcm_blood_particles_fingers_size_max">
+		<text>Maximum size of the cloud</text>
+	</string>
+
 
     <!--Dismemberment-->
 

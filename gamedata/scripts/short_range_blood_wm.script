@@ -264,6 +264,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
 	local player = db.actor
 	if target:id() == player:id() then return end
 	if shooter:id() ~= player:id() then return end
+	if target:bone_name(bone_id) == "" then return true end --surrender
 
 	local update_delay = lookup:setting("wm/delay") * 1000
 	local tg = time_global()

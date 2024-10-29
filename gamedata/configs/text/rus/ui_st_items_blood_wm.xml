@@ -199,6 +199,13 @@
 		<text>Направление пальцев: вверх, наружу или наружу и вверх</text>
 	</string>
 
+	<string id="ui_mcm_blood_particles_fingers_size_min">
+		<text>Минимальный размер облака</text>
+	</string>
+	<string id="ui_mcm_blood_particles_fingers_size_max">
+		<text>Максимальный размер облака</text>
+	</string>
+
 
     <!--Dismemberment-->
 
@@ -211,11 +218,11 @@
 	</string>
 
 	<string id="ui_mcm_blood_dismemberment_enable_head">
-		<text>Расчленяй только головы</text>
+		<text>Расчленяйте только головы</text>
 	</string>
 
 	<string id="ui_mcm_blood_dismemberment_enable_bone_removal">
-		<text>Разреши отрубать конечности. Отключи, чтобы вместо этого поставить на конечность большой кровавый знак.</text>
+		<text>Разрешите отрубать конечности. Отключи, чтобы вместо этого на конечности появился большой кровавый знак.</text>
 	</string>
 
 	<string id="ui_mcm_blood_dismemberment_enable">
@@ -323,11 +330,11 @@
 
 
 	<string id="ui_mcm_blood_killcam">
-		<text>Kill Cam</text>
+		<text>камера убийства</text>
 	</string>
 
 	<string id="ui_mcm_blood_killcam_title">
-		<text>Kill Cam</text>
+		<text>камера убийства</text>
 	</string>
 
 	<string id="ui_mcm_blood_killcam_triggers_title">
@@ -360,7 +367,7 @@
 	</string>
 
 	<string id="ui_mcm_blood_killcam_trigger_range_desc">
-		<text>Требуется нанести несколько убийств перед включением killcam</text>
+		<text>Требуется нанести несколько убийств перед включением камера убийства</text>
 	</string>
 
 	<string id="ui_mcm_blood_killcam_trigger_range">
@@ -376,17 +383,17 @@
 	</string>
 
 	<string id="ui_mcm_blood_killcam_smooth_start">
-		<text>Начало сдвига времени killcam происходит постепенно, а не мгновенно</text>
+		<text>Начало сдвига времени камера убийства происходит постепенно, а не мгновенно</text>
 	</string>
 	<string id="ui_mcm_blood_killcam_smooth_end">
-		<text>Конец таймшифта killcam происходит постепенно, а не мгновенно</text>
+		<text>Конец таймшифта камера убийства происходит постепенно, а не мгновенно</text>
 	</string>
 
 	<string id="ui_mcm_blood_killcam_smooth_start_factor">
-		<text>Коэффициент сглаживания начала сдвига времени killcam</text>
+		<text>Коэффициент сглаживания начала сдвига времени камера убийства</text>
 	</string>
 	<string id="ui_mcm_blood_killcam_smooth_end_factor">
-		<text>Коэффициент сглаживания сдвига времени в конце killcam</text>
+		<text>Коэффициент сглаживания сдвига времени в конце камера убийства</text>
 	</string>
 	<string id="ui_mcm_blood_killcam_enable_debug">
 		<text>Включить отладку</text>

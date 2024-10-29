@@ -145,6 +145,12 @@ function lookup:get_helmet_type_by_npc(npc)
     return helmetType
 end
 
+function lookup:get_power_by_npc(npc, s_hit, bone_id)
+    if not npc then return end
+    if self.gbo and s_hit and bone_id then return self:get_gbo_calculation("power", s_hit, npc, bone_id) end
+    if s_hit then return s_hit.power end
+end
+
 function lookup:get_k_ap_by_npc(npc, s_hit, bone_id)
     if not npc then return end
     if self.gbo and s_hit and bone_id then return self:get_gbo_calculation("k_ap", s_hit, npc, bone_id) end
@@ -437,7 +443,7 @@ function lookup:camera_checker(target, bone_id, pos, radius, key, safety, type)
             visualize = self:setting("general/enable_debug")
         })
         local reverse_cycle_cam_dir = vector():set(-1 * cycle_cam_dir.x, -1 * cycle_cam_dir.y, -1 * cycle_cam_dir.z)
-        :normalize()
+            :normalize()
         local camera_ray = ray:get(pos, reverse_cycle_cam_dir)
         if not camera_ray.success then
             table.insert(safe_cam_positions, cycle_cam_pos)

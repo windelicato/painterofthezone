@@ -9,8 +9,9 @@ local buffer = {}
 local buffer_index = 1
 local trigger_delay = 10
 local trigger_timer = 0
+local finger_trigger_timer = 0
 
-local camera_test = false
+local hit_power_sum = {}
 
 local lookup = short_range_blood_lookup.lookup()
 local head_bones = lookup:get_head_bones()
@@ -140,45 +141,105 @@ function play_hit_particle(s_hit, target, bone_id)
     play_particle(picked_particle, pos, dir, lookup:setting("particles/ttl"), lookup:setting("particles/limit"))
 end
 
+function play_summed_particle(hpsk)
+    tg = time_global()
+    if tg > finger_trigger_timer + trigger_delay then
+        finger_trigger_timer = tg
+        if hit_power_sum and hit_power_sum[hpsk] then
+            if not hit_power_sum[hpsk]["total"] then return true end
+            if not hit_power_sum[hpsk]["hit_fraction"] then return true end
+            if not hit_power_sum[hpsk]["pos"] then return true end
+            if not hit_power_sum[hpsk]["dir"] then return true end
+            local hit_power = hit_power_sum[hpsk]["total"]
+            local pos = hit_power_sum[hpsk]["pos"]
+            local dir = hit_power_sum[hpsk]["dir"]
+            local hit_fraction = hit_power_sum[hpsk]["hit_fraction"]
+
+            local fraction_blood = math.floor(20 * hit_fraction + 0.5)
+            if fraction_blood > 10 then fraction_blood = 10 end
+            if fraction_blood < 1 then fraction_blood = 1 end
+            local fraction_armor = 10 - fraction_blood
+            pr("Hit fraction %s", fraction_blood)
+            pr("Hit fraction armor %s", fraction_armor)
+
+            local fraction_power = math.floor(5 * hit_power)
+            if fraction_power > 10 then fraction_power = 10 end
+            if fraction_power < 1 then fraction_power = 1 end
+            pr("Power fraction %s", hit_power)
+            pr("Power fraction %s", fraction_power)
+
+            local size_min = lookup:setting("particles/fingers_size_min")
+            local size_max = lookup:setting("particles/fingers_size_max")
+
+            if fraction_power <= size_min then fraction_power = size_min end
+            if fraction_power >= size_max then fraction_power = size_max end
+
+            local picked_particle = fingers[lookup:setting("particles/fingers_option")]
+            if fraction_blood <= 10 and fraction_power <= 10 and fraction_blood >= 1 and fraction_power >= 1 then
+                local blood_part = "srbd\\fingers\\fractional\\" ..
+                    fraction_power .. "\\" .. fraction_blood .. "\\" .. picked_particle
+                play_particle(blood_part, pos, dir, lookup:setting("particles/ttl"),
+                    lookup:setting("particles/limit"))
+            end
+            if fraction_armor <= 11 and fraction_power <= 11 and fraction_armor >= 1 and fraction_power >= 1 then
+                local armor_part = "srbd\\fingers\\fractional\\" ..
+                    fraction_power .. "\\" .. fraction_armor .. "\\" .. picked_particle .. "_armor"
+                play_particle(armor_part, pos, dir, lookup:setting("particles/ttl"),
+                    lookup:setting("particles/limit"))
+            end
+            --for k in pairs (hit_power_sum[hpsk]) do
+            --    hit_power_sum[hpsk][k] = nil
+            --end
+            --hit_power_sum[hpsk] = nil
+        end
+    end
+    hit_power_sum[hpsk] = {}
+    return true
+end
+
 function play_fingers_particle(s_hit, target, bone_id)
     if target and lookup:death_log(target) then return end
-    local picked_particle = fingers[lookup:setting("particles/fingers_option")]
 
+    local picked_particle = fingers[lookup:setting("particles/fingers_option")]
     local bone_name = bone_id and target:bone_name(bone_id)
     local pos = target:bone_position(bone_name)
     local dir = s_hit.direction
 
     if lookup:setting("particles/enable_armor_feedback") then
+        local hit_fraction = 9
+        local hit_power = lookup:get_power_by_npc(target, s_hit, bone_id)
         local armorType = lookup:get_armor_type_by_npc(target)
         if armorType == "exo" or armorType == "medium" then
-            local hit_fraction = lookup:get_k_ap_by_npc(target, s_hit, bone_id)
-            if hit_fraction then
-                local fraction_blood = math.floor(20 * hit_fraction + 0.5)
-                if fraction_blood > 10 then fraction_blood = 10 end
-                if fraction_blood < 1 then fraction_blood = 1 end
-                local fraction_armor = 10 - fraction_blood
-                pr("Hit fraction %s", fraction_blood)
-                pr("Hit fraction armor %s", fraction_armor)
-
-                if fraction_blood < 11 and fraction_blood > 0 then
-                    local blood_part = "srbd\\hit\\fractional\\" .. fraction_blood .. "\\" .. picked_particle
-                    play_particle(blood_part, pos, dir, lookup:setting("particles/ttl"),
-                        lookup:setting("particles/limit"))
-                end
-                if fraction_armor < 11 and fraction_armor > 0 then
-                    local armor_part = "srbd\\hit\\fractional\\" .. fraction_armor .. "\\" .. picked_particle .. "_armor"
-                    play_particle(armor_part, pos, dir, lookup:setting("particles/ttl"),
-                        lookup:setting("particles/limit"))
-                end
-
-                return
-            end
-
-            picked_particle = picked_particle .. "_armor"
+            hit_fraction = lookup:get_k_ap_by_npc(target, s_hit, bone_id)
         end
+        if hit_fraction and hit_power then
+            local hit_power_sum_key = target:id()
+            if hit_power_sum and hit_power_sum[hit_power_sum_key] and hit_power_sum[hit_power_sum_key]["total"] then
+                hit_power_sum[hit_power_sum_key]["total"] = hit_power_sum[hit_power_sum_key]["total"] + hit_power
+                pr("new total: %s", hit_power_sum[hit_power_sum_key]["total"])
+            else
+                hit_power_sum[hit_power_sum_key] = {}
+                hit_power_sum[hit_power_sum_key]["total"] = hit_power
+                CreateTimeEvent("play_summed_particle_", "play_summed_particle_" .. hit_power_sum_key, 0.01,
+                    play_summed_particle, hit_power_sum_key)
+            end
+            hit_power_sum[hit_power_sum_key]["hit_fraction"] = hit_fraction
+            hit_power_sum[hit_power_sum_key]["pos"] = pos
+            hit_power_sum[hit_power_sum_key]["dir"] = dir
+
+            return
+        end
+
+        picked_particle = picked_particle .. "_armor"
     end
-    play_particle("srbd\\hit\\" .. picked_particle, pos, dir, lookup:setting("particles/ttl"),
-        lookup:setting("particles/limit"))
+    tg = time_global()
+    if tg > finger_trigger_timer + trigger_delay then
+        finger_trigger_timer = tg
+        play_particle("srbd\\fingers\\" .. picked_particle, pos, dir, lookup:setting("particles/ttl"),
+            lookup:setting("particles/limit"))
+    else
+        pr("waiting to draw")
+    end
 end
 
 function on_before_hit_after_calcs(s_hit, target, bone_id)
@@ -190,6 +251,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
     local player = db.actor
     if target:id() == player:id() then return true end
     if shooter:id() ~= player:id() then return true end
+    if target:bone_name(bone_id) == "" then return true end -- surrender
 
     -- keep track of what we've played
     local playlist = {}
@@ -232,24 +294,24 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
                 table.insert(playlist, "hit")
             end
         end
+    end
 
-        -- hit fingers
-        if lookup:setting("particles/fingers_enable") then
-            local play = true
-            if #playlist then
-                for k, v in pairs(playlist) do
-                    if v == "dismemberment" then
-                        play = false
-                        pr("playlist item: %s", v)
-                    end
-                    pr("playlist item: %s : %s", k, v)
+    -- hit fingers
+    if lookup:setting("particles/fingers_enable") then
+        local play = true
+        if #playlist then
+            for k, v in pairs(playlist) do
+                if v == "dismemberment" then
+                    play = false
+                    pr("playlist item: %s", v)
                 end
+                pr("playlist item: %s : %s", k, v)
             end
-            if play then
-                play_fingers_particle(s_hit, target, bone_id)
-                pr("playlist count: %s", #playlist)
-                table.insert(playlist, "fingers")
-            end
+        end
+        if play then
+            play_fingers_particle(s_hit, target, bone_id)
+            pr("playlist count: %s", #playlist)
+            table.insert(playlist, "fingers")
         end
     end
 end
@@ -285,10 +347,14 @@ end
 
 -- clean out on loading
 local clear_buffer = 0
+local clear_hit_power_sum = 0
 local clear_buffer_index = 0
 function save_state(m_data)
     if clear_buffer == 1 then
         m_data.buffer = {}
+    end
+    if clear_hit_power_sum == 1 then
+        m_data.hit_power_sum = {}
     end
     if clear_buffer_index == 1 then
         m_data.buffer_index = 1
@@ -299,6 +365,10 @@ function load_state(m_data)
     if m_data.buffer then
         clear_buffer = 1
         m_data.buffer = {}
+    end
+    if m_data.hit_power_sum then
+        clear_hit_power_sum = 1
+        m_data.hit_power_sum = {}
     end
     if m_data.buffer_index then
         clear_buffer_index = 1

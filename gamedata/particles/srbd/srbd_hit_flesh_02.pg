@@ -60,7 +60,7 @@
  
 [effect_0006]
         effect_name                      = srbd\effects\burst\srbd_hit_impact_blood_02
-        flags                            = 4
+        flags                            = 0
         on_birth_child                   =
         on_death_child                   =
         on_play_child                    =

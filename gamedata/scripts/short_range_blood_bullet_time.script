@@ -510,8 +510,6 @@ function on_game_start()
     RegisterScriptCallback("save_state", save_state)
     RegisterScriptCallback("load_state", load_state)
 
-    RegisterScriptCallback("main_menu_on_init", main_menu_on_init)
-    RegisterScriptCallback("main_menu_on_quit", main_menu_on_quit)
     RegisterScriptCallback("actor_on_first_update", clear_events)
     RegisterScriptCallback("actor_on_net_destroy", clear_events)
 

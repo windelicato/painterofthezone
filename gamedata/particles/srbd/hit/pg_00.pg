@@ -14,7 +14,7 @@
         time1                            = 0.000000
  
 [effect_0001]
-        effect_name                      = srbd\hit\srbd_finger_tracer_out_up
+        effect_name                      = srbd\fingers\srbd_finger_tracer_out_up
         flags                            = 6
         on_birth_child                   =
         on_death_child                   =
