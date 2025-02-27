@@ -121,8 +121,14 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 - @Kaiser for painful help with translation
 
 # DEPENDENCIES FOR NON-GAMMA INSTALLS
+
+### REQUIRED
 - Modified EXEs from themrdemonized https://github.com/themrdemonized/xray-monolith
 - Wepl Hit Effects for feedback based particles https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects
+- Screen Space Shaders for blood shader https://www.moddb.com/mods/stalker-anomaly/addons/screen-space-shaders
+- MCM Mod Configuration Menu https://www.moddb.com/mods/stalker-anomaly/addons/anomaly-mod-configuration-menu
+
+### OPTIONAL
 - grok_bo or Artigrok BO for feedback armor based particles https://github.com/ilrathCXV/ArtiGrok-Ballistics-GAMMA-ilrath-Mo3
 
 # COMPATABILITY WITH OTHER MODS
