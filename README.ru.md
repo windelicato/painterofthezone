@@ -132,8 +132,15 @@
 
 # Зависимости для не гамма установки
 
+### НЕОБХОДИМЫЙ
+
 -   Модифицированные бывшие из TheMrDeoniced<https://github.com/themrdemonized/xray-monolith>
 -   Эффекты попадания WEPL для частиц на основе обратной связи<https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects>
+-   Экранные пространственные шейдеры для шейдера крови<https://www.moddb.com/mods/stalker-anomaly/addons/screen-space-shaders>
+-   Меню конфигурации мода MCM<https://www.moddb.com/mods/stalker-anomaly/addons/anomaly-mod-configuration-menu>
+
+### НЕОБЯЗАТЕЛЬНЫЙ
+
 -   grok_bo или artigrok bo для частиц на основе обратной связи на основе брони<https://github.com/ilrathCXV/ArtiGrok-Ballistics-GAMMA-ilrath-Mo3>
 
 # Совместимость с другими модами
