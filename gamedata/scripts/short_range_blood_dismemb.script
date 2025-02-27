@@ -56,6 +56,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
 
         -- defuckulator is logic to recalculate grok_bo power D:
         if grok_bo ~= nil then
+            pr("Grok bo")
             hit_power = lookup:get_gbo_calculation("power", s_hit, target, bone_id) or hit_power
         end
     elseif IsMonster(target) then
@@ -82,10 +83,14 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
         if target.health - hit_power > 0 then return end
     end
     if IsStalker(target) then
-        if target.health > 0 then return end
+        if grok_bo ~= nil then
+            if target.health > 0 then return end
+        else
+            if target.health - hit_power > 0 then return end
+        end
     end
     if (hit_power_sum[hit_power_sum_key] < hit_threshold) then return end
-    pr("dismember beginning")
+    pr("dismember finding bone")
 
     local hitted_bone = bone_id and target.bone_name and target:bone_name(bone_id)
 
@@ -142,6 +147,7 @@ function on_before_hit_after_calcs(s_hit, target, bone_id)
     end
 
     if removed_bone_count > 0 then
+        pr("dismember bullettime")
         if lookup:setting("bullettime/enable") or lookup:setting("killcam/enable") and lookup:get_head_bones()[bone_id] then
             short_range_blood_bullet_time.trigger(target, bone_id)
         end

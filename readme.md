@@ -171,6 +171,15 @@ Highly configurable combat enhancement overhaul for S.T.A.L.K.E.R. G.A.M.M.A. wi
 
 # CHANGELOG
 
+# 1.2.5
+- Support base Anomaly
+    - Dependencies:
+        - WEPL Hit Effects
+        - MCM Mod Configuration Menu
+        - Screen Space Shaders v20+
+    - Notes:
+        - For dismemberment, recommended you lower "HIT THRESHOLD FOR STALKERS" to 1 in MCM > Painter of the Zone > Dismemberment
+
 # 1.2.4a
 - Fix mutant hits showing armor dust clouds
 - Fix hit exclusive not playing on dead npcs

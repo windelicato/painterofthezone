@@ -140,7 +140,12 @@ function _on_before_hit_after_calcs(s_hit, target, bone_id)
 
     local npc = target
 
-    if npc.health > 0 then return true end
+    if grok_bo ~= nil then
+        if npc.health > 0 then return true end
+    else
+        if npc.health - s_hit.power > 0 then return end
+    end
+
     if shooter:id() ~= player:id() then return true end
 
 
